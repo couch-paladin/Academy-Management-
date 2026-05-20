@@ -5,17 +5,17 @@
 <body>
   <h1>Seminar Feedback Form</h1>
   <label>Name:</label>
-  <input type="text" placeholder="Enter your name"><br><br>
+  <input type="text" placeholder="Enter your name" required><br><br>
   <label>College:<label>
-  <input type="text" placeholder="Enter the name of your college"><br><br>
+  <input type="text" placeholder="Enter the name of your college" required><br><br>
   <label>Degree:</label>
-  <select name="deg" id="deg">
+  <select name="deg" id="deg" required>
     <option>--Choose you degree--</option>
     <option>B.E</option>
     <option>B.TECH</option>
   </select><br><br>
   <label>Department:</label>
-  <select name="dept" id="dept">
+  <select name="dept" id="dept" required>
     <option>--Choose your Department--</option>
     <option>CSE</option>
     <option>IT</option>
@@ -23,9 +23,10 @@
     <option>AIDS</option>
     <option>CSD</option>
     <option>AIML</option>
+    <option>AIDS</option>
     </select><br><br>
   <label>Year Of Study:<label>
-  <select name="year" id="year">
+  <select name="year" id="year" required>
     <option>--Choose your Year of Study--</option>
     <option> I </option>
     <option> II </option>
@@ -33,11 +34,11 @@
     <option> IV </option>
   </select><br><br>
   <label>Seminar Topic:</label>
-  <input type="text" placeholder="Enter seminar topic"><br><br>
+  <input type="text" placeholder="Enter seminar topic" required><br><br>
   <label>Presenter Name:</label>
-  <input type="text" placeholder="Enter presenter's name"><br><br>
+  <input type="text" placeholder="Enter presenter's name" required><br><br>
   <label>Duration of Seminar: </label>
-  <select name="duration" id="duration">
+  <select name="duration" id="duration" required>
     <option>--Choose the duration of your seminar--</option>
     <option>2 hours </option>
     <option>4 hours </option>
@@ -84,26 +85,26 @@
       <label><input type="radio" name="q5" value="5" /> 5-Excellent</label><br><br>
       
       <legend><strong>6.How effective were the Q/A session and breakout session?</strong></legend><br>
-      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+      <label><input type="radio" name="q6" value="1" required />1-Poor</label>
+      <label><input type="radio" name="q6" value="2" /> 2-Below Average</label>
+      <label><input type="radio" name="q6" value="3" /> 3-Average</label>
+      <label><input type="radio" name="q6" value="4" /> 4-Good</label>
+      <label><input type="radio" name="q6" value="5" /> 5-Excellent</label><br><br>
 
        <legend><strong>7.How relevant were the topics discussed to your professional or academic interests?</strong></legend><br>
-      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+      <label><input type="radio" name="q7" value="1" required />1-Poor</label>
+      <label><input type="radio" name="q7" value="2" /> 2-Below Average</label>
+      <label><input type="radio" name="q7" value="3" /> 3-Average</label>
+      <label><input type="radio" name="q7" value="4" /> 4-Good</label>
+      <label><input type="radio" name="q7" value="5" /> 5-Excellent</label><br><br>
 
       
       <legend><strong>8.How ample were the chances to network with other attendees?</strong></legend><br>
-      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+      <label><input type="radio" name="q8" value="1" required />1-Poor</label>
+      <label><input type="radio" name="q8" value="2" /> 2-Below Average</label>
+      <label><input type="radio" name="q8" value="3" /> 3-Average</label>
+      <label><input type="radio" name="q8" value="4" /> 4-Good</label>
+      <label><input type="radio" name="q8" value="5" /> 5-Excellent</label><br><br>
     
       <legend><strong>Would you reccomend our seminars to a colleague or a friend? </strong></legend><br>
       <input type="checkbox" id="yes" name="yes" value="Yes">
