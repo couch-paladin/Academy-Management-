@@ -21,7 +21,7 @@
   <label>Presenter Name:</label>
   <input type="text" placeholder="Enter presenter's name"><br><br>
 
-  <p>Please rate the seminar presenter on the following aspects. Select a score from 1 (Poor) to 5 (Excellent) for each question.</p>
+  <p>Please rate the seminar presenter on the following aspects. Select a score from <strong>1(Poor)</strong> to <strong>5(Excellent)</strong> for each question.</p>
   <form action="seminar feedback" method="post">
       <legend><strong>1. How clear and audible was the presenter's voice throughout the seminar?</strong></legend><br>
       <label><input type="radio" name="q1" value="1" required />1-Poor</label>
@@ -59,6 +59,26 @@
       <label><input type="radio" name="q5" value="3" /> 3-Average</label>
       <label><input type="radio" name="q5" value="4" /> 4-Good</label>
       <label><input type="radio" name="q5" value="5" /> 5-Excellent</label><br><br>
+      
+      <legend><strong>6.How effective were the Q/A session and breakout session?</strong></legend><br>
+      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
+      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
+      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
+      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
+      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+
+       <legend><strong>7.How relevant were the topics discussed to your professional or academic interests?</strong></legend><br>
+      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
+      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
+      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
+      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
+      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+    
+      <legend><strong>Would you reccomend our seminars to a colleague or a friend? </strong></legend><br>
+      <input type="checkbox" id="yes" name="yes" value="Yes">
+      <label for="yes"> Yes i would </label><br>
+      <input type="checkbox" id="no" name="no" value="No">
+      <label for="no"> No, i would like to attend more seminars before doing so </label><br><br>
 
     <p><strong>Additional Suggestions or Feedback:</strong></p>
     <p>Feel free to share any comments, suggestions, or feedback about the seminar below!</p>
@@ -68,7 +88,7 @@
 
   </form>
 
-  <p>Thank you for your valuable feedback. Happyy Learning!!!.</p>
+  <p><strong> Thank you for your valuable feedback. Happyy Learning!!!. </strong></p>
 
 </body>
 </html>
