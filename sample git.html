@@ -20,8 +20,15 @@
   <input type="text" placeholder="Enter seminar topic"><br><br>
   <label>Presenter Name:</label>
   <input type="text" placeholder="Enter presenter's name"><br><br>
+  <label>Duration of Seminar: </label>
+  <select name="duration" id="duration">
+    <option>--Choose the duration of your seminar--</option>
+    <option>2 hours </option>
+    <option>4 hours </option>
+    <option>6 hours </option>
+  </select><br><br>
 
-  <p>Please rate the seminar presenter on the following aspects. Select a score from <strong>1(Poor)</strong> to <strong>5(Excellent)</strong> for each question.</p>
+  <p><strong>Please rate the seminar presenter on the following aspects.<br> Select a score from 1(Poor) to 5(Excellent) for each question.</strong></p>
   <form action="seminar feedback" method="post">
       <legend><strong>1. How clear and audible was the presenter's voice throughout the seminar?</strong></legend><br>
       <label><input type="radio" name="q1" value="1" required />1-Poor</label>
