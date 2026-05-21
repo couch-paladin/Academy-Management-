@@ -1,126 +1,835 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Sample</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seminar Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a2e;
+      --ink-mid: #2d2d4e;
+      --ink-soft: #5a5a7a;
+      --ink-muted: #9898b3;
+      --accent: #c8a96e;
+      --accent-light: #f0e4c8;
+      --surface: #faf9f7;
+      --surface-2: #f2f0ec;
+      --white: #ffffff;
+      --border: #e4e0d8;
+      --border-focus: #c8a96e;
+      --success: #3d7a5e;
+      --error: #c0392b;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08);
+      --shadow-hover: 0 8px 32px rgba(26,26,46,0.14);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* Header */
+    .page-header {
+      background: var(--ink);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(200,169,110,0.18);
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(200,169,110,0.12);
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1.2;
+      position: relative;
+      z-index: 1;
+    }
+    .page-header h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .header-sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+      font-weight: 300;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: var(--ink-mid);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .progress-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+      width: 0%;
+    }
+    .progress-pct {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* Main layout */
+    .main-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* Section cards */
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .section-card:nth-child(1) { animation-delay: 0.05s; }
+    .section-card:nth-child(2) { animation-delay: 0.12s; }
+    .section-card:nth-child(3) { animation-delay: 0.19s; }
+    .section-card:nth-child(4) { animation-delay: 0.26s; }
+    .section-card:nth-child(5) { animation-delay: 0.33s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Field groups */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .field-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .field-grid.full { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      .field-grid, .field-grid.three { grid-template-columns: 1fr; }
+    }
+
+    /* Floating label field */
+    .field {
+      position: relative;
+    }
+    .field label {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--ink-muted);
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background: var(--white);
+      padding: 0 4px;
+    }
+    .field.textarea-field label {
+      top: 16px;
+      transform: none;
+    }
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label,
+    .field select:focus ~ label,
+    .field select.has-value ~ label,
+    .field textarea:focus ~ label,
+    .field textarea:not(:placeholder-shown) ~ label {
+      top: 0;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 14px 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: transparent; }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.12);
+    }
+    .field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239898b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 120px;
+      padding-top: 20px;
+    }
+
+    /* Rating questions */
+    .rating-question {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    .rating-question:last-of-type { margin-bottom: 0; }
+    .rating-question.answered { border-color: rgba(200,169,110,0.4); background: #fdfaf4; }
+    .q-number {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .q-text {
+      font-size: 14px;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .rating-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .rating-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .rating-btn input[type="radio"] { display: none; }
+    .rating-pill {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: var(--white);
+      transition: all 0.18s ease;
+      cursor: pointer;
+    }
+    .rating-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(200,169,110,0.2);
+    }
+    .rating-btn input:checked + .rating-pill {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(26,26,46,0.25);
+    }
+    .rating-desc {
+      font-size: 10px;
+      color: var(--ink-muted);
+      text-align: center;
+    }
+
+    /* Recommend section */
+    .recommend-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .recommend-card {
+      flex: 1;
+      min-width: 180px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--white);
+    }
+    .recommend-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(200,169,110,0.12);
+    }
+    .recommend-card.selected {
+      border-color: var(--ink);
+      background: var(--ink);
+    }
+    .recommend-card.selected .rc-title { color: var(--accent); }
+    .recommend-card.selected .rc-sub { color: rgba(255,255,255,0.5); }
+    .recommend-card input { display: none; }
+    .rc-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .recommend-card.selected .rc-icon { background: rgba(200,169,110,0.15); }
+    .rc-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .rc-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; line-height: 1.4; }
+
+    /* Submit area */
+    .submit-area {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .btn-submit {
+      background: var(--ink);
+      color: var(--accent);
+      border: none;
+      padding: 1rem 3rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,26,46,0.25);
+    }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-reset {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--ink-soft);
+      padding: 0.85rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-left: 1rem;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+    /* Success overlay */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,26,46,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-overlay.show { display: flex; }
+    .success-modal {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 28px;
+    }
+    .success-modal h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .success-modal p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+    /* Validation */
+    .field-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea { border-color: var(--error); }
+    .field.invalid .field-error { display: block; }
+    .rating-question.unanswered { border-color: rgba(192,57,43,0.4); background: #fdf5f4; }
+
+    /* Tooltip for ratings */
+    .rating-scale-hint {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--ink-muted);
+    }
+  </style>
 </head>
 <body>
-  <h1>Seminar Feedback Form</h1>
-  <label>Name:</label>
-  <input type="text" placeholder="Enter your name" required><br><br>
-  <label>College:<label>
-  <input type="text" placeholder="Enter the name of your college" required><br><br>
-  <label>Degree:</label>
-  <select name="deg" id="deg" required>
-    <option>--Choose you degree--</option>
-    <option>B.E</option>
-    <option>B.TECH</option>
-  </select><br><br>
-  <label>Department:</label>
-  <select name="dept" id="dept" required>
-    <option>--Choose your Department--</option>
-    <option>CSE</option>
-    <option>IT</option>
-    <option>CYBER</option>
-    <option>AIDS</option>
-    <option>CSD</option>
-    <option>AIML</option>
-    <option>AIDS</option>
-    </select><br><br>
-  <label>Year Of Study:<label>
-  <select name="year" id="year" required>
-    <option>--Choose your Year of Study--</option>
-    <option> I </option>
-    <option> II </option>
-    <option> III </option>
-    <option> IV </option>
-  </select><br><br>
-  <label>Seminar Topic:</label>
-  <input type="text" placeholder="Enter seminar topic" required><br><br>
-  <label>Presenter Name:</label>
-  <input type="text" placeholder="Enter presenter's name" required><br><br>
-  <label>Duration of Seminar: </label>
-  <select name="duration" id="duration" required>
-    <option>--Choose the duration of your seminar--</option>
-    <option>2 hours </option>
-    <option>4 hours </option>
-    <option>6 hours </option>
-  </select><br><br>
 
-  <p><strong>Please rate the seminar presenter on the following aspects.<br> Select a score from 1(Poor) to 5(Excellent) for each question.</strong></p>
-  <form action="seminar feedback" method="post">
-      <legend><strong>1. How clear and audible was the presenter's voice throughout the seminar?</strong></legend><br>
-      <label><input type="radio" name="q1" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q1" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q1" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q1" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q1" value="5" /> 5- Excellent</label><br><br>
+<div class="page-header">
+  <p class="header-eyebrow">Post-Event Assessment</p>
+  <h1>Seminar <em>Feedback</em> Form</h1>
+  <p class="header-sub">Your insights help us build better learning experiences</p>
+</div>
 
-       <legend><strong>2. How crisp and easy to understand were the presenter's explanations?</strong></legend><br>
-      <label><input type="radio" name="q2" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q2" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q2" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q2" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q2" value="5" /> 5-Excellent</label><br><br>
+<div class="progress-wrap">
+  <span class="progress-label">COMPLETION</span>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
 
-      <legend><strong>3. How effectively did the presenter use interactive visual or audio elements?</strong></legend>
-      <br />
-      <label><input type="radio" name="q3" value="1" required /> 1-Poor</label>
-      <label><input type="radio" name="q3" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q3" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q3" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q3" value="5" /> 5-Excellent</label><br><br>
+<div class="main-wrap">
+  <form id="feedbackForm" novalidate>
 
-      <legend><strong>4. How engaging and interactive was the overall seminar session?</strong></legend><br>
-      <label><input type="radio" name="q4" value="1" required /> 1-Poor</label>
-      <label><input type="radio" name="q4" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q4" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q4" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q4" value="5" /> 5-Excellent</label><br><br>
+    <!-- Section 1: Attendee Info -->
+    <div class="section-card">
+      <p class="section-label">Section 01</p>
+      <h2 class="section-title">Attendee Information</h2>
+      <div class="field-grid" style="margin-bottom:1.25rem;">
+        <div class="field">
+          <input type="text" id="name" placeholder="Name" required />
+          <label for="name">Full Name</label>
+          <p class="field-error">Please enter your name</p>
+        </div>
+        <div class="field">
+          <input type="text" id="college" placeholder="College" required />
+          <label for="college">College / Institution</label>
+          <p class="field-error">Please enter your college</p>
+        </div>
+      </div>
+      <div class="field-grid three">
+        <div class="field">
+          <select id="deg" required>
+            <option value="">Select</option>
+            <option>B.E</option>
+            <option>B.TECH</option>
+          </select>
+          <label for="deg">Degree</label>
+          <p class="field-error">Select a degree</p>
+        </div>
+        <div class="field">
+          <select id="dept" required>
+            <option value="">Select</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>CYBER</option>
+            <option>AIDS</option>
+            <option>CSD</option>
+            <option>AIML</option>
+          </select>
+          <label for="dept">Department</label>
+          <p class="field-error">Select a department</p>
+        </div>
+        <div class="field">
+          <select id="year" required>
+            <option value="">Select</option>
+            <option>I</option>
+            <option>II</option>
+            <option>III</option>
+            <option>IV</option>
+          </select>
+          <label for="year">Year of Study</label>
+          <p class="field-error">Select year</p>
+        </div>
+      </div>
+    </div>
 
-      <legend><strong>5. How well-prepared and organised was the seminar material?</strong></legend>
-      <br />
-      <label><input type="radio" name="q5" value="1" required /> 1-Poor</label>
-      <label><input type="radio" name="q5" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q5" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q5" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q5" value="5" /> 5-Excellent</label><br><br>
-      
-      <legend><strong>6.How effective were the Q/A session and breakout session?</strong></legend><br>
-      <label><input type="radio" name="q6" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q6" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q6" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q6" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q6" value="5" /> 5-Excellent</label><br><br>
+    <!-- Section 2: Seminar Details -->
+    <div class="section-card">
+      <p class="section-label">Section 02</p>
+      <h2 class="section-title">Seminar Details</h2>
+      <div class="field-grid" style="margin-bottom:1.25rem;">
+        <div class="field">
+          <input type="text" id="topic" placeholder="Topic" required />
+          <label for="topic">Seminar Topic</label>
+          <p class="field-error">Please enter the topic</p>
+        </div>
+        <div class="field">
+          <input type="text" id="presenter" placeholder="Presenter" required />
+          <label for="presenter">Presenter Name</label>
+          <p class="field-error">Please enter presenter's name</p>
+        </div>
+      </div>
+      <div class="field-grid full">
+        <div class="field">
+          <select id="duration" required>
+            <option value="">Select duration</option>
+            <option>2 hours</option>
+            <option>4 hours</option>
+            <option>6 hours</option>
+          </select>
+          <label for="duration">Duration of Seminar</label>
+          <p class="field-error">Select duration</p>
+        </div>
+      </div>
+    </div>
 
-       <legend><strong>7.How relevant were the topics discussed to your professional or academic interests?</strong></legend><br>
-      <label><input type="radio" name="q7" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q7" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q7" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q7" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q7" value="5" /> 5-Excellent</label><br><br>
+    <!-- Section 3: Ratings -->
+    <div class="section-card">
+      <p class="section-label">Section 03</p>
+      <h2 class="section-title">Rate the Seminar</h2>
 
-      
-      <legend><strong>8.How ample were the chances to network with other attendees?</strong></legend><br>
-      <label><input type="radio" name="q8" value="1" required />1-Poor</label>
-      <label><input type="radio" name="q8" value="2" /> 2-Below Average</label>
-      <label><input type="radio" name="q8" value="3" /> 3-Average</label>
-      <label><input type="radio" name="q8" value="4" /> 4-Good</label>
-      <label><input type="radio" name="q8" value="5" /> 5-Excellent</label><br><br>
-    
-      <legend><strong>Would you reccomend our seminars to a colleague or a friend? </strong></legend><br>
-      <input type="checkbox" id="yes" name="yes" value="Yes">
-      <label for="yes"> Yes i would </label><br>
-      <input type="checkbox" id="no" name="no" value="No">
-      <label for="no"> No, i would like to attend more seminars before doing so </label><br><br>
+      <div class="rating-question" id="rq1">
+        <p class="q-number">Q 01</p>
+        <p class="q-text">How clear and audible was the presenter's voice throughout the seminar?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q1" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q1" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q1" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q1" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q1" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
 
-    <p><strong>Additional Suggestions or Feedback:</strong></p>
-    <p>Feel free to share any comments, suggestions, or feedback about the seminar below!</p>
-    <textarea name="suggestions" rows="6" cols="60" placeholder=""></textarea><br><br>
-    <input type="submit" value="Submit Feedback">
-    <input type="reset" value="Clear Form">
+      <div class="rating-question" id="rq2">
+        <p class="q-number">Q 02</p>
+        <p class="q-text">How crisp and easy to understand were the presenter's explanations?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q2" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q2" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q2" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q2" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q2" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq3">
+        <p class="q-number">Q 03</p>
+        <p class="q-text">How effectively did the presenter use interactive visual or audio elements?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q3" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q3" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q3" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q3" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q3" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq4">
+        <p class="q-number">Q 04</p>
+        <p class="q-text">How engaging and interactive was the overall seminar session?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q4" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q4" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q4" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q4" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q4" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq5">
+        <p class="q-number">Q 05</p>
+        <p class="q-text">How well-prepared and organised was the seminar material?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q5" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q5" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q5" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q5" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q5" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq6">
+        <p class="q-number">Q 06</p>
+        <p class="q-text">How effective were the Q&amp;A session and breakout sessions?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q6" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q6" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q6" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q6" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q6" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq7">
+        <p class="q-number">Q 07</p>
+        <p class="q-text">How relevant were the topics discussed to your professional or academic interests?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q7" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q7" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q7" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q7" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q7" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+
+      <div class="rating-question" id="rq8">
+        <p class="q-number">Q 08</p>
+        <p class="q-text">How ample were the chances to network with other attendees?</p>
+        <div class="rating-row">
+          <label class="rating-btn"><input type="radio" name="q8" value="1" required/><span class="rating-pill">1</span></label>
+          <label class="rating-btn"><input type="radio" name="q8" value="2"/><span class="rating-pill">2</span></label>
+          <label class="rating-btn"><input type="radio" name="q8" value="3"/><span class="rating-pill">3</span></label>
+          <label class="rating-btn"><input type="radio" name="q8" value="4"/><span class="rating-pill">4</span></label>
+          <label class="rating-btn"><input type="radio" name="q8" value="5"/><span class="rating-pill">5</span></label>
+        </div>
+        <div class="rating-scale-hint"><span>Poor</span><span>Excellent</span></div>
+      </div>
+    </div>
+
+    <!-- Section 4: Recommendation -->
+    <div class="section-card">
+      <p class="section-label">Section 04</p>
+      <h2 class="section-title">Would you recommend our seminars?</h2>
+      <div class="recommend-options">
+        <label class="recommend-card" id="rc-yes" onclick="selectRecommend(this, 'rec-yes')">
+          <input type="checkbox" name="recommend" id="rec-yes" value="Yes"/>
+          <div class="rc-icon">👍</div>
+          <div>
+            <p class="rc-title">Yes, absolutely!</p>
+            <p class="rc-sub">I'd recommend this to a colleague or friend</p>
+          </div>
+        </label>
+        <label class="recommend-card" id="rc-no" onclick="selectRecommend(this, 'rec-no')">
+          <input type="checkbox" name="recommend" id="rec-no" value="No"/>
+          <div class="rc-icon">🤔</div>
+          <div>
+            <p class="rc-title">Not yet</p>
+            <p class="rc-sub">I'd like to attend more seminars before deciding</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Section 5: Feedback -->
+    <div class="section-card">
+      <p class="section-label">Section 05</p>
+      <h2 class="section-title">Additional Feedback</h2>
+      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:1rem;line-height:1.6;">
+        Share any comments, suggestions, or thoughts about the seminar. Your words help shape future events.
+      </p>
+      <div class="field textarea-field">
+        <textarea id="suggestions" placeholder="Your feedback..." rows="5"></textarea>
+        <label for="suggestions">Comments &amp; Suggestions</label>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button type="submit" class="btn-submit">Submit Feedback →</button>
+      <button type="button" class="btn-reset" onclick="resetForm()">Clear Form</button>
+    </div>
 
   </form>
+</div>
 
-  <p><strong> Thank you for your valuable feedback. Happyy Learning!!!. </strong></p>
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">✦</div>
+    <h2>Thank You!</h2>
+    <p>Your feedback has been submitted successfully. We truly appreciate your time and insights — they help us create better seminars.</p>
+    <p style="margin-top:1rem;color:var(--accent);font-size:13px;font-weight:600;">Happy Learning!</p>
+    <button onclick="document.getElementById('successOverlay').classList.remove('show')" style="margin-top:1.5rem;background:var(--ink);color:var(--accent);border:none;padding:0.7rem 2rem;border-radius:999px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Close</button>
+  </div>
+</div>
 
+<script>
+  // Progress tracking
+  const trackableFields = ['name','college','deg','dept','year','topic','presenter','duration','q1','q2','q3','q4','q5','q6','q7','q8'];
+  
+  function updateProgress() {
+    let filled = 0;
+    trackableFields.forEach(id => {
+      if (['q1','q2','q3','q4','q5','q6','q7','q8'].includes(id)) {
+        if (document.querySelector(`input[name="${id}"]:checked`)) filled++;
+      } else {
+        const el = document.getElementById(id);
+        if (el && el.value.trim() !== '' && el.value !== '') filled++;
+      }
+    });
+    const pct = Math.round((filled / trackableFields.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  // Floating label for selects
+  document.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      sel.value ? sel.classList.add('has-value') : sel.classList.remove('has-value');
+      updateProgress();
+    });
+  });
+  document.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', updateProgress);
+  });
+  document.querySelectorAll('input[type="radio"]').forEach(r => {
+    r.addEventListener('change', function() {
+      const qid = 'rq' + this.name.replace('q','');
+      const qEl = document.getElementById(qid);
+      if (qEl) { qEl.classList.add('answered'); qEl.classList.remove('unanswered'); }
+      updateProgress();
+    });
+  });
+
+  // Recommend toggle
+  function selectRecommend(card, id) {
+    document.querySelectorAll('.recommend-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.getElementById(id).checked = true;
+  }
+
+  // Validation
+  function validateForm() {
+    let valid = true;
+    const textFields = ['name','college','topic','presenter'];
+    textFields.forEach(id => {
+      const f = document.getElementById(id);
+      const wrap = f.closest('.field');
+      if (!f.value.trim()) { wrap.classList.add('invalid'); valid = false; }
+      else wrap.classList.remove('invalid');
+    });
+    const selects = ['deg','dept','year','duration'];
+    selects.forEach(id => {
+      const f = document.getElementById(id);
+      const wrap = f.closest('.field');
+      if (!f.value) { wrap.classList.add('invalid'); valid = false; }
+      else wrap.classList.remove('invalid');
+    });
+    for (let i = 1; i <= 8; i++) {
+      const answered = document.querySelector(`input[name="q${i}"]:checked`);
+      const qEl = document.getElementById('rq' + i);
+      if (!answered) { qEl.classList.add('unanswered'); valid = false; }
+      else qEl.classList.remove('unanswered');
+    }
+    return valid;
+  }
+
+  document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (validateForm()) {
+      document.getElementById('successOverlay').classList.add('show');
+    } else {
+      const firstError = document.querySelector('.invalid, .unanswered');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+
+  function resetForm() {
+    document.getElementById('feedbackForm').reset();
+    document.querySelectorAll('.field.invalid').forEach(f => f.classList.remove('invalid'));
+    document.querySelectorAll('.rating-question.unanswered, .rating-question.answered').forEach(q => q.classList.remove('unanswered','answered'));
+    document.querySelectorAll('select').forEach(s => s.classList.remove('has-value'));
+    document.querySelectorAll('.recommend-card').forEach(c => c.classList.remove('selected'));
+    updateProgress();
+  }
+
+  // Remove invalid on type/change
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('change', () => el.closest('.field')?.classList.remove('invalid'));
+    el.addEventListener('input', () => el.closest('.field')?.classList.remove('invalid'));
+  });
+</script>
 </body>
 </html>
