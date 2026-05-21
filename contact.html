@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — EduVance Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --accent-light: #f0e4c8; --accent-dim: rgba(200,169,110,0.15);
+      --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08); --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
+    .nav-cta:hover { background: #d4b87a !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: var(--ink); padding: 8rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-circle:nth-child(2) { width: 420px; height: 420px; top: -140px; right: -100px; }
+    .hero-circle:nth-child(3) { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .page-eyebrow::before { content: '✦'; font-size: 8px; }
+    .page-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); font-weight: 400; line-height: 1.2; position: relative; z-index: 1; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 540px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
+
+    /* ── CONTACT LAYOUT ── */
+    .contact-section { padding: 4rem 2rem 5rem; }
+    .contact-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr; gap: 2.5rem; align-items: start; }
+
+    /* info column */
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .info-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; transition: all 0.3s; }
+    .info-card:hover { box-shadow: var(--shadow); border-color: rgba(200,169,110,0.3); }
+    .info-icon { width: 44px; height: 44px; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .info-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.25rem; }
+    .info-value { font-size: 14px; color: var(--ink); font-weight: 500; line-height: 1.5; }
+    .info-value a { color: var(--ink); text-decoration: none; }
+    .info-value a:hover { color: var(--accent); }
+    .info-sub { font-size: 12.5px; color: var(--ink-muted); margin-top: 0.2rem; }
+    .socials { display: flex; gap: 0.6rem; margin-top: 0.5rem; }
+    .social-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--white); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+    .social-btn:hover { background: var(--ink); color: var(--accent); transform: translateY(-2px); border-color: var(--ink); }
+
+    /* form column */
+    .contact-form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; box-shadow: var(--shadow); }
+    .form-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 0.4rem; }
+    .form-sub { font-size: 13.5px; color: var(--ink-soft); font-weight: 300; margin-bottom: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-mid); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+      background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      padding: 0.75rem 0.95rem; transition: all 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px var(--accent-dim); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; padding: 0.9rem 2rem; border-radius: 999px; border: none; cursor: pointer; transition: all 0.25s; width: 100%; }
+    .btn-submit:hover { background: #d4b87a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,169,110,0.35); }
+    .form-success { display: none; background: rgba(93,186,114,0.1); border: 1px solid rgba(93,186,114,0.3); color: #4a9c5d; font-size: 13.5px; padding: 0.85rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; }
+
+    /* ── MAP / VISIT ── */
+    .visit { background: var(--ink); padding: 0; }
+    .visit-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; }
+    .visit-text { padding: 3.5rem 2rem; }
+    .visit-text .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+    .visit-text h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 1rem; }
+    .visit-text h2 em { font-style: italic; color: var(--accent); }
+    .visit-text p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+    .visit-hours { margin-top: 1.5rem; }
+    .visit-hours-row { display: flex; justify-content: space-between; max-width: 280px; font-size: 13.5px; color: rgba(255,255,255,0.6); padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .visit-map { background: var(--ink-mid); display: flex; align-items: center; justify-content: center; min-height: 320px; position: relative; overflow: hidden; }
+    .visit-map::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.1) 1px, transparent 1px); background-size: 30px 30px; }
+    .map-pin { text-align: center; position: relative; z-index: 1; }
+    .map-pin .pin { font-size: 3rem; }
+    .map-pin .pin-text { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 0.5rem; }
+
+    /* ── FAQ ── */
+    .faq { padding: 4rem 2rem; background: var(--white); }
+    .faq-wrap { max-width: 760px; margin: 0 auto; }
+    .faq-head { text-align: center; margin-bottom: 2.5rem; }
+    .faq-head .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-head h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--ink); font-weight: 400; }
+    .faq-head h2 em { font-style: italic; color: var(--accent); }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; background: var(--surface); }
+    .faq-q { padding: 1.1rem 1.25rem; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-q .chev { color: var(--accent); transition: transform 0.25s; flex-shrink: 0; }
+    .faq-item.open .chev { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 1.25rem; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 1.25rem 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 13px; line-height: 1.6; font-weight: 300; max-width: 220px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1100px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 900px) { .contact-wrap { grid-template-columns: 1fr; } .visit-inner { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--ink); padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(200,169,110,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <p class="page-eyebrow">Get In Touch</p>
+  <h1>Let's <em>Talk</em></h1>
+  <p>Questions about a course, a workshop, or partnering with us? We'd love to hear from you. Reach out and we'll respond within 24 hours.</p>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="contact-wrap">
+
+    <!-- INFO -->
+    <div class="contact-info">
+      <div class="info-card">
+        <div class="info-icon">📧</div>
+        <div>
+          <p class="info-label">Email Us</p>
+          <p class="info-value"><a href="mailto:hello@eduvance.com">hello@eduvance.com</a></p>
+          <p class="info-sub">For general enquiries</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📞</div>
+        <div>
+          <p class="info-label">Call Us</p>
+          <p class="info-value"><a href="tel:+919876543210">+91 98765 43210</a></p>
+          <p class="info-sub">Mon–Sat, 9 AM – 6 PM</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div>
+          <p class="info-label">Visit Us</p>
+          <p class="info-value">2nd Floor, Tech Park,<br/>Business District</p>
+          <p class="info-sub">By appointment</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">💬</div>
+        <div>
+          <p class="info-label">Follow Us</p>
+          <div class="socials">
+            <a href="#" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="contact-form-card">
+      <h2 class="form-title">Send Us a Message</h2>
+      <p class="form-sub">Fill out the form and our team will get back to you shortly.</p>
+      <div class="form-success" id="formSuccess">✓ Thanks! Your message has been sent. We'll be in touch soon.</div>
+
+      <form id="contactForm" onsubmit="return submitForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="+91 ..." />
+          </div>
+          <div class="form-group">
+            <label for="topic">Topic</label>
+            <select id="topic" required>
+              <option value="">Select a topic</option>
+              <option>Course Enquiry</option>
+              <option>Workshop / Event</option>
+              <option>Placement &amp; Careers</option>
+              <option>Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell us how we can help..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message →</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit">
+  <div class="visit-inner">
+    <div class="visit-text">
+      <p class="section-eyebrow">Come Say Hi</p>
+      <h2>Visit Our <em>Campus</em></h2>
+      <p>Drop by our campus for a tour, a chat with our counsellors, or to sit in on a live class. No appointment needed.</p>
+      <div class="visit-hours">
+        <div class="visit-hours-row"><span>Monday – Friday</span><span>9 AM – 6 PM</span></div>
+        <div class="visit-hours-row"><span>Saturday</span><span>10 AM – 4 PM</span></div>
+        <div class="visit-hours-row"><span>Sunday</span><span>Closed</span></div>
+      </div>
+    </div>
+    <div class="visit-map">
+      <div class="map-pin">
+        <div class="pin">📍</div>
+        <div class="pin-text">EduVance Academy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-wrap">
+    <div class="faq-head">
+      <p class="section-eyebrow">Quick Answers</p>
+      <h2>Frequently Asked <em>Questions</em></h2>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">How do I enroll in a course? <span class="chev">▾</span></div>
+      <div class="faq-a">Just head to the Courses page, pick a course, and click Enroll. You'll be guided through registration and payment in a couple of minutes.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Are the certificates recognized? <span class="chev">▾</span></div>
+      <div class="faq-a">Yes — all our certificates are industry-recognized and can be shared directly on your LinkedIn profile and resume.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you offer placement guarantees? <span class="chev">▾</span></div>
+      <div class="faq-a">We offer end-to-end placement support with a 94% placement rate. While we can't legally "guarantee" a job, our Elite coaching plan supports you until you're placed.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Can I get a refund? <span class="chev">▾</span></div>
+      <div class="faq-a">Yes, we offer a 7-day money-back guarantee on all paid courses if you're not satisfied. Reach out to our support team to process it.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Are there free courses available? <span class="chev">▾</span></div>
+      <div class="faq-a">Absolutely. We offer several free self-paced courses and free webinars. Look for the "Free" badge on the Courses page.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">Edu<span>Vance</span></p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Seminars</a></li>
+        <li><a href="courses.html#webinars">Webinars</a></li>
+        <li><a href="courses.html#study-material">Study Material</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="careers.html#internships">Internships</a></li>
+        <li><a href="careers.html#placement">Placement Support</a></li>
+        <li><a href="careers.html#coaching">Interview Coaching</a></li>
+        <li><a href="careers.html">Training Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 EduVance Academy. All rights reserved.</p>
+    <p>Built with ♥️ for learners everywhere</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+
+  function toggleFaq(item) { item.classList.toggle('open'); }
+
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('contactForm').reset();
+    document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+</script>
+</body>
+</html>

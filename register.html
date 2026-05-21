@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register — EduVance Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --accent-light: #f0e4c8; --accent-dim: rgba(200,169,110,0.15);
+      --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08); --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
+    .nav-cta:hover { background: #d4b87a !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: var(--ink); padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-circle:nth-child(2) { width: 420px; height: 420px; top: -140px; right: -100px; }
+    .hero-circle:nth-child(3) { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .page-eyebrow::before { content: '✦'; font-size: 8px; }
+    .page-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); font-weight: 400; line-height: 1.2; position: relative; z-index: 1; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 540px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
+
+    /* ── REGISTER LAYOUT ── */
+    .register-section { padding: 3rem 2rem 5rem; }
+    .register-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: start; }
+
+    /* form */
+    .reg-form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; box-shadow: var(--shadow); }
+    .stepper { display: flex; align-items: center; margin-bottom: 2rem; }
+    .step-dot { display: flex; align-items: center; gap: 0.5rem; }
+    .step-circle { width: 30px; height: 30px; border-radius: 50%; background: var(--surface-2); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--ink-muted); transition: all 0.3s; }
+    .step-dot.active .step-circle { background: var(--ink); border-color: var(--ink); color: var(--accent); }
+    .step-dot.done .step-circle { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+    .step-name { font-size: 12.5px; font-weight: 600; color: var(--ink-muted); }
+    .step-dot.active .step-name { color: var(--ink); }
+    .step-line { flex: 1; height: 1.5px; background: var(--border); margin: 0 0.75rem; }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .form-step h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 1.25rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-mid); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 0.95rem; transition: all 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    /* radio cards */
+    .radio-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .radio-card { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; cursor: pointer; transition: all 0.2s; }
+    .radio-card:hover { border-color: var(--accent); }
+    .radio-card.selected { border-color: var(--accent); background: rgba(200,169,110,0.05); }
+    .radio-card .rc-title { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+    .radio-card .rc-sub { font-size: 12px; color: var(--ink-muted); margin-top: 0.2rem; }
+
+    /* course carousel */
+    .carousel { display: flex; align-items: stretch; gap: 0.6rem; }
+    .carousel-arrow { width: 42px; flex-shrink: 0; border: 1.5px solid var(--border); background: var(--white); border-radius: var(--radius-sm); cursor: pointer; color: var(--ink); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .carousel-arrow:hover { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+    .carousel-track { flex: 1; overflow: hidden; }
+    .carousel-slide { display: none; border: 1.5px solid var(--accent); background: rgba(200,169,110,0.05); border-radius: var(--radius-sm); padding: 1.1rem 1.25rem; min-height: 96px; flex-direction: column; justify-content: center; }
+    .carousel-slide.active { display: flex; animation: fadeIn 0.25s ease; }
+    .cs-tag { font-size: 10.5px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .cs-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+    .cs-meta { font-size: 12px; color: var(--ink-muted); margin-top: 0.4rem; }
+    .carousel-dots { display: flex; justify-content: center; gap: 5px; margin-top: 0.75rem; flex-wrap: wrap; }
+    .carousel-dots .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.2s; }
+    .carousel-dots .dot.active { background: var(--accent); width: 18px; border-radius: 4px; }
+    .carousel-count { text-align: center; font-size: 11.5px; color: var(--ink-muted); margin-top: 0.4rem; }
+    .carousel-empty { display: none; text-align: center; font-size: 13px; color: var(--ink-muted); padding: 1.5rem 1rem; background: var(--surface); border: 1.5px dashed var(--border); border-radius: var(--radius-sm); }
+    .filter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+    .filter-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-mid); margin-bottom: 0.45rem; }
+    .filter-field select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--ink); background: var(--surface-2); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.65rem 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .filter-field select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .form-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.75rem; }
+    .btn-ghost { background: transparent; color: var(--ink-soft); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 0.8rem 1.75rem; border-radius: 999px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-next { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 0.8rem 2rem; border-radius: 999px; border: none; cursor: pointer; transition: all 0.25s; margin-left: auto; }
+    .btn-next:hover { background: #d4b87a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,169,110,0.35); }
+
+    /* success */
+    .reg-success { display: none; text-align: center; padding: 2rem 1rem; }
+    .reg-success .check { width: 70px; height: 70px; border-radius: 50%; background: rgba(93,186,114,0.12); border: 2px solid rgba(93,186,114,0.4); color: #5dba72; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.25rem; }
+    .reg-success h3 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--ink); margin-bottom: 0.6rem; }
+    .reg-success p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; max-width: 380px; margin: 0 auto 1.5rem; }
+
+    /* summary sidebar */
+    .reg-summary { background: var(--ink); border-radius: var(--radius); padding: 2rem; position: sticky; top: 84px; overflow: hidden; position: relative; }
+    .reg-summary::after { content: ''; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; border: 1px solid rgba(200,169,110,0.12); }
+    .summary-eyebrow { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
+    .summary-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); line-height: 1.3; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+    .summary-desc { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; margin-bottom: 1.25rem; position: relative; z-index: 1; }
+    .summary-row { display: flex; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 13px; }
+    .summary-row .lbl { color: rgba(255,255,255,0.45); }
+    .summary-row .val { color: var(--white); font-weight: 500; text-align: right; }
+    .summary-total { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; }
+    .summary-total .lbl { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .summary-total .amt { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--accent); }
+    .summary-note { font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 1rem; line-height: 1.5; position: relative; z-index: 1; }
+
+    /* ── FOOTER ── */
+    footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 13px; line-height: 1.6; font-weight: 300; max-width: 220px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1100px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 900px) { .register-wrap { grid-template-columns: 1fr; } .reg-summary { position: static; order: -1; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--ink); padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(200,169,110,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .filter-row { grid-template-columns: 1fr; }
+      .radio-cards { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .step-name { display: none; }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <p class="page-eyebrow">Registration</p>
+  <h1>Secure Your <em>Spot</em></h1>
+  <p>Fill in your details to register for a course, workshop, or event.</p>
+</div>
+
+<!-- REGISTER -->
+<section class="register-section">
+  <div class="register-wrap">
+
+    <!-- FORM -->
+    <div class="reg-form-card">
+      <!-- Stepper -->
+      <div class="stepper" id="stepper">
+        <div class="step-dot active" data-step="1"><div class="step-circle">1</div><span class="step-name">Program</span></div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="2"><div class="step-circle">2</div><span class="step-name">Details</span></div>
+        <div class="step-line"></div>
+        <div class="step-dot" data-step="3"><div class="step-circle">3</div><span class="step-name">Confirm</span></div>
+      </div>
+
+      <form id="regForm">
+        <!-- STEP 1 -->
+        <div class="form-step active" data-step="1">
+          <h3>Choose Your Program</h3>
+          <div class="filter-row">
+            <div class="filter-field">
+              <label>Domain</label>
+              <select id="filterDomain" onchange="applyFilters()">
+                <option value="all">All Domains</option>
+                <option value="Tech">Tech &amp; Development</option>
+                <option value="Data">Data &amp; Analytics</option>
+                <option value="Business">Business &amp; Management</option>
+                <option value="Career">Career &amp; Soft Skills</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label>Price</label>
+              <select id="filterPrice" onchange="applyFilters()">
+                <option value="all">Any Price</option>
+                <option value="free">Free</option>
+                <option value="low">Under ₹2,000</option>
+                <option value="mid">₹2,000 – ₹4,000</option>
+                <option value="high">Above ₹4,000</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>Select Program</label>
+            <div class="carousel">
+              <button type="button" class="carousel-arrow" onclick="moveCarousel(-1)" aria-label="Previous">‹</button>
+              <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide active" data-type="Course"   data-price="4999" data-mode="Hybrid"  data-domain="Tech" data-desc="Build complete web apps from scratch with HTML, CSS, JavaScript, React, Node.js, and MongoDB."><p class="cs-tag">Web Dev · Hybrid</p><p class="cs-title">Full Stack Web Development</p><p class="cs-meta">8 Weeks · 32 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="5999" data-mode="Online"  data-domain="Tech" data-desc="Learn Python, scikit-learn, and TensorFlow to build and deploy real machine learning models."><p class="cs-tag">AI / ML · Online</p><p class="cs-title">Machine Learning &amp; AI Fundamentals</p><p class="cs-meta">10 Weeks · 40 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="3999" data-mode="Online"  data-domain="Tech" data-desc="Master network security, penetration testing, and vulnerability assessment with hands-on labs."><p class="cs-tag">Cybersecurity · Online</p><p class="cs-title">Ethical Hacking &amp; Cybersecurity</p><p class="cs-meta">6 Weeks · 24 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="4499" data-mode="Online"  data-domain="Data" data-desc="Wrangle data, build dashboards, and run statistics using Pandas, SQL, and Power BI."><p class="cs-tag">Data Science · Online</p><p class="cs-title">Data Science with Python &amp; SQL</p><p class="cs-meta">8 Weeks · 35 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="0"    data-mode="Online"  data-domain="Data" data-desc="Master formulas, pivot tables, charts, and automation — everything you need for spreadsheet work."><p class="cs-tag">Excel · Free</p><p class="cs-title">Excel &amp; Google Sheets Masterclass</p><p class="cs-meta">2 Weeks · 10 Modules · Self-paced</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="2499" data-mode="Offline" data-domain="Business" data-desc="Develop public speaking, group discussion, and professional presence through in-person training."><p class="cs-tag">Soft Skills · Offline</p><p class="cs-title">Communication &amp; Leadership Skills</p><p class="cs-meta">4 Weeks · 16 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="2999" data-mode="Hybrid"  data-domain="Business" data-desc="Learn Scrum, Kanban, and project planning to lead teams as an aspiring PM or team lead."><p class="cs-tag">Project Mgmt · Hybrid</p><p class="cs-title">Agile &amp; Project Management Basics</p><p class="cs-meta">5 Weeks · 20 Modules · Certificate</p></div>
+                <div class="carousel-slide" data-type="Course"   data-price="0"    data-mode="Online"  data-domain="Career" data-desc="Craft a standout resume and LinkedIn profile that gets you noticed by top recruiters."><p class="cs-tag">Career Skills · Free</p><p class="cs-title">Resume Building &amp; LinkedIn Masterclass</p><p class="cs-meta">1 Week · 6 Modules · Self-paced</p></div>
+                <div class="carousel-slide" data-type="Workshop"  data-price="999"  data-mode="Hybrid"  data-domain="Tech" data-desc="A 1-day intensive covering HTML, CSS, JavaScript, and deployment with hands-on projects."><p class="cs-tag">Workshop · Hybrid</p><p class="cs-title">Full Stack Web Development Bootcamp</p><p class="cs-meta">1 Day · Hands-on Projects</p></div>
+                <div class="carousel-slide" data-type="Workshop"  data-price="799"  data-mode="Offline" data-domain="Data" data-desc="Hands-on data cleaning, visualization, and dashboards using real-world datasets in one day."><p class="cs-tag">Workshop · Offline</p><p class="cs-title">Data Analytics with Python &amp; Power BI</p><p class="cs-meta">1 Day · Live Datasets</p></div>
+                <div class="carousel-slide" data-type="Seminar"   data-price="299"  data-mode="Online"  data-domain="Tech" data-desc="Industry experts share how AI is transforming product development, hiring, and strategy."><p class="cs-tag">Seminar · Online</p><p class="cs-title">AI &amp; Machine Learning in Industry</p><p class="cs-meta">3 Hours · Expert Panel</p></div>
+                <div class="carousel-slide" data-type="Seminar"   data-price="199"  data-mode="Online"  data-domain="Business" data-desc="Senior PMs reveal how to transition into product roles and which skills matter most."><p class="cs-tag">Seminar · Online</p><p class="cs-title">Breaking into Product Management</p><p class="cs-meta">3 Hours · Senior PMs</p></div>
+                <div class="carousel-slide" data-type="Webinar"   data-price="0"    data-mode="Online"  data-domain="Career" data-desc="A free session on DSA prep, aptitude tests, and HR rounds for campus placements."><p class="cs-tag">Webinar · Free</p><p class="cs-title">Cracking Campus Placements in 2026</p><p class="cs-meta">2 Hours · Open to All</p></div>
+                <div class="carousel-slide" data-type="Webinar"   data-price="0"    data-mode="Online"  data-domain="Data" data-desc="A free intro to data science career paths, tools, and how to get started as a fresher."><p class="cs-tag">Webinar · Free</p><p class="cs-title">Getting Started with Data Science</p><p class="cs-meta">2 Hours · Open to All</p></div>
+                <div class="carousel-slide" data-type="Coaching"  data-price="2499" data-mode="Online"  data-domain="Career" data-desc="Six personalized 1-on-1 sessions covering resume review, mock rounds, and a custom roadmap."><p class="cs-tag">Coaching · 1-on-1</p><p class="cs-title">Interview Coaching — Pro Plan</p><p class="cs-meta">6 Sessions · Personalized</p></div>
+              </div>
+              <button type="button" class="carousel-arrow" onclick="moveCarousel(1)" aria-label="Next">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <p class="carousel-count" id="carouselCount"></p>
+            <p class="carousel-empty" id="carouselEmpty">No programs match these filters. Try widening your search.</p>
+          </div>
+          <div class="form-group"><label>Preferred Mode</label>
+            <select id="mode" onchange="updateSummary()"><option>Online</option><option>Offline</option><option>Hybrid</option></select>
+          </div>
+          <div class="form-nav">
+            <span></span>
+            <button type="button" class="btn-next" onclick="goStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="form-step" data-step="2">
+          <h3>Your Details</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="First name" required></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Last name" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="you@example.com" required></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="phone" placeholder="+91 ..." required></div>
+          </div>
+          <div class="form-group"><label>Current Status</label>
+            <select id="status">
+              <option>Student</option><option>Recent Graduate</option><option>Working Professional</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="btn-ghost" onclick="goStep(1)">← Back</button>
+            <button type="button" class="btn-next" onclick="goStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="form-step" data-step="3">
+          <h3>Review &amp; Confirm</h3>
+          <div class="form-group"><label>Coupon Code (optional)</label><input type="text" id="coupon" placeholder="Enter code"></div>
+          <div class="form-group"><label>Anything we should know? (optional)</label><textarea id="notes" placeholder="Special requests, questions..." style="min-height:90px;"></textarea></div>
+          <div class="form-group" style="display:flex; align-items:center; gap:0.5rem;">
+            <input type="checkbox" id="terms" style="width:auto;" required>
+            <label for="terms" style="margin:0; font-weight:400; color:var(--ink-soft);">I agree to the terms &amp; conditions</label>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="btn-ghost" onclick="goStep(2)">← Back</button>
+            <button type="button" class="btn-next" onclick="submitReg()">Confirm Registration →</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="reg-success" id="regSuccess">
+          <div class="check">✓</div>
+          <h3>You're Registered!</h3>
+          <p>A confirmation email is on its way. Our team will reach out with the next steps and payment details shortly.</p>
+          <a href="index.html" class="btn-next" style="display:inline-block; text-decoration:none;">Back to Home →</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="reg-summary">
+      <p class="summary-eyebrow">Registration Summary</p>
+      <h3 class="summary-title" id="sumProgram">Full Stack Web Development</h3>
+      <p class="summary-desc" id="sumDesc">Build complete web apps from scratch with HTML, CSS, JavaScript, React, Node.js, and MongoDB.</p>
+      <div class="summary-row"><span class="lbl">Type</span><span class="val" id="sumType">Course</span></div>
+      <div class="summary-row"><span class="lbl">Mode</span><span class="val" id="sumMode">Online</span></div>
+      <div class="summary-total"><span class="lbl">Total</span><span class="amt" id="sumPrice">₹4,999</span></div>
+      <p class="summary-note">Includes course materials, certificate, and lifetime access to recorded sessions. 7-day money-back guarantee.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">Edu<span>Vance</span></p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Seminars</a></li>
+        <li><a href="courses.html#webinars">Webinars</a></li>
+        <li><a href="courses.html#study-material">Study Material</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="careers.html#internships">Internships</a></li>
+        <li><a href="careers.html#placement">Placement Support</a></li>
+        <li><a href="careers.html#coaching">Interview Coaching</a></li>
+        <li><a href="careers.html">Training Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 EduVance Academy. All rights reserved.</p>
+    <p>Built with ♥️ for learners everywhere</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+
+  let currentStep = 1;
+  function goStep(step) {
+    // validate details when moving from step 2 (Details) to step 3
+    if (step === 3 && currentStep === 2) {
+      const f = document.getElementById('fname').value, e = document.getElementById('email').value;
+      if (!f || !e) { alert('Please fill in your name and email.'); return; }
+    }
+    currentStep = step;
+    document.querySelectorAll('.form-step').forEach(s => s.classList.toggle('active', +s.dataset.step === step));
+    document.querySelectorAll('.step-dot').forEach(d => {
+      const n = +d.dataset.step;
+      d.classList.toggle('active', n === step);
+      d.classList.toggle('done', n < step);
+    });
+    updateSummary();
+  }
+
+  // ── Course carousel with filters ──
+  let carIndex = 0;
+  const allSlides = () => Array.from(document.querySelectorAll('.carousel-slide'));
+
+  // returns only slides that pass the current domain + price filters
+  function visibleSlides() {
+    const dom = document.getElementById('filterDomain').value;
+    const pr  = document.getElementById('filterPrice').value;
+    return allSlides().filter(s => {
+      const price = +s.dataset.price;
+      const domainOk = dom === 'all' || s.dataset.domain === dom;
+      let priceOk = true;
+      if (pr === 'free') priceOk = price === 0;
+      else if (pr === 'low')  priceOk = price > 0 && price < 2000;
+      else if (pr === 'mid')  priceOk = price >= 2000 && price <= 4000;
+      else if (pr === 'high') priceOk = price > 4000;
+      return domainOk && priceOk;
+    });
+  }
+
+  function buildDots() {
+    const dots = document.getElementById('carouselDots');
+    const vis = visibleSlides();
+    dots.innerHTML = '';
+    vis.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'dot' + (i === carIndex ? ' active' : '');
+      d.onclick = () => { carIndex = i; renderCarousel(); };
+      dots.appendChild(d);
+    });
+  }
+
+  function renderCarousel() {
+    const vis = visibleSlides();
+    // hide every slide first, then show only the current visible one
+    allSlides().forEach(s => s.classList.remove('active'));
+
+    const empty = document.getElementById('carouselEmpty');
+    const count = document.getElementById('carouselCount');
+
+    if (vis.length === 0) {
+      empty.style.display = 'block';
+      count.textContent = '';
+      document.getElementById('carouselDots').innerHTML = '';
+      // clear summary
+      document.getElementById('sumProgram').textContent = '—';
+      document.getElementById('sumDesc').textContent = 'Select filters to see matching programs.';
+      document.getElementById('sumType').textContent = '—';
+      document.getElementById('sumPrice').textContent = '—';
+      return;
+    }
+    empty.style.display = 'none';
+
+    if (carIndex >= vis.length) carIndex = 0;
+    vis[carIndex].classList.add('active');
+    document.querySelectorAll('#carouselDots .dot').forEach((d, i) => d.classList.toggle('active', i === carIndex));
+    count.textContent = `Program ${carIndex + 1} of ${vis.length}`;
+    updateSummary();
+  }
+
+  function moveCarousel(dir) {
+    const total = visibleSlides().length;
+    if (total === 0) return;
+    carIndex = (carIndex + dir + total) % total; // wraps around
+    renderCarousel();
+  }
+
+  function applyFilters() {
+    carIndex = 0;       // reset to first match
+    buildDots();
+    renderCarousel();
+  }
+
+  function updateSummary() {
+    const vis = visibleSlides();
+    const slide = vis[carIndex];
+    if (!slide) return;
+    const type  = slide.dataset.type;
+    const price = +slide.dataset.price;
+    const title = slide.querySelector('.cs-title').textContent;
+    const desc  = slide.dataset.desc || '';
+    const mode  = document.getElementById('mode').value || slide.dataset.mode;
+    document.getElementById('sumType').textContent = type;
+    document.getElementById('sumProgram').textContent = title;
+    document.getElementById('sumDesc').textContent = desc;
+    document.getElementById('sumMode').textContent = mode;
+    document.getElementById('sumPrice').textContent = price === 0 ? 'Free' : '₹' + price.toLocaleString('en-IN');
+  }
+
+  function submitReg() {
+    if (!document.getElementById('terms').checked) { alert('Please agree to the terms & conditions.'); return; }
+    document.getElementById('regForm').querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('regSuccess').style.display = 'block';
+    document.querySelectorAll('.step-dot').forEach(d => d.classList.add('done'));
+  }
+
+  // init carousel + summary on load
+  buildDots();
+  renderCarousel();
+</script>
+</body>
+</html>
