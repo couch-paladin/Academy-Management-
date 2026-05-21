@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses — EduVance Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --accent-light: #f0e4c8; --accent-dim: rgba(200,169,110,0.15);
+      --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08); --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,26,46,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,110,0.12);
+      padding: 0 2rem; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; letter-spacing: 0.01em; }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
+    .nav-cta:hover { background: #d4b87a !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--ink); padding: 8rem 2rem 5rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-circle:nth-child(2) { width: 420px; height: 420px; top: -140px; right: -100px; }
+    .hero-circle:nth-child(3) { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .page-eyebrow::before { content: '✦'; font-size: 8px; }
+    .page-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); font-weight: 400; line-height: 1.2; position: relative; z-index: 1; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 520px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 50; }
+    .filter-inner { max-width: 1100px; margin: 0 auto; padding: 0.85rem 2rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 0.4rem 1rem; border-radius: 999px; border: 1.5px solid var(--border); background: transparent; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover { background: var(--surface-2); color: var(--ink); }
+    .filter-btn.active { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+    .filter-count { margin-left: auto; font-size: 12.5px; color: var(--ink-muted); }
+
+    /* ── COURSES SECTION ── */
+    .courses-section { padding: 3.5rem 2rem 5rem; }
+    .courses-wrap { max-width: 1100px; margin: 0 auto; }
+    .category-block { margin-bottom: 3.5rem; }
+    .category-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; }
+    .category-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); font-weight: 400; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+
+    /* ── COURSE CARD ── */
+    .course-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .course-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(200,169,110,0.35); }
+    .course-thumb { background: var(--ink); height: 130px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .course-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(200,169,110,0.1), transparent 60%); }
+    .course-thumb-icon { font-size: 3rem; opacity: 0.55; }
+    .course-badge { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.65rem; border-radius: 999px; z-index: 1; }
+    .badge-online  { background: rgba(93,186,114,0.15);  color: #5dba72; border: 1px solid rgba(93,186,114,0.3); }
+    .badge-offline { background: rgba(212,112,90,0.15);  color: #d4705a; border: 1px solid rgba(212,112,90,0.3); }
+    .badge-hybrid  { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+    .badge-free    { background: rgba(90,172,220,0.15);  color: #5aacdc; border: 1px solid rgba(90,172,220,0.3); }
+    .course-body { padding: 1.25rem; flex: 1; }
+    .course-tag  { font-size: 10.5px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .course-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 0.5rem; }
+    .course-desc  { font-size: 13px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; }
+    .course-meta  { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .course-meta-item { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 4px; }
+    .course-footer { padding: 0 1.25rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .course-price { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); }
+    .course-price small { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--ink-muted); font-weight: 400; display: block; }
+    .btn-enroll { background: var(--ink); color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 0.5rem 1.25rem; border-radius: 999px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+    .btn-enroll:hover { background: var(--ink-mid); transform: translateY(-1px); }
+
+    /* ── WEBINARS ── */
+    .webinars-section { background: var(--surface-2); padding: 4rem 2rem; }
+    .webinars-wrap { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--ink); font-weight: 400; line-height: 1.2; margin-bottom: 0.75rem; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-sub { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; max-width: 500px; }
+    .webinar-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .webinar-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.5rem; transition: all 0.3s; text-decoration: none; color: inherit; }
+    .webinar-item:hover { box-shadow: var(--shadow); border-color: rgba(200,169,110,0.3); transform: translateX(4px); }
+    .webinar-datebox { background: var(--ink); color: var(--accent); border-radius: 10px; padding: 0.65rem 1rem; text-align: center; flex-shrink: 0; min-width: 58px; }
+    .webinar-datebox .day   { font-family: 'DM Serif Display', serif; font-size: 1.5rem; line-height: 1; }
+    .webinar-datebox .month { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+    .webinar-info { flex: 1; }
+    .webinar-tag   { font-size: 10.5px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.25rem; }
+    .webinar-title { font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+    .webinar-meta  { font-size: 12.5px; color: var(--ink-muted); display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-sm { background: var(--ink); color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 0.5rem 1.25rem; border-radius: 999px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; white-space: nowrap; }
+    .btn-sm:hover { background: var(--ink-mid); transform: translateY(-1px); }
+
+    /* ── STUDY MATERIAL ── */
+    .study-section { background: var(--white); padding: 4rem 2rem; }
+    .study-wrap { max-width: 1100px; margin: 0 auto; }
+    .study-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+    .study-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
+    .study-card:hover { box-shadow: var(--shadow); border-color: rgba(200,169,110,0.3); transform: translateY(-2px); }
+    .study-icon  { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .study-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 0.35rem; }
+    .study-desc  { font-size: 12.5px; color: var(--ink-soft); font-weight: 300; line-height: 1.5; }
+    .study-count { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 0.75rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+    .footer-brand {}
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 13px; line-height: 1.6; font-weight: 300; max-width: 220px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1100px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--ink); padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(200,169,110,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .webinar-item { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html" class="active">Courses</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <p class="page-eyebrow">All Courses</p>
+  <h1>Learn At Your <em>Own Pace</em></h1>
+  <p>Online, offline, and self-paced courses across tech, management, and more — with expert mentorship included.</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterCourses('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCourses('online', this)">Online</button>
+    <button class="filter-btn" onclick="filterCourses('offline', this)">Offline</button>
+    <button class="filter-btn" onclick="filterCourses('hybrid', this)">Hybrid</button>
+    <button class="filter-btn" onclick="filterCourses('free', this)">Free</button>
+    <span class="filter-count" id="courseCount">Showing 9 courses</span>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="courses-section">
+  <div class="courses-wrap">
+
+    <!-- TECH -->
+    <div class="category-block">
+      <p class="category-eyebrow">Technology</p>
+      <h2 class="category-title">Tech &amp; Development</h2>
+      <div class="courses-grid">
+
+        <a href="course-detail.html" class="course-card" data-mode="hybrid">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">💻</span>
+            <span class="course-badge badge-hybrid">Hybrid</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Web Dev</p>
+            <p class="course-title">Full Stack Web Development</p>
+            <p class="course-desc">HTML, CSS, JavaScript, React, Node.js, MongoDB — build complete web apps from scratch.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 8 Weeks</span>
+              <span class="course-meta-item">📚 32 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹4,999 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+        <a href="course-detail.html" class="course-card" data-mode="online">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">🤖</span>
+            <span class="course-badge badge-online">Online</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">AI / ML</p>
+            <p class="course-title">Machine Learning &amp; AI Fundamentals</p>
+            <p class="course-desc">Python, scikit-learn, TensorFlow — build and deploy real ML models step by step.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 10 Weeks</span>
+              <span class="course-meta-item">📚 40 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹5,999 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+        <a href="course-detail.html" class="course-card" data-mode="online">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">🛡️</span>
+            <span class="course-badge badge-online">Online</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Cybersecurity</p>
+            <p class="course-title">Ethical Hacking &amp; Cybersecurity</p>
+            <p class="course-desc">Network security, penetration testing, vulnerability assessment — with hands-on labs.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 6 Weeks</span>
+              <span class="course-meta-item">📚 24 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹3,999 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="category-block">
+      <p class="category-eyebrow">Data &amp; Analytics</p>
+      <h2 class="category-title">Data Science &amp; Analytics</h2>
+      <div class="courses-grid">
+
+        <a href="course-detail.html" class="course-card" data-mode="online">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">📊</span>
+            <span class="course-badge badge-online">Online</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Data Science</p>
+            <p class="course-title">Data Science with Python &amp; SQL</p>
+            <p class="course-desc">Data wrangling, visualization, statistics, and dashboards using Pandas, Matplotlib, and Power BI.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 8 Weeks</span>
+              <span class="course-meta-item">📚 35 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹4,499 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+        <a href="course-detail.html" class="course-card" data-mode="free">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">📈</span>
+            <span class="course-badge badge-free">Free</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Excel / Sheets</p>
+            <p class="course-title">Excel &amp; Google Sheets Masterclass</p>
+            <p class="course-desc">Formulas, pivot tables, charts, and automation — everything you need for data work in spreadsheets.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 2 Weeks</span>
+              <span class="course-meta-item">📚 10 Modules</span>
+              <span class="course-meta-item">✅ Self-paced</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">Free <small>No cost ever</small></div>
+            <a href="register.html" class="btn-enroll">Start →</a>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- BUSINESS -->
+    <div class="category-block">
+      <p class="category-eyebrow">Management &amp; Soft Skills</p>
+      <h2 class="category-title">Business &amp; Communication</h2>
+      <div class="courses-grid">
+
+        <a href="course-detail.html" class="course-card" data-mode="offline">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">🧠</span>
+            <span class="course-badge badge-offline">Offline</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Soft Skills</p>
+            <p class="course-title">Communication &amp; Leadership Skills</p>
+            <p class="course-desc">Public speaking, group discussions, email writing, and professional presence — in-person training.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 4 Weeks</span>
+              <span class="course-meta-item">📚 16 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹2,499 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+        <a href="course-detail.html" class="course-card" data-mode="hybrid">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">📌</span>
+            <span class="course-badge badge-hybrid">Hybrid</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Project Management</p>
+            <p class="course-title">Agile &amp; Project Management Basics</p>
+            <p class="course-desc">Scrum, Kanban, project planning, and team coordination — for aspiring PMs and team leads.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 5 Weeks</span>
+              <span class="course-meta-item">📚 20 Modules</span>
+              <span class="course-meta-item">🎓 Certificate</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">₹2,999 <small>One-time payment</small></div>
+            <a href="register.html" class="btn-enroll">Enroll →</a>
+          </div>
+        </a>
+
+        <a href="course-detail.html" class="course-card" data-mode="free">
+          <div class="course-thumb">
+            <span class="course-thumb-icon">💼</span>
+            <span class="course-badge badge-free">Free</span>
+          </div>
+          <div class="course-body">
+            <p class="course-tag">Career Skills</p>
+            <p class="course-title">Resume Building &amp; LinkedIn Masterclass</p>
+            <p class="course-desc">Craft a standout resume and LinkedIn profile that gets you noticed by top recruiters.</p>
+            <div class="course-meta">
+              <span class="course-meta-item">⏱ 1 Week</span>
+              <span class="course-meta-item">📚 6 Modules</span>
+              <span class="course-meta-item">✅ Self-paced</span>
+            </div>
+          </div>
+          <div class="course-footer">
+            <div class="course-price">Free <small>No cost ever</small></div>
+            <a href="register.html" class="btn-enroll">Start →</a>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WEBINARS -->
+<section class="webinars-section" id="webinars">
+  <div class="webinars-wrap">
+    <p class="section-eyebrow">Live Sessions</p>
+    <h2 class="section-title">Upcoming <em>Webinars</em></h2>
+    <p class="section-sub">Free and paid live sessions with industry professionals. Ask questions and learn in real time.</p>
+    <div class="webinar-list">
+
+      <a href="register.html" class="webinar-item">
+        <div class="webinar-datebox"><div class="day">20</div><div class="month">Jun</div></div>
+        <div class="webinar-info">
+          <p class="webinar-tag">AI &amp; Technology</p>
+          <p class="webinar-title">AI &amp; Machine Learning in Industry — Expert Panel</p>
+          <div class="webinar-meta"><span>🕙 10 AM – 1 PM</span><span>🌐 Online</span><span>💰 ₹299</span><span>28 seats left</span></div>
+        </div>
+        <a href="register.html" class="btn-sm">Register →</a>
+      </a>
+
+      <a href="register.html" class="webinar-item">
+        <div class="webinar-datebox"><div class="day">28</div><div class="month">Jun</div></div>
+        <div class="webinar-info">
+          <p class="webinar-tag">Career Prep</p>
+          <p class="webinar-title">Cracking Campus Placements in 2026</p>
+          <div class="webinar-meta"><span>🕕 6 PM – 8 PM</span><span>🌐 Online</span><span>🆓 Free</span><span>Open to all</span></div>
+        </div>
+        <a href="register.html" class="btn-sm">Register →</a>
+      </a>
+
+      <a href="register.html" class="webinar-item">
+        <div class="webinar-datebox"><div class="day">05</div><div class="month">Jul</div></div>
+        <div class="webinar-info">
+          <p class="webinar-tag">Data Science</p>
+          <p class="webinar-title">Data Analytics for Freshers — Getting Started</p>
+          <div class="webinar-meta"><span>🕔 4 PM – 6 PM</span><span>🌐 Online</span><span>🆓 Free</span><span>Open to all</span></div>
+        </div>
+        <a href="register.html" class="btn-sm">Register →</a>
+      </a>
+
+      <a href="register.html" class="webinar-item">
+        <div class="webinar-datebox"><div class="day">12</div><div class="month">Jul</div></div>
+        <div class="webinar-info">
+          <p class="webinar-tag">Product &amp; Design</p>
+          <p class="webinar-title">Breaking into Product Management — AMA with Senior PMs</p>
+          <div class="webinar-meta"><span>🕔 5 PM – 7 PM</span><span>🌐 Online</span><span>💰 ₹199</span><span>40 seats left</span></div>
+        </div>
+        <a href="register.html" class="btn-sm">Register →</a>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- STUDY MATERIAL -->
+<section class="study-section" id="study-material">
+  <div class="study-wrap">
+    <p class="section-eyebrow">Resources</p>
+    <h2 class="section-title">Study <em>Materials</em></h2>
+    <p class="section-sub">Downloadable notes, cheatsheets, practice tests, and recorded sessions — all in one place for enrolled students.</p>
+    <div class="study-grid">
+      <a href="#" class="study-card">
+        <div class="study-icon">📄</div>
+        <p class="study-title">Lecture Notes &amp; PDFs</p>
+        <p class="study-desc">Comprehensive notes for every module across all courses, updated every semester.</p>
+        <p class="study-count">120+ documents available</p>
+      </a>
+      <a href="#" class="study-card">
+        <div class="study-icon">🎥</div>
+        <p class="study-title">Recorded Sessions</p>
+        <p class="study-desc">Miss a class? All sessions are recorded and available for enrolled students within 24 hours.</p>
+        <p class="study-count">200+ hours of content</p>
+      </a>
+      <a href="#" class="study-card">
+        <div class="study-icon">📝</div>
+        <p class="study-title">Practice Tests &amp; Quizzes</p>
+        <p class="study-desc">Topic-wise quizzes, mock tests, and previous placement question papers to sharpen your prep.</p>
+        <p class="study-count">50+ test sets</p>
+      </a>
+      <a href="#" class="study-card">
+        <div class="study-icon">🗂️</div>
+        <p class="study-title">Cheat Sheets &amp; Quick Refs</p>
+        <p class="study-desc">One-page reference guides for DSA, SQL, Python, and more — perfect for last-minute revision.</p>
+        <p class="study-count">40+ cheatsheets</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-logo">Edu<span>Vance</span></p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Seminars</a></li>
+        <li><a href="courses.html#webinars">Webinars</a></li>
+        <li><a href="courses.html#study-material">Study Material</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="careers.html#internships">Internships</a></li>
+        <li><a href="careers.html#placement">Placement Support</a></li>
+        <li><a href="careers.html#coaching">Interview Coaching</a></li>
+        <li><a href="careers.html">Training Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 EduVance Academy. All rights reserved.</p>
+    <p>Built with ♥️ for learners everywhere</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  function filterCourses(mode, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.course-card');
+    let count = 0;
+    cards.forEach(card => {
+      const show = mode === 'all' || card.dataset.mode === mode;
+      card.style.display = show ? 'flex' : 'none';
+      if (show) count++;
+    });
+    document.getElementById('courseCount').textContent = `Showing ${count} course${count !== 1 ? 's' : ''}`;
+  }
+</script>
+</body>
+</html>

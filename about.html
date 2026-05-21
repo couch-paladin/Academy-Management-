@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — EduVance Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --accent-light: #f0e4c8; --accent-dim: rgba(200,169,110,0.15);
+      --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08); --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; letter-spacing: 0.01em; }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
+    .nav-cta:hover { background: #d4b87a !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: var(--ink); padding: 8rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-circle:nth-child(2) { width: 420px; height: 420px; top: -140px; right: -100px; }
+    .hero-circle:nth-child(3) { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .page-eyebrow::before { content: '✦'; font-size: 8px; }
+    .page-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); font-weight: 400; line-height: 1.2; position: relative; z-index: 1; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 540px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
+
+    /* ── SECTION HELPERS ── */
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--ink); font-weight: 400; line-height: 1.2; margin-bottom: 0.75rem; }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .section-sub { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
+
+    /* ── STORY ── */
+    .story { padding: 4.5rem 2rem; background: var(--white); }
+    .story-wrap { max-width: 900px; margin: 0 auto; text-align: center; }
+    .story-text { font-size: 16px; color: var(--ink-soft); line-height: 1.9; font-weight: 300; margin-top: 1.5rem; }
+    .story-text strong { color: var(--ink); font-weight: 600; }
+
+    /* ── MISSION / VISION ── */
+    .mv { padding: 4rem 2rem; background: var(--surface); }
+    .mv-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .mv-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; transition: all 0.3s; }
+    .mv-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(200,169,110,0.3); }
+    .mv-icon { width: 52px; height: 52px; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
+    .mv-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 0.75rem; }
+    .mv-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
+
+    /* ── VALUES ── */
+    .values { padding: 4rem 2rem; background: var(--white); }
+    .values-wrap { max-width: 1100px; margin: 0 auto; }
+    .values-head { text-align: center; margin-bottom: 3rem; }
+    .values-head .section-sub { max-width: 500px; margin: 0 auto; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: all 0.3s; }
+    .value-card:hover { border-color: rgba(200,169,110,0.4); box-shadow: var(--shadow); }
+    .value-icon { font-size: 1.75rem; margin-bottom: 0.85rem; }
+    .value-title { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+    .value-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; }
+
+    /* ── STATS BAND ── */
+    .stats-band { background: var(--ink); padding: 3.5rem 2rem; }
+    .stats-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; text-align: center; }
+    .stat-item .num { font-family: 'DM Serif Display', serif; font-size: 2.6rem; color: var(--accent); display: block; line-height: 1; }
+    .stat-item .label { font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; margin-top: 0.5rem; }
+
+    /* ── TEAM ── */
+    .team { padding: 4rem 2rem; background: var(--surface-2); }
+    .team-wrap { max-width: 1100px; margin: 0 auto; }
+    .team-head { text-align: center; margin-bottom: 3rem; }
+    .team-head .section-sub { max-width: 500px; margin: 0 auto; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .team-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; }
+    .team-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); margin: 0 auto 1rem; }
+    .team-name { font-size: 1rem; font-weight: 600; color: var(--ink); }
+    .team-role { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-top: 0.25rem; }
+    .team-bio { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; margin-top: 0.75rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: var(--ink); padding: 4rem 2rem; text-align: center; }
+    .cta-banner h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: var(--white); margin-bottom: 0.75rem; }
+    .cta-banner h2 em { font-style: italic; color: var(--accent); }
+    .cta-banner p { color: rgba(255,255,255,0.45); font-size: 15px; font-weight: 300; margin-bottom: 2rem; }
+    .btn-primary { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 1rem 2.5rem; border-radius: 999px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s; }
+    .btn-primary:hover { background: #d4b87a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,169,110,0.35); }
+
+    /* ── FOOTER ── */
+    footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 13px; line-height: 1.6; font-weight: 300; max-width: 220px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1100px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--ink); padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(200,169,110,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .mv-wrap { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <p class="page-eyebrow">About Us</p>
+  <h1>Bridging Learning<br/>&amp; <em>Opportunity</em></h1>
+  <p>We're on a mission to make quality education and real career outcomes accessible to every learner, everywhere.</p>
+</div>
+
+<!-- STORY -->
+<section class="story">
+  <div class="story-wrap">
+    <p class="section-eyebrow">Our Story</p>
+    <h2 class="section-title">Why We Built <em>EduVance</em></h2>
+    <p class="story-text">EduVance Academy started with a simple frustration: <strong>too many talented students were graduating without the practical skills or industry connections to land good jobs.</strong> Traditional education taught theory, but rarely prepared learners for the real world.</p>
+    <p class="story-text">So we built a single hub that brings everything together — <strong>workshops, online and offline courses, live webinars, internships, and end-to-end placement support.</strong> No more juggling a dozen platforms or paying for scattered services. Just one place to learn, grow, and get hired.</p>
+    <p class="story-text">Today, we've trained over <strong>5,000 students</strong>, partnered with <strong>80+ companies</strong>, and maintained a <strong>94% placement rate</strong> — and we're just getting started.</p>
+  </div>
+</section>
+
+<!-- MISSION / VISION -->
+<section class="mv">
+  <div class="mv-wrap">
+    <div class="mv-card">
+      <div class="mv-icon">🎯</div>
+      <h3 class="mv-title">Our Mission</h3>
+      <p class="mv-desc">To make practical, career-focused education accessible and affordable — equipping every learner with the skills, confidence, and connections they need to succeed in the modern workplace.</p>
+    </div>
+    <div class="mv-card">
+      <div class="mv-icon">🔭</div>
+      <h3 class="mv-title">Our Vision</h3>
+      <p class="mv-desc">A world where talent — not access or background — determines opportunity. We envision becoming the go-to learning and career hub for students across the country and beyond.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-wrap">
+    <div class="values-head">
+      <p class="section-eyebrow">What Drives Us</p>
+      <h2 class="section-title">Our Core <em>Values</em></h2>
+      <p class="section-sub">The principles that shape every course, workshop, and interaction at EduVance.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">🤲</div><p class="value-title">Accessibility</p><p class="value-desc">Quality education shouldn't be a privilege. We keep our programs affordable and inclusive.</p></div>
+      <div class="value-card"><div class="value-icon">⚡</div><p class="value-title">Practicality</p><p class="value-desc">We teach what actually matters in the workplace — real projects, real tools, real outcomes.</p></div>
+      <div class="value-card"><div class="value-icon">🤝</div><p class="value-title">Commitment</p><p class="value-desc">We don't stop at teaching. We stay with you until you reach your career goals.</p></div>
+      <div class="value-card"><div class="value-icon">🌱</div><p class="value-title">Growth</p><p class="value-desc">We constantly evolve our curriculum to stay ahead of industry trends and demands.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band">
+  <div class="stats-wrap">
+    <div class="stat-item"><span class="num">120+</span><span class="label">Courses Available</span></div>
+    <div class="stat-item"><span class="num">5,000+</span><span class="label">Students Trained</span></div>
+    <div class="stat-item"><span class="num">94%</span><span class="label">Placement Rate</span></div>
+    <div class="stat-item"><span class="num">80+</span><span class="label">Industry Partners</span></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="team-wrap">
+    <div class="team-head">
+      <p class="section-eyebrow">The People</p>
+      <h2 class="section-title">Meet Our <em>Team</em></h2>
+      <p class="section-sub">A passionate group of educators, mentors, and industry veterans behind EduVance.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">S</div><p class="team-name">Sahana Reddy</p><p class="team-role">Founder &amp; CEO</p><p class="team-bio">Ex-product leader with 12 years in EdTech. Passionate about closing the skills gap.</p></div>
+      <div class="team-card"><div class="team-avatar">V</div><p class="team-name">Vikram Iyer</p><p class="team-role">Head of Curriculum</p><p class="team-bio">Former engineering manager who designs industry-aligned learning paths.</p></div>
+      <div class="team-card"><div class="team-avatar">N</div><p class="team-name">Neha Sharma</p><p class="team-role">Placement Director</p><p class="team-bio">Built our 80+ company partner network and leads career services.</p></div>
+      <div class="team-card"><div class="team-avatar">A</div><p class="team-name">Arjun Menon</p><p class="team-role">Lead Instructor</p><p class="team-bio">Full-stack developer and mentor who has trained thousands of students.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div>
+    <h2>Ready to Join the <em>EduVance</em> Family?</h2>
+    <p>Start your learning journey with thousands of students already growing with us.</p>
+    <a href="register.html" class="btn-primary">Get Started Today →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">Edu<span>Vance</span></p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Seminars</a></li>
+        <li><a href="courses.html#webinars">Webinars</a></li>
+        <li><a href="courses.html#study-material">Study Material</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="careers.html#internships">Internships</a></li>
+        <li><a href="careers.html#placement">Placement Support</a></li>
+        <li><a href="careers.html#coaching">Interview Coaching</a></li>
+        <li><a href="careers.html">Training Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 EduVance Academy. All rights reserved.</p>
+    <p>Built with ♥️ for learners everywhere</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
