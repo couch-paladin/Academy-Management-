@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback — EduVance Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --accent-light: #f0e4c8; --accent-dim: rgba(200,169,110,0.15);
+      --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08); --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+      --green: #5dba72;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; letter-spacing: 0.01em; }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
+    .nav-cta:hover { background: #d4b87a !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .page-hero { background: var(--ink); padding: 8rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
+    .hero-circle:nth-child(2) { width: 420px; height: 420px; top: -140px; right: -100px; }
+    .hero-circle:nth-child(3) { width: 260px; height: 260px; bottom: -80px; left: -60px; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .page-eyebrow::before { content: '✦'; font-size: 8px; }
+    .page-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); font-weight: 400; line-height: 1.2; position: relative; z-index: 1; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 520px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
+    .feedback-section { padding: 3.5rem 2rem 5rem; }
+    .feedback-wrap { max-width: 860px; margin: 0 auto; }
+    .progress-bar-wrap { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.75rem; margin-bottom: 1.75rem; display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow); }
+    .progress-label { font-size: 12.5px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
+    .progress-track { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #d4b87a); border-radius: 999px; width: 0%; transition: width 0.4s ease; }
+    .progress-count { font-size: 12.5px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; box-shadow: var(--shadow); margin-bottom: 1.5rem; }
+    .card-eyebrow { font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.4rem; }
+    .card-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-mid); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 0.95rem; transition: all 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); background: var(--white); box-shadow: 0 0 0 3px var(--accent-dim); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 0.75rem; margin-top: 0.25rem; }
+    .course-pill { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; cursor: pointer; transition: all 0.2s; text-align: center; background: var(--surface); display: block; }
+    .course-pill:hover { border-color: rgba(200,169,110,0.5); background: var(--accent-dim); }
+    .course-pill.selected { border-color: var(--accent); background: rgba(200,169,110,0.08); }
+    .course-pill input[type="radio"] { display: none; }
+    .cp-icon { font-size: 1.5rem; margin-bottom: 0.35rem; display: block; }
+    .cp-name { font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.3; display: block; }
+    .cp-type { font-size: 10.5px; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; display: block; }
+    .instructor-select-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .instructor-select-wrap label { font-size: 12.5px; font-weight: 600; color: var(--ink-mid); white-space: nowrap; }
+    .instructor-select-wrap select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; flex: 1; min-width: 200px; transition: all 0.2s; }
+    .instructor-select-wrap select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+    .rating-block { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin-bottom: 0.85rem; background: var(--surface); transition: border-color 0.2s; }
+    .rating-block:hover { border-color: rgba(200,169,110,0.3); }
+    .rating-question { font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+    .rating-sub { font-size: 12px; color: var(--ink-muted); font-weight: 300; margin-bottom: 0.85rem; }
+    .star-group { display: flex; flex-direction: row-reverse; gap: 0.4rem; }
+    .star-group input[type="radio"] { display: none; }
+    .star-group label { font-size: 1.7rem; cursor: pointer; color: #ddd; transition: color 0.15s, transform 0.12s; line-height: 1; }
+    .star-group label:hover { transform: scale(1.15); }
+    .star-group input[type="radio"]:checked ~ label, .star-group label:hover, .star-group label:hover ~ label { color: var(--accent); }
+    .rating-section { display: none; }
+    .rating-section.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .form-alert { display: none; font-size: 13.5px; padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; }
+    .alert-success { background: rgba(93,186,114,0.1); border: 1px solid rgba(93,186,114,0.3); color: #4a9c5d; }
+    .alert-error { background: rgba(212,112,90,0.1); border: 1px solid rgba(212,112,90,0.3); color: #b85a44; }
+    .form-actions { display: flex; gap: 1rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .btn-submit { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; padding: 0.9rem 2.5rem; border-radius: 999px; border: none; cursor: pointer; transition: all 0.25s; flex: 1; }
+    .btn-submit:hover { background: #d4b87a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,169,110,0.35); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-reset { background: transparent; color: var(--ink-soft); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 0.9rem 1.75rem; border-radius: 999px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.2s; }
+    .btn-reset:hover { border-color: var(--ink); color: var(--ink); }
+    .success-screen { display: none; text-align: center; padding: 3rem 1rem; }
+    .success-screen .check { width: 72px; height: 72px; border-radius: 50%; background: rgba(93,186,114,0.12); border: 2px solid rgba(93,186,114,0.4); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.5rem; }
+    .success-screen h3 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); margin-bottom: 0.6rem; }
+    .success-screen p { font-size: 14px; color: var(--ink-soft); font-weight: 300; line-height: 1.7; max-width: 420px; margin: 0 auto 1.75rem; }
+    .btn-home { background: var(--ink); color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 0.8rem 2rem; border-radius: 999px; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-home:hover { background: var(--ink-mid); transform: translateY(-1px); }
+    footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 13px; line-height: 1.6; font-weight: 300; max-width: 220px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13.5px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1100px; margin: 2.5rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 0.5rem; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--ink); padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(200,169,110,0.12); }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .course-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="workshops.html">Workshops</a></li>
+    <li><a href="careers.html">Careers</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="feedback.html">Feedback</a></li>
+    <li><a href="register.html" class="nav-cta">Register</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-dots"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <p class="page-eyebrow">Your Voice Matters</p>
+  <h1>Share Your <em>Feedback</em></h1>
+  <p>Help us improve by rating your instructors and sharing honest feedback about your EduVance learning experience.</p>
+</div>
+
+<section class="feedback-section">
+  <div class="feedback-wrap">
+
+    <div class="progress-bar-wrap" id="progressWrap">
+      <span class="progress-label">Rating Progress</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-count" id="progressCount">0 / 6 rated</span>
+    </div>
+
+    <div class="form-alert alert-success" id="alertSuccess">✓ Thank you! Your feedback has been submitted. We will use it to keep improving.</div>
+    <div class="form-alert alert-error" id="alertError">✕ Something went wrong. Please try again or email us at hello@eduvance.com.</div>
+
+    <form id="feedbackForm">
+
+      <!-- STEP 1 -->
+      <div class="form-card" id="card1">
+        <p class="card-eyebrow">Step 1</p>
+        <h2 class="card-title">Your Information</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="student_name">Full Name</label>
+            <input type="text" id="student_name" name="student_name" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="program_type">What did you enroll in?</label>
+            <select id="program_type" name="program_type" required>
+              <option value="">Select type</option>
+              <option>Course</option>
+              <option>Workshop</option>
+              <option>Seminar / Webinar</option>
+              <option>Interview Coaching</option>
+              <option>Placement Program</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="batch">Batch / Duration</label>
+            <input type="text" id="batch" name="batch" placeholder="e.g. June 2026 / 8 Weeks" />
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="form-card" id="card2">
+        <p class="card-eyebrow">Step 2</p>
+        <h2 class="card-title">Select Your Course or Program</h2>
+        <div class="course-grid">
+          <label class="course-pill" onclick="selectCourse('Full Stack Web Development')">
+            <input type="radio" name="course" value="Full Stack Web Development" />
+            <span class="cp-icon">💻</span><span class="cp-name">Full Stack Web Dev</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Machine Learning and AI Fundamentals')">
+            <input type="radio" name="course" value="Machine Learning and AI Fundamentals" />
+            <span class="cp-icon">🤖</span><span class="cp-name">ML &amp; AI Fundamentals</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Ethical Hacking and Cybersecurity')">
+            <input type="radio" name="course" value="Ethical Hacking and Cybersecurity" />
+            <span class="cp-icon">🛡️</span><span class="cp-name">Cybersecurity</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Data Science with Python and SQL')">
+            <input type="radio" name="course" value="Data Science with Python and SQL" />
+            <span class="cp-icon">📊</span><span class="cp-name">Data Science</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Excel and Google Sheets Masterclass')">
+            <input type="radio" name="course" value="Excel and Google Sheets Masterclass" />
+            <span class="cp-icon">📈</span><span class="cp-name">Excel &amp; Sheets</span><span class="cp-type">Free Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Communication and Leadership Skills')">
+            <input type="radio" name="course" value="Communication and Leadership Skills" />
+            <span class="cp-icon">🧠</span><span class="cp-name">Communication &amp; Leadership</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Agile and Project Management')">
+            <input type="radio" name="course" value="Agile and Project Management" />
+            <span class="cp-icon">📌</span><span class="cp-name">Agile &amp; Project Mgmt</span><span class="cp-type">Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Resume Building and LinkedIn Masterclass')">
+            <input type="radio" name="course" value="Resume Building and LinkedIn Masterclass" />
+            <span class="cp-icon">💼</span><span class="cp-name">Resume &amp; LinkedIn</span><span class="cp-type">Free Course</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Interview Coaching')">
+            <input type="radio" name="course" value="Interview Coaching" />
+            <span class="cp-icon">🎯</span><span class="cp-name">Interview Coaching</span><span class="cp-type">Coaching</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Workshop or Seminar or Webinar')">
+            <input type="radio" name="course" value="Workshop or Seminar or Webinar" />
+            <span class="cp-icon">⚡</span><span class="cp-name">Workshop / Event</span><span class="cp-type">Event</span>
+          </label>
+          <label class="course-pill" onclick="selectCourse('Placement Support Program')">
+            <input type="radio" name="course" value="Placement Support Program" />
+            <span class="cp-icon">🚀</span><span class="cp-name">Placement Support</span><span class="cp-type">Career</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="form-card rating-section" id="card3">
+        <p class="card-eyebrow">Step 3</p>
+        <h2 class="card-title" id="ratingTitle">Rate Your Experience</h2>
+
+        <div class="instructor-select-wrap">
+          <label for="instructor">Your Instructor:</label>
+          <select id="instructor" name="instructor">
+            <option value="">Select your instructor (if applicable)</option>
+            <option value="Instructor 1">Instructor 1</option>
+            <option value="Instructor 2">Instructor 2</option>
+            <option value="Instructor 3">Instructor 3</option>
+            <option value="Multiple Instructors">Multiple Instructors</option>
+            <option value="Not Applicable">Not Applicable</option>
+          </select>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">1. Content Quality</p>
+          <p class="rating-sub">Was the course content relevant, up-to-date, and aligned with industry needs?</p>
+          <div class="star-group">
+            <input type="radio" name="r_content" id="rc5" value="5"/><label for="rc5">★</label>
+            <input type="radio" name="r_content" id="rc4" value="4"/><label for="rc4">★</label>
+            <input type="radio" name="r_content" id="rc3" value="3"/><label for="rc3">★</label>
+            <input type="radio" name="r_content" id="rc2" value="2"/><label for="rc2">★</label>
+            <input type="radio" name="r_content" id="rc1" value="1"/><label for="rc1">★</label>
+          </div>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">2. Instructor Clarity</p>
+          <p class="rating-sub">Did the instructor explain concepts clearly and effectively?</p>
+          <div class="star-group">
+            <input type="radio" name="r_clarity" id="rcl5" value="5"/><label for="rcl5">★</label>
+            <input type="radio" name="r_clarity" id="rcl4" value="4"/><label for="rcl4">★</label>
+            <input type="radio" name="r_clarity" id="rcl3" value="3"/><label for="rcl3">★</label>
+            <input type="radio" name="r_clarity" id="rcl2" value="2"/><label for="rcl2">★</label>
+            <input type="radio" name="r_clarity" id="rcl1" value="1"/><label for="rcl1">★</label>
+          </div>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">3. Hands-On Practice</p>
+          <p class="rating-sub">Were there enough real projects, exercises, and practical activities?</p>
+          <div class="star-group">
+            <input type="radio" name="r_practice" id="rp5" value="5"/><label for="rp5">★</label>
+            <input type="radio" name="r_practice" id="rp4" value="4"/><label for="rp4">★</label>
+            <input type="radio" name="r_practice" id="rp3" value="3"/><label for="rp3">★</label>
+            <input type="radio" name="r_practice" id="rp2" value="2"/><label for="rp2">★</label>
+            <input type="radio" name="r_practice" id="rp1" value="1"/><label for="rp1">★</label>
+          </div>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">4. Doubt Resolution</p>
+          <p class="rating-sub">Were your questions and doubts addressed promptly and clearly?</p>
+          <div class="star-group">
+            <input type="radio" name="r_doubts" id="rd5" value="5"/><label for="rd5">★</label>
+            <input type="radio" name="r_doubts" id="rd4" value="4"/><label for="rd4">★</label>
+            <input type="radio" name="r_doubts" id="rd3" value="3"/><label for="rd3">★</label>
+            <input type="radio" name="r_doubts" id="rd2" value="2"/><label for="rd2">★</label>
+            <input type="radio" name="r_doubts" id="rd1" value="1"/><label for="rd1">★</label>
+          </div>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">5. Career Support</p>
+          <p class="rating-sub">How helpful was the placement assistance, resume help, or career guidance?</p>
+          <div class="star-group">
+            <input type="radio" name="r_career" id="rca5" value="5"/><label for="rca5">★</label>
+            <input type="radio" name="r_career" id="rca4" value="4"/><label for="rca4">★</label>
+            <input type="radio" name="r_career" id="rca3" value="3"/><label for="rca3">★</label>
+            <input type="radio" name="r_career" id="rca2" value="2"/><label for="rca2">★</label>
+            <input type="radio" name="r_career" id="rca1" value="1"/><label for="rca1">★</label>
+          </div>
+        </div>
+
+        <div class="rating-block">
+          <p class="rating-question">6. Overall Experience</p>
+          <p class="rating-sub">How would you rate your overall experience with EduVance?</p>
+          <div class="star-group">
+            <input type="radio" name="r_overall" id="ro5" value="5"/><label for="ro5">★</label>
+            <input type="radio" name="r_overall" id="ro4" value="4"/><label for="ro4">★</label>
+            <input type="radio" name="r_overall" id="ro3" value="3"/><label for="ro3">★</label>
+            <input type="radio" name="r_overall" id="ro2" value="2"/><label for="ro2">★</label>
+            <input type="radio" name="r_overall" id="ro1" value="1"/><label for="ro1">★</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1.25rem;">
+          <label>Would you recommend EduVance to others?</label>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem;">
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:13.5px;cursor:pointer;font-weight:400;"><input type="radio" name="recommend" value="Yes, definitely" style="accent-color:var(--accent);"/> Yes, definitely</label>
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:13.5px;cursor:pointer;font-weight:400;"><input type="radio" name="recommend" value="Probably yes" style="accent-color:var(--accent);"/> Probably yes</label>
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:13.5px;cursor:pointer;font-weight:400;"><input type="radio" name="recommend" value="Not sure" style="accent-color:var(--accent);"/> Not sure</label>
+            <label style="display:flex;align-items:center;gap:0.4rem;font-size:13.5px;cursor:pointer;font-weight:400;"><input type="radio" name="recommend" value="Probably not" style="accent-color:var(--accent);"/> Probably not</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comments">Additional Comments <span style="font-weight:300;color:var(--ink-muted);">(Optional)</span></label>
+          <textarea id="comments" name="comments" placeholder="What did you enjoy most? What could we improve?"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submitBtn">Submit Feedback →</button>
+          <button type="button" class="btn-reset" onclick="resetForm()">Clear Form</button>
+        </div>
+      </div>
+
+      <div class="form-card success-screen" id="successScreen">
+        <div class="check">✓</div>
+        <h3>Feedback Submitted!</h3>
+        <p>Thank you for sharing your experience. Your feedback directly shapes how we teach and support our students at EduVance.</p>
+        <a href="index.html" class="btn-home">Back to Home →</a>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-logo">Edu<span>Vance</span></p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Seminars</a></li>
+        <li><a href="courses.html#webinars">Webinars</a></li>
+        <li><a href="courses.html#study-material">Study Material</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="careers.html#internships">Internships</a></li>
+        <li><a href="careers.html#placement">Placement Support</a></li>
+        <li><a href="careers.html#coaching">Interview Coaching</a></li>
+        <li><a href="careers.html">Training Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academy</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©️ 2026 EduVance Academy. All rights reserved.</p>
+    <p>Built with ♥️ for learners everywhere</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  function selectCourse(label) {
+    document.querySelectorAll('.course-pill').forEach(p => p.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    document.getElementById('ratingTitle').textContent = 'Rate: ' + label;
+    const card = document.getElementById('card3');
+    card.classList.add('active');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  const ratingNames = ['r_content','r_clarity','r_practice','r_doubts','r_career','r_overall'];
+  function updateProgress() {
+    let rated = ratingNames.filter(n => document.querySelector('input[name="' + n + '"]:checked')).length;
+    const pct = Math.round((rated / ratingNames.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = rated + ' / ' + ratingNames.length + ' rated';
+  }
+  document.querySelectorAll('.star-group input').forEach(i => i.addEventListener('change', updateProgress));
+
+  function resetForm() {
+    document.getElementById('feedbackForm').reset();
+    document.querySelectorAll('.course-pill').forEach(p => p.classList.remove('selected'));
+    document.getElementById('card3').classList.remove('active');
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressCount').textContent = '0 / 6 rated';
+    document.getElementById('alertSuccess').style.display = 'none';
+    document.getElementById('alertError').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    document.getElementById('alertSuccess').style.display = 'none';
+    document.getElementById('alertError').style.display = 'none';
+    if (!document.querySelector('input[name="course"]:checked')) {
+      alert('Please select a course or program before submitting.');
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    try {
+      const res = await fetch('https://formspree.io/f/mvzyaedn', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.querySelectorAll('.form-card:not(#successScreen)').forEach(c => c.style.display = 'none');
+        document.getElementById('progressWrap').style.display = 'none';
+        const s = document.getElementById('successScreen');
+        s.style.display = 'block';
+        s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        document.getElementById('alertError').style.display = 'block';
+        document.getElementById('alertError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } catch(err) {
+      document.getElementById('alertError').style.display = 'block';
+      document.getElementById('alertError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    btn.disabled = false;
+    btn.textContent = 'Submit Feedback →';
+  });
+</script>
+</body>
+</html>
