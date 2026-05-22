@@ -89,9 +89,9 @@
     .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
     .team-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; }
     .team-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
-    .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); margin: 0 auto 1rem; }
+    .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem; }
     .team-name { font-size: 1rem; font-weight: 600; color: var(--ink); }
-    .team-role { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-top: 0.25rem; }
+    .team-role { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-top: 0.25rem; letter-spacing: 0.04em; text-transform: uppercase; }
     .team-bio { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; margin-top: 0.75rem; }
 
     /* CTA BANNER */
@@ -217,10 +217,30 @@
       <p class="section-sub">A passionate group of educators, mentors, and industry veterans behind EduVance.</p>
     </div>
     <div class="team-grid">
-      <div class="team-card"><div class="team-avatar">S</div><p class="team-name">Sahana Reddy</p><p class="team-role">Founder &amp; CEO</p><p class="team-bio">Ex-product leader with 12 years in EdTech. Passionate about closing the skills gap.</p></div>
-      <div class="team-card"><div class="team-avatar">V</div><p class="team-name">Vikram Iyer</p><p class="team-role">Head of Curriculum</p><p class="team-bio">Former engineering manager who designs industry-aligned learning paths.</p></div>
-      <div class="team-card"><div class="team-avatar">N</div><p class="team-name">Neha Sharma</p><p class="team-role">Placement Director</p><p class="team-bio">Built our 80+ company partner network and leads career services.</p></div>
-      <div class="team-card"><div class="team-avatar">A</div><p class="team-name">Arjun Menon</p><p class="team-role">Lead Instructor</p><p class="team-bio">Full-stack developer and mentor who has trained thousands of students.</p></div>
+      <div class="team-card">
+        <div class="team-avatar">👤</div>
+        <p class="team-name">Founder &amp; CEO</p>
+        <p class="team-role">Leadership</p>
+        <p class="team-bio">Ex-product leader with 12 years in EdTech. Passionate about closing the skills gap.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👤</div>
+        <p class="team-name">Head of Curriculum</p>
+        <p class="team-role">Academic</p>
+        <p class="team-bio">Former engineering manager who designs industry-aligned learning paths.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👤</div>
+        <p class="team-name">Placement Director</p>
+        <p class="team-role">Career Services</p>
+        <p class="team-bio">Built our 80+ company partner network and leads career services.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👤</div>
+        <p class="team-name">Lead Instructor</p>
+        <p class="team-role">Instruction</p>
+        <p class="team-bio">Full-stack developer and mentor who has trained thousands of students.</p>
+      </div>
     </div>
   </div>
 </section>
