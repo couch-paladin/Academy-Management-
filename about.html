@@ -17,7 +17,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); overflow-x: hidden; }
 
-    /* ── NAVBAR ── */
+    /* NAVBAR */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
     .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
     .nav-logo span { color: var(--accent); }
@@ -30,7 +30,7 @@
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
     .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
 
-    /* ── PAGE HERO ── */
+    /* PAGE HERO */
     .page-hero { background: var(--ink); padding: 8rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
     .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
     .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,169,110,0.08); pointer-events: none; }
@@ -42,19 +42,19 @@
     .page-hero h1 em { font-style: italic; color: var(--accent); }
     .page-hero p { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 540px; margin: 1rem auto 0; line-height: 1.7; position: relative; z-index: 1; }
 
-    /* ── SECTION HELPERS ── */
+    /* SECTION HELPERS */
     .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
     .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--ink); font-weight: 400; line-height: 1.2; margin-bottom: 0.75rem; }
     .section-title em { font-style: italic; color: var(--accent); }
     .section-sub { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
 
-    /* ── STORY ── */
+    /* STORY */
     .story { padding: 4.5rem 2rem; background: var(--white); }
     .story-wrap { max-width: 900px; margin: 0 auto; text-align: center; }
     .story-text { font-size: 16px; color: var(--ink-soft); line-height: 1.9; font-weight: 300; margin-top: 1.5rem; }
     .story-text strong { color: var(--ink); font-weight: 600; }
 
-    /* ── MISSION / VISION ── */
+    /* MISSION / VISION */
     .mv { padding: 4rem 2rem; background: var(--surface); }
     .mv-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .mv-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; transition: all 0.3s; }
@@ -63,7 +63,7 @@
     .mv-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 0.75rem; }
     .mv-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
 
-    /* ── VALUES ── */
+    /* VALUES */
     .values { padding: 4rem 2rem; background: var(--white); }
     .values-wrap { max-width: 1100px; margin: 0 auto; }
     .values-head { text-align: center; margin-bottom: 3rem; }
@@ -75,13 +75,13 @@
     .value-title { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
     .value-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; }
 
-    /* ── STATS BAND ── */
+    /* STATS BAND */
     .stats-band { background: var(--ink); padding: 3.5rem 2rem; }
     .stats-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; text-align: center; }
     .stat-item .num { font-family: 'DM Serif Display', serif; font-size: 2.6rem; color: var(--accent); display: block; line-height: 1; }
     .stat-item .label { font-size: 12.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; margin-top: 0.5rem; }
 
-    /* ── TEAM ── */
+    /* TEAM */
     .team { padding: 4rem 2rem; background: var(--surface-2); }
     .team-wrap { max-width: 1100px; margin: 0 auto; }
     .team-head { text-align: center; margin-bottom: 3rem; }
@@ -94,7 +94,7 @@
     .team-role { font-size: 12.5px; color: var(--accent); font-weight: 600; margin-top: 0.25rem; }
     .team-bio { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; font-weight: 300; margin-top: 0.75rem; }
 
-    /* ── CTA BANNER ── */
+    /* CTA BANNER */
     .cta-banner { background: var(--ink); padding: 4rem 2rem; text-align: center; }
     .cta-banner h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: var(--white); margin-bottom: 0.75rem; }
     .cta-banner h2 em { font-style: italic; color: var(--accent); }
@@ -102,7 +102,7 @@
     .btn-primary { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; padding: 1rem 2.5rem; border-radius: 999px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.25s; }
     .btn-primary:hover { background: #d4b87a; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,169,110,0.35); }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer { background: #111122; color: rgba(255,255,255,0.5); padding: 3rem 2rem 2rem; }
     .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
     .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem; }
@@ -151,7 +151,7 @@
   <div class="hero-circle"></div>
   <p class="page-eyebrow">About Us</p>
   <h1>Bridging Learning<br/>&amp; <em>Opportunity</em></h1>
-  <p>We're on a mission to make quality education and real career outcomes accessible to every learner, everywhere.</p>
+  <p>We are on a mission to make quality education and real career outcomes accessible to every learner, everywhere.</p>
 </div>
 
 <!-- STORY -->
@@ -159,9 +159,9 @@
   <div class="story-wrap">
     <p class="section-eyebrow">Our Story</p>
     <h2 class="section-title">Why We Built <em>EduVance</em></h2>
-    <p class="story-text">EduVance Academy started with a simple frustration: <strong>too many talented students were graduating without the practical skills or industry connections to land good jobs.</strong> Traditional education taught theory, but rarely prepared learners for the real world.</p>
-    <p class="story-text">So we built a single hub that brings everything together — <strong>workshops, online and offline courses, live webinars, internships, and end-to-end placement support.</strong> No more juggling a dozen platforms or paying for scattered services. Just one place to learn, grow, and get hired.</p>
-    <p class="story-text">Today, we've trained over <strong>5,000 students</strong>, partnered with <strong>80+ companies</strong>, and maintained a <strong>94% placement rate</strong> — and we're just getting started.</p>
+    <p class="story-text">EduVance began with an uncomfortable truth we kept running into: bright, hardworking students were finishing their courses and still struggling to find their footing. Not because they lacked ability, but because the education they received rarely reflected what the real world expected of them.</p>
+    <p class="story-text">We wanted to fix that. Not by adding another course to the internet, but by building something more complete. A place where learning connects directly to opportunity. Structured programmes, mentorship, industry exposure, and placement support, brought together under one roof.</p>
+    <p class="story-text">Since then, we have worked with over <strong>5,000 learners</strong>, built relationships with <strong>80+ companies</strong>, and seen <strong>94% of our students</strong> move into roles they are proud of. We are still building, but that foundation is something we are quietly confident in.</p>
   </div>
 </section>
 
@@ -171,12 +171,12 @@
     <div class="mv-card">
       <div class="mv-icon">🎯</div>
       <h3 class="mv-title">Our Mission</h3>
-      <p class="mv-desc">To make practical, career-focused education accessible and affordable — equipping every learner with the skills, confidence, and connections they need to succeed in the modern workplace.</p>
+      <p class="mv-desc">To make career-focused education genuinely accessible, built around what industry actually needs, and designed to take learners all the way from first lesson to first offer.</p>
     </div>
     <div class="mv-card">
       <div class="mv-icon">🔭</div>
       <h3 class="mv-title">Our Vision</h3>
-      <p class="mv-desc">A world where talent — not access or background — determines opportunity. We envision becoming the go-to learning and career hub for students across the country and beyond.</p>
+      <p class="mv-desc">A future where your background does not define your ceiling. We want EduVance to be the place serious learners turn to, wherever they are and whatever stage they are at.</p>
     </div>
   </div>
 </section>
@@ -190,10 +190,10 @@
       <p class="section-sub">The principles that shape every course, workshop, and interaction at EduVance.</p>
     </div>
     <div class="values-grid">
-      <div class="value-card"><div class="value-icon">🤲</div><p class="value-title">Accessibility</p><p class="value-desc">Quality education shouldn't be a privilege. We keep our programs affordable and inclusive.</p></div>
-      <div class="value-card"><div class="value-icon">⚡</div><p class="value-title">Practicality</p><p class="value-desc">We teach what actually matters in the workplace — real projects, real tools, real outcomes.</p></div>
-      <div class="value-card"><div class="value-icon">🤝</div><p class="value-title">Commitment</p><p class="value-desc">We don't stop at teaching. We stay with you until you reach your career goals.</p></div>
-      <div class="value-card"><div class="value-icon">🌱</div><p class="value-title">Growth</p><p class="value-desc">We constantly evolve our curriculum to stay ahead of industry trends and demands.</p></div>
+      <div class="value-card"><div class="value-icon">🤲</div><p class="value-title">Accessibility</p><p class="value-desc">Quality education should not be a privilege. We keep our programmes affordable and open to everyone.</p></div>
+      <div class="value-card"><div class="value-icon">⚡</div><p class="value-title">Practicality</p><p class="value-desc">We teach what actually matters in the workplace. Real projects, real tools, and outcomes you can point to.</p></div>
+      <div class="value-card"><div class="value-icon">🤝</div><p class="value-title">Commitment</p><p class="value-desc">We do not stop at teaching. We stay with you until you have reached the career goal you came here for.</p></div>
+      <div class="value-card"><div class="value-icon">🌱</div><p class="value-title">Growth</p><p class="value-desc">We constantly evolve our curriculum to stay honest about what the industry is actually asking for.</p></div>
     </div>
   </div>
 </section>
@@ -239,7 +239,7 @@
   <div class="footer-inner">
     <div>
       <p class="footer-logo">Edu<span>Vance</span></p>
-      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p>
+      <p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support, all in one place.</p>
     </div>
     <div class="footer-col">
       <h4>Learn</h4>
