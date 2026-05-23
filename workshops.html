@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Workshops & Seminars — EduVance Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <style>
@@ -20,7 +21,7 @@
     .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13.5px; font-weight: 500; padding: 0.4rem 0.85rem; border-radius: 6px; transition: all 0.2s; letter-spacing: 0.01em; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13px; font-weight: 500; padding: 0.4rem 0.65rem; border-radius: 6px; transition: all 0.2s; letter-spacing: 0.01em; }
     .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.07); }
     .nav-links a.active { color: var(--accent); }
     .nav-cta { background: var(--accent) !important; color: var(--ink) !important; font-weight: 600 !important; padding: 0.45rem 1.1rem !important; border-radius: 999px !important; }
@@ -42,6 +43,8 @@
     .filter-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 0.4rem 1rem; border-radius: 999px; border: 1.5px solid var(--border); background: transparent; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; }
     .filter-btn:hover { background: var(--surface-2); color: var(--ink); }
     .filter-btn.active { background: var(--ink); color: var(--accent); border-color: var(--ink); }
+    .filter-count { margin-left: auto; font-size: 12.5px; color: var(--ink-muted); white-space: nowrap; font-weight: 500; }
+    .filter-count span { color: var(--ink); font-weight: 700; }
     .events-section { padding: 3.5rem 2rem 5rem; }
     .events-wrap { max-width: 1100px; margin: 0 auto; }
     .month-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); font-weight: 400; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
@@ -128,6 +131,7 @@
     <button class="filter-btn" onclick="filterEvents('Seminar', this)">Seminars</button>
     <button class="filter-btn" onclick="filterEvents('Webinar', this)">Webinars</button>
     <button class="filter-btn" onclick="filterEvents('free', this)">Free Only</button>
+    <span class="filter-count">Showing <span id="eventCount">6</span> events</span>
   </div>
 </div>
 
@@ -240,6 +244,7 @@
       grid.style.display = anyVisible ? 'grid' : 'none';
     });
     document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    document.querySelector('.filter-count').innerHTML = `Showing <span id="eventCount">${visible}</span> event${visible !== 1 ? 's' : ''}`;
   }
 </script>
 </body>
