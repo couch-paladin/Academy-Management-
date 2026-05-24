@@ -530,7 +530,8 @@
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="feedback.html">Feedback</a></li>
-    <li><a href="login.html">Login</a></li>
+    <li id="nav-login-link"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></li>
+    <li id="nav-dash-link" style="display:none;"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
   </ul>
   <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
@@ -821,6 +822,33 @@
   // Close menu on link click (mobile)
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjgccsOgSsibd5Z3qxKa3api-tqDXwZY0",
+    authDomain: "eduvance-academy.firebaseapp.com",
+    projectId: "eduvance-academy",
+    storageBucket: "eduvance-academy.firebasestorage.app",
+    messagingSenderId: "1010713775139",
+    appId: "1:1010713775139:web:7a6cffa2bc6ae4cc3e3596"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, user => {
+    const loginLink = document.getElementById('nav-login-link');
+    const dashLink = document.getElementById('nav-dash-link');
+    if (!loginLink || !dashLink) return;
+    if (user) {
+      loginLink.style.display = 'none';
+      dashLink.style.display = 'inline-block';
+    } else {
+      loginLink.style.display = 'inline-block';
+      dashLink.style.display = 'none';
+    }
   });
 </script>
 </body>

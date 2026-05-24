@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms & Privacy — EduVance Academy</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --ink-mid: #2d2d4e; --ink-soft: #5a5a7a; --ink-muted: #9898b3;
+      --accent: #c8a96e; --surface: #faf9f7; --surface-2: #f2f0ec; --white: #ffffff;
+      --border: #e4e0d8; --radius: 14px; --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(26,26,46,0.08);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,26,46,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #fff; text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero { background: var(--ink); padding: 7rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(200,169,110,0.07) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,169,110,0.12); border: 1px solid rgba(200,169,110,0.25); color: var(--accent); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 1.25rem; position: relative; z-index: 1; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; font-weight: 400; position: relative; z-index: 1; margin-bottom: 0.75rem; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 14px; color: rgba(255,255,255,0.4); position: relative; z-index: 1; }
+
+    /* TAB NAV */
+    .tab-nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 50; }
+    .tab-inner { max-width: 860px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 0; }
+    .tab-btn { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 1rem 1.5rem; border: none; background: transparent; color: var(--ink-soft); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+    /* CONTENT */
+    .content { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .last-updated { font-size: 12.5px; color: var(--ink-muted); margin-bottom: 2.5rem; padding: 0.75rem 1rem; background: var(--surface-2); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); }
+
+    h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); font-weight: 400; margin: 2.5rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    h2:first-of-type { margin-top: 0; }
+    h3 { font-size: 1rem; font-weight: 600; color: var(--ink); margin: 1.5rem 0 0.5rem; }
+    p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    ul li, ol li { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; font-weight: 300; margin-bottom: 0.35rem; }
+    strong { color: var(--ink); font-weight: 600; }
+    .highlight-box { background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.25); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+    .highlight-box p { margin: 0; color: var(--ink-mid); }
+    .contact-box { background: var(--ink); border-radius: var(--radius); padding: 2rem; margin-top: 2.5rem; text-align: center; }
+    .contact-box h3 { color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem; margin-top: 0; }
+    .contact-box p { color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .contact-box a { background: var(--accent); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 0.7rem 1.75rem; border-radius: 999px; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .contact-box a:hover { background: #d4b87a; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer { background: #111122; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 12.5px; }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
+  <a href="login.html" class="nav-back">← Back to Login</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-dots"></div>
+  <p class="hero-eyebrow">Legal</p>
+  <h1>Terms &amp; <em>Privacy</em></h1>
+  <p>Last updated: May 2026</p>
+</div>
+
+<div class="tab-nav">
+  <div class="tab-inner">
+    <button class="tab-btn active" onclick="switchTab('terms', this)">Terms of Service</button>
+    <button class="tab-btn" onclick="switchTab('privacy', this)">Privacy Policy</button>
+    <button class="tab-btn" onclick="switchTab('refund', this)">Refund Policy</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TERMS OF SERVICE -->
+  <div class="tab-panel active" id="tab-terms">
+    <p class="last-updated">📄 Last updated: 24 May 2026 · Effective immediately upon registration</p>
+
+    <div class="highlight-box">
+      <p>By accessing or using EduVance Academy's services, you agree to be bound by these Terms of Service. Please read them carefully before registering or enrolling in any programme.</p>
+    </div>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") govern your access to and use of EduVance Academy's website, courses, workshops, seminars, webinars, and related services (collectively, the "Services"). By creating an account or enrolling in any programme, you confirm that you have read, understood, and agreed to these Terms.</p>
+    <p>If you are under 18 years of age, you must have parental or guardian consent to use our Services.</p>
+
+    <h2>2. Our Services</h2>
+    <p>EduVance Academy provides:</p>
+    <ul>
+      <li>Online and offline courses across technology, data science, business, and career development</li>
+      <li>Live workshops, seminars, and webinars</li>
+      <li>1-on-1 interview coaching and career support</li>
+      <li>Placement assistance and internship referrals</li>
+      <li>Study materials, recorded sessions, and practice resources</li>
+    </ul>
+
+    <h2>3. Account Registration</h2>
+    <p>To access certain Services, you must create an account. You agree to:</p>
+    <ul>
+      <li>Provide accurate, current, and complete information during registration</li>
+      <li>Maintain the security of your password and account credentials</li>
+      <li>Notify us immediately of any unauthorised use of your account</li>
+      <li>Accept responsibility for all activities that occur under your account</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these Terms or engage in fraudulent activity.</p>
+
+    <h2>4. Enrolment &amp; Payment</h2>
+    <p>By enrolling in a paid programme, you agree to pay the applicable fees as displayed at the time of registration. All prices are in Indian Rupees (INR) and inclusive of applicable taxes unless stated otherwise.</p>
+    <ul>
+      <li>Payment is required before access is granted to paid content</li>
+      <li>Fees are non-transferable between programmes or students</li>
+      <li>EduVance reserves the right to modify pricing with reasonable notice</li>
+      <li>Free programmes may be discontinued or converted to paid at any time</li>
+    </ul>
+
+    <h2>5. Intellectual Property</h2>
+    <p>All content provided through EduVance Academy — including course materials, videos, PDFs, assignments, and assessments — is the exclusive intellectual property of EduVance Academy or its content partners.</p>
+    <ul>
+      <li>You may not reproduce, distribute, or resell any course content</li>
+      <li>Screen recording or downloading of live sessions is strictly prohibited</li>
+      <li>Certificates issued are for personal use only and may not be forged or altered</li>
+    </ul>
+
+    <h2>6. Student Conduct</h2>
+    <p>You agree to use our Services respectfully and lawfully. The following are strictly prohibited:</p>
+    <ul>
+      <li>Sharing your account credentials with others</li>
+      <li>Submitting plagiarised work or misrepresenting your identity</li>
+      <li>Harassing instructors, staff, or fellow students</li>
+      <li>Attempting to gain unauthorised access to our systems</li>
+      <li>Using our platform for any illegal or fraudulent activity</li>
+    </ul>
+
+    <h2>7. Placement Support</h2>
+    <p>EduVance offers placement assistance as part of select programmes. While we make every effort to connect students with opportunities, we do not guarantee employment or specific salary outcomes. Placement support is subject to student performance, availability of roles, and partner company requirements.</p>
+
+    <h2>8. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, EduVance Academy shall not be liable for any indirect, incidental, or consequential damages arising from your use of our Services. Our total liability shall not exceed the amount paid by you for the specific programme in question.</p>
+
+    <h2>9. Changes to Terms</h2>
+    <p>We may update these Terms from time to time. We will notify registered users via email of any material changes. Continued use of our Services after such notice constitutes acceptance of the updated Terms.</p>
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts of Tamil Nadu, India.</p>
+
+    <div class="contact-box">
+      <h3>Questions about our Terms?</h3>
+      <p>Our team is happy to clarify anything in these Terms of Service.</p>
+      <a href="contact.html">Contact Us →</a>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY -->
+  <div class="tab-panel" id="tab-privacy">
+    <p class="last-updated">🔒 Last updated: 24 May 2026 · We take your privacy seriously</p>
+
+    <div class="highlight-box">
+      <p>EduVance Academy is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights regarding your data.</p>
+    </div>
+
+    <h2>1. Information We Collect</h2>
+    <h3>Information you provide directly:</h3>
+    <ul>
+      <li><strong>Account data:</strong> Name, email address, phone number, and profile photo</li>
+      <li><strong>Registration data:</strong> Course preferences, current status, and payment information</li>
+      <li><strong>Feedback &amp; communications:</strong> Ratings, comments, and messages you send us</li>
+      <li><strong>Resume &amp; career data:</strong> If you use our placement support services</li>
+    </ul>
+    <h3>Information collected automatically:</h3>
+    <ul>
+      <li>Device type, browser, and operating system</li>
+      <li>Pages visited and time spent on our platform</li>
+      <li>IP address and approximate location</li>
+      <li>Course progress and completion data</li>
+    </ul>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Create and manage your student account</li>
+      <li>Process enrolments and deliver course content</li>
+      <li>Send course updates, schedules, and announcements</li>
+      <li>Provide placement support and match you with opportunities</li>
+      <li>Improve our courses and platform based on feedback</li>
+      <li>Comply with legal obligations</li>
+    </ul>
+    <p>We do <strong>not</strong> sell your personal data to third parties for marketing purposes.</p>
+
+    <h2>3. Data Storage &amp; Security</h2>
+    <p>Your data is stored securely using Google Firebase (Firestore), which is hosted on Google Cloud infrastructure with enterprise-grade security. We implement appropriate technical and organisational measures to protect your data against unauthorised access, loss, or disclosure.</p>
+    <ul>
+      <li>Passwords are never stored in plain text</li>
+      <li>All data is transmitted over HTTPS</li>
+      <li>Access to student data is restricted to authorised staff only</li>
+    </ul>
+
+    <h2>4. Cookies</h2>
+    <p>We use essential cookies to keep you logged in and remember your preferences. We do not use advertising or tracking cookies. You can disable cookies in your browser settings, but this may affect the functionality of our platform.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>We use the following third-party services which may process your data:</p>
+    <ul>
+      <li><strong>Google Firebase</strong> — Authentication and database storage</li>
+      <li><strong>Formspree</strong> — Contact and feedback form submissions</li>
+      <li><strong>AWS Amplify</strong> — Website hosting and delivery</li>
+      <li><strong>Razorpay</strong> (coming soon) — Payment processing</li>
+    </ul>
+    <p>Each of these services has their own privacy policies. We encourage you to review them.</p>
+
+    <h2>6. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+      <li><strong>Correction:</strong> Request correction of inaccurate or incomplete data</li>
+      <li><strong>Deletion:</strong> Request deletion of your account and associated data</li>
+      <li><strong>Portability:</strong> Request your data in a machine-readable format</li>
+      <li><strong>Objection:</strong> Object to certain uses of your data</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <strong>hello@eduvance.com</strong>.</p>
+
+    <h2>7. Data Retention</h2>
+    <p>We retain your data for as long as your account is active or as needed to provide our Services. If you request deletion of your account, we will remove your personal data within 30 days, except where retention is required by law.</p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>Our Services are not directed at children under 13. We do not knowingly collect personal data from children under 13. If you believe a child has provided us with personal data, please contact us immediately.</p>
+
+    <div class="contact-box">
+      <h3>Privacy concerns?</h3>
+      <p>Email us at hello@eduvance.com and we'll respond within 48 hours.</p>
+      <a href="contact.html">Contact Us →</a>
+    </div>
+  </div>
+
+  <!-- REFUND POLICY -->
+  <div class="tab-panel" id="tab-refund">
+    <p class="last-updated">💰 Last updated: 24 May 2026 · Simple and fair refund policy</p>
+
+    <div class="highlight-box">
+      <p>We stand behind the quality of our programmes. If you're not satisfied, we offer a straightforward refund process.</p>
+    </div>
+
+    <h2>1. 7-Day Money-Back Guarantee</h2>
+    <p>All paid courses and programmes come with a <strong>7-day money-back guarantee</strong> from the date of enrolment. If you are not satisfied for any reason, contact us within 7 days and we will process a full refund — no questions asked.</p>
+
+    <h2>2. Eligibility for Refund</h2>
+    <p>To be eligible for a refund, the following conditions must be met:</p>
+    <ul>
+      <li>Refund request submitted within 7 days of enrolment</li>
+      <li>Less than 30% of the course content has been accessed</li>
+      <li>No certificate has been issued</li>
+      <li>The request is made by the original registered student</li>
+    </ul>
+
+    <h2>3. Non-Refundable Items</h2>
+    <p>The following are not eligible for refund:</p>
+    <ul>
+      <li>Workshop and seminar registrations after the event date has passed</li>
+      <li>1-on-1 coaching sessions that have already been conducted</li>
+      <li>Courses where more than 30% of content has been accessed</li>
+      <li>Study materials and downloadable resources once accessed</li>
+      <li>Free programmes (no payment, no refund applicable)</li>
+    </ul>
+
+    <h2>4. How to Request a Refund</h2>
+    <p>To request a refund:</p>
+    <ol>
+      <li>Email us at <strong>hello@eduvance.com</strong> with the subject "Refund Request"</li>
+      <li>Include your registered email, programme name, and reason for refund</li>
+      <li>Our team will review and respond within 2 business days</li>
+      <li>Approved refunds are processed within 5–7 business days to the original payment method</li>
+    </ol>
+
+    <h2>5. Partial Refunds</h2>
+    <p>In exceptional circumstances, we may offer partial refunds at our discretion — for example, if a programme is cancelled or significantly changed after enrolment. We will always communicate proactively if this occurs.</p>
+
+    <h2>6. Programme Cancellations by EduVance</h2>
+    <p>If EduVance cancels a programme before it begins, all enrolled students will receive a full refund within 5 business days. If a programme is rescheduled, students may choose to attend the new date or receive a full refund.</p>
+
+    <div class="contact-box">
+      <h3>Want to request a refund?</h3>
+      <p>Email hello@eduvance.com or use our contact form and we'll sort it out quickly.</p>
+      <a href="contact.html">Contact Us →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 EduVance Academy · <a href="index.html">Home</a> · <a href="contact.html">Contact</a> · <a href="login.html">Login</a></p>
+</footer>
+
+<script>
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+</script>
+</body>
+</html>

@@ -170,7 +170,7 @@
   <div class="p2-content">
     <div class="p2-avatar" id="p2Avatar">🎓</div>
     <p class="p2-eyebrow">EduVance Student Portal</p>
-    <h1 class="p2-heading">Welcome Back,<br/><em id="p2Name">Student</em>!</h1>
+    <h1 class="p2-heading" id="p2Heading">Welcome Back,<br/><em id="p2Name">Student</em>!</h1>
     <p class="p2-sub">Your dashboard is ready. Let's go! 🚀</p>
     <div class="p2-dots">
       <div class="p2-dot"></div>
@@ -253,7 +253,7 @@
       <button class="btn-submit" id="signupBtn" onclick="signUp()">Create Account →</button>
     </div>
 
-    <p class="login-footer">By signing in you agree to our <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a></p>
+    <p class="login-footer">By signing in you agree to our <a href="terms.html" target="_blank">Terms</a> &amp; <a href="terms.html#privacy" target="_blank">Privacy Policy</a></p>
   </div>
 </main>
 
@@ -292,7 +292,8 @@
   /* ════════════════════════════════════════
      THE ANIMATION — called after any login
   ════════════════════════════════════════ */
-  function runWelcomeAnimation(name, photoURL) {
+  function runWelcomeAnimation(name, photoURL, isNewUser) {
+    window._animating = true;
     const p1      = document.getElementById('phase1');
     const p2      = document.getElementById('phase2');
     const p1Bar   = document.getElementById('p1Bar');
@@ -300,8 +301,15 @@
     const p2Name  = document.getElementById('p2Name');
     const p2Av    = document.getElementById('p2Avatar');
 
-    // Set name + photo
-    p2Name.textContent = (name || 'Student').split(' ')[0];
+    // Set name + photo + greeting
+    const firstName = (name || 'Student').split(' ')[0];
+    p2Name.textContent = firstName;
+    const p2heading = document.getElementById('p2Heading');
+    if (p2heading) {
+      p2heading.innerHTML = isNewUser
+        ? `Welcome, <em id="p2Name">${firstName}</em>! 🎉`
+        : `Welcome Back, <em id="p2Name">${firstName}</em>!`;
+    }
     if (photoURL) {
       p2Av.innerHTML = `<img src="${photoURL}" alt="${name}" />`;
     }
@@ -375,9 +383,9 @@
   const db       = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // Redirect if already logged in
+  // Only redirect if already logged in AND we're not in the middle of animating
   onAuthStateChanged(auth, user => {
-    if (user) window.location.href = 'dashboard.html';
+    if (user && !window._animating) window.location.href = 'dashboard.html';
   });
 
   async function saveUser(user, name) {
@@ -398,8 +406,9 @@
     document.getElementById('googleBtn').disabled = true;
     try {
       const result = await signInWithPopup(auth, provider);
+      const isNew = result._tokenResponse?.isNewUser || false;
       await saveUser(result.user, result.user.displayName);
-      runWelcomeAnimation(result.user.displayName, result.user.photoURL);
+      runWelcomeAnimation(result.user.displayName, result.user.photoURL, isNew);
     } catch (err) {
       showError(err.message);
       document.getElementById('googleBtn').disabled = false;
@@ -415,7 +424,7 @@
     btn.disabled = true; btn.textContent = 'Signing in…';
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      runWelcomeAnimation(result.user.displayName || email.split('@')[0], result.user.photoURL);
+      runWelcomeAnimation(result.user.displayName || email.split('@')[0], result.user.photoURL, false);
     } catch {
       showError('Invalid email or password. Please try again.');
       btn.disabled = false; btn.textContent = 'Sign In →';
@@ -436,7 +445,7 @@
       await updateProfile(result.user, { displayName: name });
       await saveUser(result.user, name);
       showSuccess('Account created! 🎉');
-      setTimeout(() => runWelcomeAnimation(name, null), 600);
+      setTimeout(() => runWelcomeAnimation(name, null, true), 600);
     } catch (err) {
       if (err.code === 'auth/email-already-in-use')
         showError('This email is already registered. Try signing in.');

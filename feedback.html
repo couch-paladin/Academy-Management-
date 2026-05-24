@@ -477,5 +477,32 @@
     btn.textContent = 'Submit Feedback →';
   });
 </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjgccsOgSsibd5Z3qxKa3api-tqDXwZY0",
+    authDomain: "eduvance-academy.firebaseapp.com",
+    projectId: "eduvance-academy",
+    storageBucket: "eduvance-academy.firebasestorage.app",
+    messagingSenderId: "1010713775139",
+    appId: "1:1010713775139:web:7a6cffa2bc6ae4cc3e3596"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, user => {
+    const loginLink = document.getElementById('nav-login-link');
+    const dashLink = document.getElementById('nav-dash-link');
+    if (!loginLink || !dashLink) return;
+    if (user) {
+      loginLink.style.display = 'none';
+      dashLink.style.display = 'inline-block';
+    } else {
+      loginLink.style.display = 'inline-block';
+      dashLink.style.display = 'none';
+    }
+  });
+</script>
 </body>
 </html>
