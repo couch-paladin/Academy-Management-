@@ -454,6 +454,52 @@
     btn.disabled = true;
     btn.textContent = 'Submitting…';
     try {
+      // Collect all rating values
+      const ratings = {};
+      ['r_content','r_clarity','r_practice','r_doubts','r_career','r_overall'].forEach(name => {
+        const checked = document.querySelector('input[name="' + name + '"]:checked');
+        ratings[name] = checked ? checked.value : null;
+      });
+
+      const selectedCourse = document.querySelector('input[name="course"]:checked');
+      const recommend = document.querySelector('input[name="recommend"]:checked');
+
+      const feedbackData = {
+        student_name: document.getElementById('student_name').value,
+        email: document.getElementById('email').value,
+        program_type: document.getElementById('program_type').value,
+        batch: document.getElementById('batch').value,
+        course: selectedCourse ? selectedCourse.value : '',
+        instructor: document.getElementById('instructor').value,
+        ratings: ratings,
+        recommend: recommend ? recommend.value : '',
+        comments: document.getElementById('comments').value,
+        submittedAt: new Date().toISOString()
+      };
+
+      // 1. Save to Firestore
+      const user = auth.currentUser;
+      try {
+        // Save to feedback collection
+        await addDoc(collection(db, 'feedback'), {
+          ...feedbackData,
+          userId: user ? user.uid : 'anonymous'
+        });
+        // Also update user's feedback history if logged in
+        if (user) {
+          await updateDoc(doc(db, 'users', user.uid), {
+            feedbacks: arrayUnion({
+              course: feedbackData.course,
+              overallRating: ratings.r_overall,
+              date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+            })
+          });
+        }
+      } catch(e) {
+        console.warn('Firestore save failed:', e);
+      }
+
+      // 2. Send to Formspree as backup
       const res = await fetch('https://formspree.io/f/mlgvnqzo', {
         method: 'POST',
         body: new FormData(this),
@@ -481,6 +527,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const firebaseConfig = {
     apiKey: "AIzaSyAjgccsOgSsibd5Z3qxKa3api-tqDXwZY0",
     authDomain: "eduvance-academy.firebaseapp.com",
@@ -491,6 +538,7 @@
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   onAuthStateChanged(auth, user => {
     const loginLink = document.getElementById('nav-login-link');
     const dashLink = document.getElementById('nav-dash-link');
