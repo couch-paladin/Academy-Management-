@@ -140,7 +140,6 @@
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="feedback.html">Feedback</a></li>
-        <li><a href="login.html">Login</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
   </ul>
   <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
@@ -297,12 +296,30 @@
   <div class="footer-bottom"><p>©️ 2026 EduVance Academy. All rights reserved.</p><p>Built with ♥️ for learners everywhere</p></div>
 </footer>
 
-<script>
-  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, updateDoc, arrayUnion, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjgccsOgSsibd5Z3qxKa3api-tqDXwZY0",
+    authDomain: "eduvance-academy.firebaseapp.com",
+    projectId: "eduvance-academy",
+    storageBucket: "eduvance-academy.firebasestorage.app",
+    messagingSenderId: "1010713775139",
+    appId: "1:1010713775139:web:7a6cffa2bc6ae4cc3e3596"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Make functions global
+  window.toggleMenu = function() { document.getElementById('navLinks').classList.toggle('open'); }
   document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
 
   let currentStep = 1;
-  function goStep(step) {
+  window.goStep = function(step) {
     if (step === 3 && currentStep === 2) {
       const f = document.getElementById('fname').value, e = document.getElementById('email').value;
       if (!f || !e) { alert('Please fill in your name and email.'); return; }
@@ -369,14 +386,14 @@
     updateSummary();
   }
 
-  function moveCarousel(dir) {
+  window.moveCarousel = function(dir) {
     const total = visibleSlides().length;
     if (total === 0) return;
     carIndex = (carIndex + dir + total) % total;
     renderCarousel();
   }
 
-  function applyFilters() { carIndex = 0; buildDots(); renderCarousel(); }
+  window.applyFilters = function() { carIndex = 0; buildDots(); renderCarousel(); }
 
   function updateSummary() {
     const vis = visibleSlides();
@@ -394,26 +411,64 @@
     document.getElementById('sumPrice').textContent = price === 0 ? 'Free' : '₹' + price.toLocaleString('en-IN');
   }
 
-  async function submitReg() {
+  window.submitReg = async function() {
     if (!document.getElementById('terms').checked) { alert('Please agree to the terms & conditions.'); return; }
 
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = 'Submitting…';
 
-    // Collect form data
     const vis = visibleSlides();
     const slide = vis[carIndex];
+    const program = slide ? slide.querySelector('.cs-title').textContent : '';
+    const type = slide ? slide.dataset.type : '';
+    const price = slide ? slide.dataset.price : '0';
+    const mode = document.getElementById('mode').value;
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const status = document.getElementById('status').value;
+    const coupon = document.getElementById('coupon').value;
+    const notes = document.getElementById('notes').value;
+
+    // 1. Save to Firestore if logged in
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        const userRef = doc(db, 'users', user.uid);
+        // Use setDoc with merge so it works even if document doesn't exist yet
+        await setDoc(userRef, {
+          name: user.displayName || fname + ' ' + lname,
+          email: user.email,
+          enrollments: arrayUnion({
+            program,
+            type,
+            price,
+            mode,
+            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+            status: 'Pending'
+          })
+        }, { merge: true });
+        console.log('Saved to Firestore successfully');
+      } catch (err) {
+        console.error('Firestore save error:', err);
+      }
+    } else {
+      console.log('User not logged in — skipping Firestore save');
+    }
+
+    // 2. Send to Formspree
     const formData = new FormData();
-    formData.append('first_name', document.getElementById('fname').value);
-    formData.append('last_name', document.getElementById('lname').value);
-    formData.append('email', document.getElementById('email').value);
-    formData.append('phone', document.getElementById('phone').value);
-    formData.append('status', document.getElementById('status').value);
-    formData.append('program', slide ? slide.querySelector('.cs-title').textContent : '');
-    formData.append('mode', document.getElementById('mode').value);
-    formData.append('coupon', document.getElementById('coupon').value);
-    formData.append('notes', document.getElementById('notes').value);
+    formData.append('first_name', fname);
+    formData.append('last_name', lname);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('status', status);
+    formData.append('program', program);
+    formData.append('mode', mode);
+    formData.append('coupon', coupon);
+    formData.append('notes', notes);
 
     try {
       const res = await fetch('https://formspree.io/f/mvzyreyo', {
