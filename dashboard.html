@@ -248,6 +248,7 @@
   });
 
   document.getElementById('logoutBtn').addEventListener('click', async () => {
+    sessionStorage.removeItem('welcomeShown'); // Clear so animation plays on next login
     await signOut(auth);
     window.location.href = 'index.html';
   });
