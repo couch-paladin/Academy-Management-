@@ -127,8 +127,6 @@
     <li><a href="careers.html">Careers</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="feedback.html">Feedback</a></li>
-        <li><a href="login.html">Login</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
   </ul>
   <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
@@ -358,7 +356,10 @@
         <div class="check">✓</div>
         <h3>Feedback Submitted!</h3>
         <p>Thank you for sharing your experience. Your feedback directly shapes how we teach and support our students at EduVance.</p>
-        <a href="index.html" class="btn-home">Back to Home →</a>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="dashboard.html" class="btn-home" style="background:var(--accent);color:var(--ink);">View My Dashboard →</a>
+          <a href="index.html" class="btn-home" style="background:var(--ink-mid);">Back to Home</a>
+        </div>
       </div>
 
     </form>
