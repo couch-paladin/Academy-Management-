@@ -1,0 +1,128 @@
+name: Deploy to AWS Amplify
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-and-deploy:
+    name: Validate & Deploy EduVance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # ── STEP 1: Check all HTML files exist ──
+      - name: Check required HTML files
+        run: |
+          echo "🔍 Checking required files..."
+          files=(
+            "index.html"
+            "courses.html"
+            "workshops.html"
+            "careers.html"
+            "about.html"
+            "contact.html"
+            "feedback.html"
+            "register.html"
+            "dashboard.html"
+            "login.html"
+            "404.html"
+          )
+          all_good=true
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file found"
+            else
+              echo "❌ $file MISSING"
+              all_good=false
+            fi
+          done
+          if [ "$all_good" = false ]; then
+            echo "❌ Some required files are missing. Deployment blocked!"
+            exit 1
+          fi
+          echo "✅ All required files present!"
+
+      # ── STEP 2: Validate HTML structure ──
+      - name: Validate HTML structure
+        run: |
+          echo "🔍 Validating HTML structure..."
+          error=false
+          for file in *.html; do
+            # Check for DOCTYPE
+            if ! grep -q "<!DOCTYPE html>" "$file"; then
+              echo "❌ $file missing DOCTYPE"
+              error=true
+            fi
+            # Check for closing body tag
+            if ! grep -q "</body>" "$file"; then
+              echo "❌ $file missing closing body tag"
+              error=true
+            fi
+            # Check for meta charset
+            if ! grep -q "charset" "$file"; then
+              echo "❌ $file missing charset meta tag"
+              error=true
+            fi
+            # Check for viewport meta
+            if ! grep -q "viewport" "$file"; then
+              echo "❌ $file missing viewport meta tag"
+              error=true
+            fi
+            echo "✅ $file structure OK"
+          done
+          if [ "$error" = true ]; then
+            echo "❌ HTML validation failed! Deployment blocked."
+            exit 1
+          fi
+          echo "✅ All HTML files validated!"
+
+      # ── STEP 3: Check favicon exists ──
+      - name: Check assets
+        run: |
+          echo "🔍 Checking assets..."
+          if [ -f "favicon.svg" ]; then
+            echo "✅ favicon.svg found"
+          else
+            echo "⚠️ favicon.svg missing"
+          fi
+          if [ -f "firebase.js" ]; then
+            echo "✅ firebase.js found"
+          else
+            echo "⚠️ firebase.js missing"
+          fi
+          echo "✅ Asset check complete!"
+
+      # ── STEP 4: Count files and show summary ──
+      - name: Build summary
+        run: |
+          echo "📊 Build Summary"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "HTML files: $(ls *.html | wc -l)"
+          echo "JS files:   $(ls *.js 2>/dev/null | wc -l)"
+          echo "SVG files:  $(ls *.svg 2>/dev/null | wc -l)"
+          echo "YML files:  $(find .github -name '*.yml' | wc -l)"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ All checks passed — ready to deploy!"
+
+      # ── STEP 5: Configure AWS & Deploy ──
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to AWS Amplify
+        run: |
+          echo "🚀 Triggering AWS Amplify deployment..."
+          aws amplify start-job \
+            --app-id ${{ secrets.AWS_APP_ID }} \
+            --branch-name main \
+            --job-type RELEASE \
+            --region ${{ secrets.AWS_REGION }}
+          echo "✅ Deployment triggered successfully!"
+          echo "🌐 Live at: https://main.dc7hjd4bn6ptw.amplifyapp.com"
