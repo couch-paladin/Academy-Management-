@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <title>Register — EduVance Academy</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -261,7 +262,7 @@
           </div>
           <div class="form-nav">
             <button type="button" class="btn-ghost" onclick="goStep(2)">← Back</button>
-            <button type="button" class="btn-next" id="submitBtn" onclick="submitReg()">Confirm Registration →</button>
+            <button type="button" class="btn-next" id="submitBtn" onclick="handlePayment()">Confirm &amp; Pay →</button>
           </div>
         </div>
 
@@ -452,7 +453,7 @@
             price,
             mode,
             date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-            status: 'Pending'
+            status: paymentId ? 'Paid' : 'Pending'
           })
         }, { merge: true });
         console.log('Saved to Firestore successfully');
@@ -526,6 +527,62 @@
       dashLink.style.display = 'none';
     }
   });
+</script>
+
+<script>
+  function handlePayment() {
+    if (!document.getElementById('terms').checked) {
+      alert('Please agree to the terms & conditions.');
+      return;
+    }
+
+    const priceText = document.getElementById('sumPrice') ? document.getElementById('sumPrice').textContent : '0';
+    const program = document.getElementById('sumProgram') ? document.getElementById('sumProgram').textContent : 'EduVance Program';
+
+    let amount = 0;
+    if (priceText !== 'Free' && priceText !== 'free' && priceText !== 'Free' && priceText !== '—') {
+      amount = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
+    }
+
+    // Free course — skip payment
+    if (amount === 0) {
+      window.submitReg(null);
+      return;
+    }
+
+    const fname = document.getElementById('fname') ? document.getElementById('fname').value : '';
+    const lname = document.getElementById('lname') ? document.getElementById('lname').value : '';
+    const email = document.getElementById('email') ? document.getElementById('email').value : '';
+    const phone = document.getElementById('phone') ? document.getElementById('phone').value : '';
+
+    const options = {
+      key: 'rzp_test_1DP5mmOlF5G5ag',
+      amount: amount * 100,
+      currency: 'INR',
+      name: 'EduVance Academy',
+      description: program,
+      handler: function(response) {
+        window.submitReg(response.razorpay_payment_id);
+      },
+      prefill: {
+        name: fname + ' ' + lname,
+        email: email,
+        contact: phone
+      },
+      theme: { color: '#c8a96e' },
+      modal: {
+        ondismiss: function() {
+          console.log('Payment cancelled');
+        }
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function(response) {
+      alert('Payment failed: ' + response.error.description);
+    });
+    rzp.open();
+  }
 </script>
 </body>
 </html>
