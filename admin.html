@@ -161,10 +161,6 @@
     const userDoc = await getDoc(doc(db, 'users', user.uid));
     const userData = userDoc.exists() ? userDoc.data() : {};
 
-    console.log('User data:', userData);
-    console.log('Role:', userData.role);
-    console.log('Role trimmed:', userData.role ? userData.role.trim() : 'no role');
-
     if (!userData.role || userData.role.trim() !== 'admin') {
       document.getElementById('adminContent').style.display = 'none';
       document.getElementById('accessDenied').style.display = 'block';
