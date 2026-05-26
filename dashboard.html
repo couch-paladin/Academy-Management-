@@ -365,6 +365,12 @@
             <a href="register.html" class="quick-link-item"><div class="ql-icon">✍️</div><span class="ql-text">Register for a Program</span><span class="ql-arrow">→</span></a>
             <a href="feedback.html" class="quick-link-item"><div class="ql-icon">⭐</div><span class="ql-text">Give Feedback</span><span class="ql-arrow">→</span></a>
             <a href="contact.html" class="quick-link-item"><div class="ql-icon">💬</div><span class="ql-text">Contact Support</span><span class="ql-arrow">→</span></a>
+            ${data.role === 'admin' ? `
+            <a href="admin.html" class="quick-link-item" style="border-top:2px solid var(--accent);margin-top:0.5rem;padding-top:1rem;">
+              <div class="ql-icon" style="background:rgba(200,169,110,0.15);">⚙️</div>
+              <span class="ql-text" style="color:var(--accent);font-weight:600;">Admin Panel</span>
+              <span class="ql-arrow" style="color:var(--accent);">→</span>
+            </a>` : ''}
           </div>
         </div>
       </div>
