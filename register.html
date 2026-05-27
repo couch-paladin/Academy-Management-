@@ -127,6 +127,8 @@
       .step-name { display: none; }
     }
     @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+    .nav-icon { display: inline-flex; align-items: center; margin-right: 5px; vertical-align: middle; opacity: 0.85; }
+    .nav-icon svg { display: block; }
   </style>
 </head>
 <body>
@@ -134,13 +136,13 @@
 <nav>
   <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="courses.html">Courses</a></li>
-    <li><a href="workshops.html">Workshops</a></li>
-    <li><a href="careers.html">Careers</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="feedback.html">Feedback</a></li>
+    <li><a href="index.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</a></li>
+    <li><a href="courses.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Courses</a></li>
+    <li><a href="workshops.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Workshops</a></li>
+    <li><a href="careers.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 12h20"/></svg></span>Careers</a></li>
+    <li><a href="about.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>About</a></li>
+    <li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li>
+    <li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li>
     <li id="nav-login-link"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></li>
     <li id="nav-dash-link" style="display:none;"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
@@ -295,9 +297,9 @@
 <footer>
   <div class="footer-inner">
     <div><p class="footer-logo">Edu<span>Vance</span></p><p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p></div>
-    <div class="footer-col"><h4>Learn</h4><ul><li><a href="courses.html">All Courses</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="workshops.html">Seminars</a></li><li><a href="courses.html#webinars">Webinars</a></li><li><a href="courses.html#study-material">Study Material</a></li></ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul><li><a href="courses.html">All Courses</a></li><li><a href="workshops.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Workshops</a></li><li><a href="workshops.html">Seminars</a></li><li><a href="courses.html#webinars">Webinars</a></li><li><a href="courses.html#study-material">Study Material</a></li></ul></div>
     <div class="footer-col"><h4>Careers</h4><ul><li><a href="careers.html#internships">Internships</a></li><li><a href="careers.html#placement">Placement Support</a></li><li><a href="careers.html#coaching">Interview Coaching</a></li><li><a href="careers.html">Training Programs</a></li></ul></div>
-    <div class="footer-col"><h4>Academy</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="feedback.html">Feedback</a></li><li><a href="register.html">Register</a></li></ul></div>
+    <div class="footer-col"><h4>Academy</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li><li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li><li><a href="register.html">Register</a></li></ul></div>
   </div>
   <div class="footer-bottom"><p>©️ 2026 EduVance Academy. All rights reserved.</p><p>Built with ♥️ for learners everywhere</p></div>
 </footer>
@@ -443,19 +445,31 @@
     if (user) {
       try {
         const userRef = doc(db, 'users', user.uid);
-        // Use setDoc with merge so it works even if document doesn't exist yet
-        await setDoc(userRef, {
-          name: user.displayName || fname + ' ' + lname,
-          email: user.email,
-          enrollments: arrayUnion({
-            program,
-            type,
-            price,
-            mode,
-            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-            status: paymentId ? 'Paid' : 'Pending'
-          })
-        }, { merge: true });
+        const newEnrollment = {
+          program,
+          type,
+          price,
+          mode,
+          date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+          status: paymentId ? 'Paid' : 'Pending'
+        };
+
+        // Check if user doc exists
+        const existingDoc = await getDoc(userRef);
+        if (existingDoc.exists()) {
+          // User exists — update enrollments array
+          await updateDoc(userRef, {
+            enrollments: arrayUnion(newEnrollment)
+          });
+        } else {
+          // New user — create document with enrollment
+          await setDoc(userRef, {
+            name: user.displayName || fname + ' ' + lname,
+            email: user.email,
+            createdAt: new Date().toISOString(),
+            enrollments: [newEnrollment]
+          });
+        }
         console.log('Saved to Firestore successfully');
       } catch (err) {
         console.error('Firestore save error:', err);
@@ -500,34 +514,25 @@
 
   buildDots();
   renderCarousel();
+
+  // Auto-select course from URL parameter e.g. register.html?course=Full+Stack+Web+Development
+  const urlParams = new URLSearchParams(window.location.search);
+  const courseParam = urlParams.get('course');
+  if (courseParam) {
+    const allSlides = Array.from(document.querySelectorAll('.carousel-slide'));
+    const matchIndex = allSlides.findIndex(slide => {
+      const title = slide.querySelector('.cs-title');
+      return title && title.textContent.trim().toLowerCase().includes(courseParam.toLowerCase().trim());
+    });
+    if (matchIndex !== -1) {
+      carIndex = matchIndex;
+      buildDots();
+      renderCarousel();
+    }
+  }
 </script>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  const firebaseConfig = {
-    apiKey: "AIzaSyAjgccsOgSsibd5Z3qxKa3api-tqDXwZY0",
-    authDomain: "eduvance-academy.firebaseapp.com",
-    projectId: "eduvance-academy",
-    storageBucket: "eduvance-academy.firebasestorage.app",
-    messagingSenderId: "1010713775139",
-    appId: "1:1010713775139:web:7a6cffa2bc6ae4cc3e3596"
-  };
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  onAuthStateChanged(auth, user => {
-    const loginLink = document.getElementById('nav-login-link');
-    const dashLink = document.getElementById('nav-dash-link');
-    if (!loginLink || !dashLink) return;
-    if (user) {
-      loginLink.style.display = 'none';
-      dashLink.style.display = 'inline-block';
-    } else {
-      loginLink.style.display = 'inline-block';
-      dashLink.style.display = 'none';
-    }
-  });
-</script>
+
 
 <script>
   function handlePayment() {

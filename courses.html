@@ -158,6 +158,8 @@
       .filter-divider { display: none; }
     }
     @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+    .nav-icon { display: inline-flex; align-items: center; margin-right: 5px; vertical-align: middle; opacity: 0.85; }
+    .nav-icon svg { display: block; }
   </style>
 </head>
 <body>
@@ -165,13 +167,13 @@
 <nav>
   <a href="index.html" class="nav-logo">Edu<span>Vance</span></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</a></li>
     <li><a href="courses.html" class="active">Courses</a></li>
-    <li><a href="workshops.html">Workshops</a></li>
-    <li><a href="careers.html">Careers</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="feedback.html">Feedback</a></li>
+    <li><a href="workshops.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Workshops</a></li>
+    <li><a href="careers.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 12h20"/></svg></span>Careers</a></li>
+    <li><a href="about.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>About</a></li>
+    <li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li>
+    <li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li>
     <li id="nav-login-link"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></li>
     <li id="nav-dash-link" style="display:none;"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
@@ -232,19 +234,19 @@
       <p class="category-eyebrow">Technology</p>
       <h2 class="category-title">Tech &amp; Development <span class="category-count-badge" id="badge-tech">3</span></h2>
       <div class="courses-grid">
-        <a href="register.html" class="course-card" data-mode="hybrid" data-domain="tech" data-price="4999">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="hybrid" data-domain="tech" data-price="4999">
           <div class="course-thumb"><div class="course-thumb-bg thumb-tech"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">💻</span><span class="course-badge badge-hybrid">Hybrid</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Web Dev</p><p class="course-title">Full Stack Web Development</p><p class="course-desc">HTML, CSS, JavaScript, React, Node.js, MongoDB — build complete web apps from scratch.</p><div class="course-meta"><span class="course-meta-item">⏱ 8 Weeks</span><span class="course-meta-item">📚 32 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">Web Dev</p><p class="course-title">Full Stack Web Development</p><p class="course-desc">HTML, CSS, JavaScript, React, Node.js, MongoDB — build complete web apps from scratch.</p><div class="course-meta"><span class="course-meta-item">⏱ 8 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 32 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹4,999</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="tech" data-price="5999">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="tech" data-price="5999">
           <div class="course-thumb"><div class="course-thumb-bg thumb-tech"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🤖</span><span class="course-badge badge-online">Online</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">AI / ML</p><p class="course-title">Machine Learning &amp; AI Fundamentals</p><p class="course-desc">Python, scikit-learn, TensorFlow — build and deploy real ML models step by step.</p><div class="course-meta"><span class="course-meta-item">⏱ 10 Weeks</span><span class="course-meta-item">📚 40 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">AI / ML</p><p class="course-title">Machine Learning &amp; AI Fundamentals</p><p class="course-desc">Python, scikit-learn, TensorFlow — build and deploy real ML models step by step.</p><div class="course-meta"><span class="course-meta-item">⏱ 10 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 40 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹5,999</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="tech" data-price="3999">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="tech" data-price="3999">
           <div class="course-thumb"><div class="course-thumb-bg thumb-tech"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🛡️</span><span class="course-badge badge-online">Online</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Cybersecurity</p><p class="course-title">Ethical Hacking &amp; Cybersecurity</p><p class="course-desc">Network security, penetration testing, vulnerability assessment — with hands-on labs.</p><div class="course-meta"><span class="course-meta-item">⏱ 6 Weeks</span><span class="course-meta-item">📚 24 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">Cybersecurity</p><p class="course-title">Ethical Hacking &amp; Cybersecurity</p><p class="course-desc">Network security, penetration testing, vulnerability assessment — with hands-on labs.</p><div class="course-meta"><span class="course-meta-item">⏱ 6 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 24 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹3,999</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
       </div>
@@ -254,14 +256,14 @@
       <p class="category-eyebrow">Data &amp; Analytics</p>
       <h2 class="category-title">Data Science &amp; Analytics <span class="category-count-badge" id="badge-data">2</span></h2>
       <div class="courses-grid">
-        <a href="register.html" class="course-card" data-mode="online" data-domain="data" data-price="4499">
-          <div class="course-thumb"><div class="course-thumb-bg thumb-data"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">📊</span><span class="course-badge badge-online">Online</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Data Science</p><p class="course-title">Data Science with Python &amp; SQL</p><p class="course-desc">Data wrangling, visualization, statistics, and dashboards using Pandas, Matplotlib, and Power BI.</p><div class="course-meta"><span class="course-meta-item">⏱ 8 Weeks</span><span class="course-meta-item">📚 35 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="data" data-price="4499">
+          <div class="course-thumb"><div class="course-thumb-bg thumb-data"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="course-badge badge-online">Online</span><span class="type-badge">Course</span></div>
+          <div class="course-body"><p class="course-tag">Data Science</p><p class="course-title">Data Science with Python &amp; SQL</p><p class="course-desc">Data wrangling, visualization, statistics, and dashboards using Pandas, Matplotlib, and Power BI.</p><div class="course-meta"><span class="course-meta-item">⏱ 8 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 35 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹4,499</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="data" data-price="0">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="data" data-price="0">
           <div class="course-thumb"><div class="course-thumb-bg thumb-data"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">📈</span><span class="course-badge badge-free">Free</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Excel / Sheets</p><p class="course-title">Excel &amp; Google Sheets Masterclass</p><p class="course-desc">Formulas, pivot tables, charts, and automation — everything for data work in spreadsheets.</p><div class="course-meta"><span class="course-meta-item">⏱ 2 Weeks</span><span class="course-meta-item">📚 10 Modules</span><span class="course-meta-item">✅ Self-paced</span></div></div>
+          <div class="course-body"><p class="course-tag">Excel / Sheets</p><p class="course-title">Excel &amp; Google Sheets Masterclass</p><p class="course-desc">Formulas, pivot tables, charts, and automation — everything for data work in spreadsheets.</p><div class="course-meta"><span class="course-meta-item">⏱ 2 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 10 Modules</span><span class="course-meta-item">✅ Self-paced</span></div></div>
           <div class="course-footer"><div class="course-price-box free-box"><span class="price-amount free-price">Free</span><span class="price-label free-label">No cost ever</span></div><span class="btn-enroll btn-enroll-free">Start Free →</span></div>
         </a>
       </div>
@@ -271,19 +273,19 @@
       <p class="category-eyebrow">Management &amp; Soft Skills</p>
       <h2 class="category-title">Business &amp; Communication <span class="category-count-badge" id="badge-biz">3</span></h2>
       <div class="courses-grid">
-        <a href="register.html" class="course-card" data-mode="offline" data-domain="biz" data-price="2499">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="offline" data-domain="biz" data-price="2499">
           <div class="course-thumb"><div class="course-thumb-bg thumb-biz"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🧠</span><span class="course-badge badge-offline">Offline</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Soft Skills</p><p class="course-title">Communication &amp; Leadership Skills</p><p class="course-desc">Public speaking, group discussions, email writing, and professional presence — in-person training.</p><div class="course-meta"><span class="course-meta-item">⏱ 4 Weeks</span><span class="course-meta-item">📚 16 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">Soft Skills</p><p class="course-title">Communication &amp; Leadership Skills</p><p class="course-desc">Public speaking, group discussions, email writing, and professional presence — in-person training.</p><div class="course-meta"><span class="course-meta-item">⏱ 4 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 16 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹2,499</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="hybrid" data-domain="biz" data-price="2999">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="hybrid" data-domain="biz" data-price="2999">
           <div class="course-thumb"><div class="course-thumb-bg thumb-biz"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">📌</span><span class="course-badge badge-hybrid">Hybrid</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Project Management</p><p class="course-title">Agile &amp; Project Management Basics</p><p class="course-desc">Scrum, Kanban, project planning, and team coordination — for aspiring PMs and team leads.</p><div class="course-meta"><span class="course-meta-item">⏱ 5 Weeks</span><span class="course-meta-item">📚 20 Modules</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">Project Management</p><p class="course-title">Agile &amp; Project Management Basics</p><p class="course-desc">Scrum, Kanban, project planning, and team coordination — for aspiring PMs and team leads.</p><div class="course-meta"><span class="course-meta-item">⏱ 5 Weeks</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 20 Modules</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹2,999</span><span class="price-label">One-time</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="biz" data-price="199">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="biz" data-price="199">
           <div class="course-thumb"><div class="course-thumb-bg thumb-biz"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🚀</span><span class="course-badge badge-online">Online</span><span class="type-badge">Seminar</span></div>
-          <div class="course-body"><p class="course-tag">Product &amp; Design</p><p class="course-title">Breaking into Product Management</p><p class="course-desc">Senior PMs reveal how to transition into product roles and which skills matter most in 2026.</p><div class="course-meta"><span class="course-meta-item">⏱ 3 Hours</span><span class="course-meta-item">👥 Expert Panel</span><span class="course-meta-item">📅 Jul 12</span></div></div>
+          <div class="course-body"><p class="course-tag">Product &amp; Design</p><p class="course-title">Breaking into Product Management</p><p class="course-desc">Senior PMs reveal how to transition into product roles and which skills matter most in 2026.</p><div class="course-meta"><span class="course-meta-item">⏱ 3 Hours</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Expert Panel</span><span class="course-meta-item">📅 Jul 12</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹199</span><span class="price-label">One-time</span></div><span class="btn-enroll">Register →</span></div>
         </a>
       </div>
@@ -293,17 +295,17 @@
       <p class="category-eyebrow">Career &amp; Placement</p>
       <h2 class="category-title">Career Skills &amp; Coaching <span class="category-count-badge" id="badge-career">3</span></h2>
       <div class="courses-grid">
-        <a href="register.html" class="course-card" data-mode="online" data-domain="career" data-price="0">
-          <div class="course-thumb"><div class="course-thumb-bg thumb-career"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">💼</span><span class="course-badge badge-free">Free</span><span class="type-badge">Course</span></div>
-          <div class="course-body"><p class="course-tag">Career Skills</p><p class="course-title">Resume Building &amp; LinkedIn Masterclass</p><p class="course-desc">Craft a standout resume and LinkedIn profile that gets you noticed by top recruiters.</p><div class="course-meta"><span class="course-meta-item">⏱ 1 Week</span><span class="course-meta-item">📚 6 Modules</span><span class="course-meta-item">✅ Self-paced</span></div></div>
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="career" data-price="0">
+          <div class="course-thumb"><div class="course-thumb-bg thumb-career"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 12h20"/></svg></span><span class="course-badge badge-free">Free</span><span class="type-badge">Course</span></div>
+          <div class="course-body"><p class="course-tag">Career Skills</p><p class="course-title">Resume Building &amp; LinkedIn Masterclass</p><p class="course-desc">Craft a standout resume and LinkedIn profile that gets you noticed by top recruiters.</p><div class="course-meta"><span class="course-meta-item">⏱ 1 Week</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 6 Modules</span><span class="course-meta-item">✅ Self-paced</span></div></div>
           <div class="course-footer"><div class="course-price-box free-box"><span class="price-amount free-price">Free</span><span class="price-label free-label">No cost ever</span></div><span class="btn-enroll btn-enroll-free">Start Free →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="career" data-price="2499">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="career" data-price="2499">
           <div class="course-thumb"><div class="course-thumb-bg thumb-career"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🎯</span><span class="course-badge badge-online">Online</span><span class="type-badge">Coaching</span></div>
-          <div class="course-body"><p class="course-tag">1-on-1 Coaching</p><p class="course-title">Interview Coaching — Pro Plan</p><p class="course-desc">Six personalized sessions covering resume review, mock rounds, and a custom career roadmap tailored to you.</p><div class="course-meta"><span class="course-meta-item">⏱ 6 Sessions</span><span class="course-meta-item">👤 1-on-1</span><span class="course-meta-item">🎓 Personalized</span></div></div>
+          <div class="course-body"><p class="course-tag">1-on-1 Coaching</p><p class="course-title">Interview Coaching — Pro Plan</p><p class="course-desc">Six personalized sessions covering resume review, mock rounds, and a custom career roadmap tailored to you.</p><div class="course-meta"><span class="course-meta-item">⏱ 6 Sessions</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 1-on-1</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Personalized</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹2,499</span><span class="price-label">Per plan</span></div><span class="btn-enroll">Enroll Now →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="career" data-price="0">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="career" data-price="0">
           <div class="course-thumb"><div class="course-thumb-bg thumb-career"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🏆</span><span class="course-badge badge-free">Free</span><span class="type-badge">Webinar</span></div>
           <div class="course-body"><p class="course-tag">Placement Prep</p><p class="course-title">Cracking Campus Placements in 2026</p><p class="course-desc">DSA prep, aptitude tests, HR rounds, and everything you need to land your campus placement.</p><div class="course-meta"><span class="course-meta-item">⏱ 2 Hours</span><span class="course-meta-item">🌐 Online</span><span class="course-meta-item">📅 Jun 28</span></div></div>
           <div class="course-footer"><div class="course-price-box free-box"><span class="price-amount free-price">Free</span><span class="price-label free-label">Open to all</span></div><span class="btn-enroll btn-enroll-free">Register →</span></div>
@@ -315,22 +317,22 @@
       <p class="category-eyebrow">Hands-On Learning</p>
       <h2 class="category-title">Workshops &amp; Events <span class="category-count-badge" id="badge-workshop">4</span></h2>
       <div class="courses-grid">
-        <a href="register.html" class="course-card" data-mode="hybrid" data-domain="workshop" data-price="999">
-          <div class="course-thumb"><div class="course-thumb-bg thumb-workshop"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">⚡</span><span class="course-badge badge-hybrid">Hybrid</span><span class="type-badge">Workshop</span></div>
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="hybrid" data-domain="workshop" data-price="999">
+          <div class="course-thumb"><div class="course-thumb-bg thumb-workshop"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="course-badge badge-hybrid">Hybrid</span><span class="type-badge">Workshop</span></div>
           <div class="course-body"><p class="course-tag">Web Dev</p><p class="course-title">Full Stack Web Development Bootcamp</p><p class="course-desc">A 1-day intensive covering HTML, CSS, JavaScript, and deployment with real hands-on projects.</p><div class="course-meta"><span class="course-meta-item">⏱ 1 Day</span><span class="course-meta-item">🔨 Hands-on</span><span class="course-meta-item">📅 Jun 14</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹999</span><span class="price-label">One-time</span></div><span class="btn-enroll">Register →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="offline" data-domain="workshop" data-price="799">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="offline" data-domain="workshop" data-price="799">
           <div class="course-thumb"><div class="course-thumb-bg thumb-workshop"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">📉</span><span class="course-badge badge-offline">Offline</span><span class="type-badge">Workshop</span></div>
-          <div class="course-body"><p class="course-tag">Data Analytics</p><p class="course-title">Data Analytics with Python &amp; Power BI</p><p class="course-desc">Hands-on data cleaning, visualization, and dashboards using real-world datasets in one day.</p><div class="course-meta"><span class="course-meta-item">⏱ 1 Day</span><span class="course-meta-item">📊 Live Datasets</span><span class="course-meta-item">🎓 Certificate</span></div></div>
+          <div class="course-body"><p class="course-tag">Data Analytics</p><p class="course-title">Data Analytics with Python &amp; Power BI</p><p class="course-desc">Hands-on data cleaning, visualization, and dashboards using real-world datasets in one day.</p><div class="course-meta"><span class="course-meta-item">⏱ 1 Day</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Live Datasets</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Certificate</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹799</span><span class="price-label">One-time</span></div><span class="btn-enroll">Register →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="workshop" data-price="299">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="workshop" data-price="299">
           <div class="course-thumb"><div class="course-thumb-bg thumb-event"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🤖</span><span class="course-badge badge-online">Online</span><span class="type-badge">Seminar</span></div>
-          <div class="course-body"><p class="course-tag">AI &amp; Technology</p><p class="course-title">AI &amp; Machine Learning in Industry</p><p class="course-desc">Industry experts share how AI is transforming product development, hiring, and business strategy in 2026.</p><div class="course-meta"><span class="course-meta-item">⏱ 3 Hours</span><span class="course-meta-item">👥 Expert Panel</span><span class="course-meta-item">📅 Jun 20</span></div></div>
+          <div class="course-body"><p class="course-tag">AI &amp; Technology</p><p class="course-title">AI &amp; Machine Learning in Industry</p><p class="course-desc">Industry experts share how AI is transforming product development, hiring, and business strategy in 2026.</p><div class="course-meta"><span class="course-meta-item">⏱ 3 Hours</span><span class="course-meta-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Expert Panel</span><span class="course-meta-item">📅 Jun 20</span></div></div>
           <div class="course-footer"><div class="course-price-box"><span class="price-amount">₹299</span><span class="price-label">One-time</span></div><span class="btn-enroll">Register →</span></div>
         </a>
-        <a href="register.html" class="course-card" data-mode="online" data-domain="workshop" data-price="0">
+        <a href="javascript:void(0)" onclick="enrollCourse(this.querySelector('.course-title').textContent)" class="course-card" data-mode="online" data-domain="workshop" data-price="0">
           <div class="course-thumb"><div class="course-thumb-bg thumb-event"></div><div class="thumb-pattern"></div><div class="thumb-glow"></div><span class="thumb-icon">🔍</span><span class="course-badge badge-free">Free</span><span class="type-badge">Webinar</span></div>
           <div class="course-body"><p class="course-tag">Data Science</p><p class="course-title">Getting Started with Data Science</p><p class="course-desc">A free intro to data science career paths, essential tools, and how to get started as a fresher.</p><div class="course-meta"><span class="course-meta-item">⏱ 2 Hours</span><span class="course-meta-item">🌐 Online</span><span class="course-meta-item">📅 Jul 5</span></div></div>
           <div class="course-footer"><div class="course-price-box free-box"><span class="price-amount free-price">Free</span><span class="price-label free-label">Open to all</span></div><span class="btn-enroll btn-enroll-free">Register →</span></div>
@@ -352,25 +354,25 @@
     <h2 class="section-title">Upcoming <em>Webinars</em></h2>
     <p class="section-sub">Free and paid live sessions with industry professionals. Ask questions and learn in real time.</p>
     <div class="webinar-list">
-      <a href="register.html" class="webinar-item">
+      <a href="javascript:void(0)" onclick="registerWebinar(this)" class="webinar-item">
         <div class="webinar-datebox"><div class="day">20</div><div class="month">Jun</div></div>
         <div class="webinar-info"><p class="webinar-tag">AI &amp; Technology</p><p class="webinar-title">AI &amp; Machine Learning in Industry — Expert Panel</p><div class="webinar-meta"><span>🕙 10 AM – 1 PM</span><span>🌐 Online</span><span>28 seats left</span></div></div>
         <span class="webinar-price-tag paid">₹299</span>
         <a href="register.html" class="btn-sm">Register →</a>
       </a>
-      <a href="register.html" class="webinar-item">
+      <a href="javascript:void(0)" onclick="registerWebinar(this)" class="webinar-item">
         <div class="webinar-datebox"><div class="day">28</div><div class="month">Jun</div></div>
         <div class="webinar-info"><p class="webinar-tag">Career Prep</p><p class="webinar-title">Cracking Campus Placements in 2026</p><div class="webinar-meta"><span>🕕 6 PM – 8 PM</span><span>🌐 Online</span><span>Open to all</span></div></div>
         <span class="webinar-price-tag free">Free</span>
         <a href="register.html" class="btn-sm">Register →</a>
       </a>
-      <a href="register.html" class="webinar-item">
+      <a href="javascript:void(0)" onclick="registerWebinar(this)" class="webinar-item">
         <div class="webinar-datebox"><div class="day">05</div><div class="month">Jul</div></div>
         <div class="webinar-info"><p class="webinar-tag">Data Science</p><p class="webinar-title">Getting Started with Data Science — Fresher's Guide</p><div class="webinar-meta"><span>🕔 4 PM – 6 PM</span><span>🌐 Online</span><span>Open to all</span></div></div>
         <span class="webinar-price-tag free">Free</span>
         <a href="register.html" class="btn-sm">Register →</a>
       </a>
-      <a href="register.html" class="webinar-item">
+      <a href="javascript:void(0)" onclick="registerWebinar(this)" class="webinar-item">
         <div class="webinar-datebox"><div class="day">12</div><div class="month">Jul</div></div>
         <div class="webinar-info"><p class="webinar-tag">Product &amp; Design</p><p class="webinar-title">Breaking into Product Management — AMA with Senior PMs</p><div class="webinar-meta"><span>🕔 5 PM – 7 PM</span><span>🌐 Online</span><span>40 seats left</span></div></div>
         <span class="webinar-price-tag paid">₹199</span>
@@ -388,7 +390,7 @@
     <div class="study-grid">
       <a href="#" class="study-card"><div class="study-icon">📄</div><p class="study-title">Lecture Notes &amp; PDFs</p><p class="study-desc">Comprehensive notes for every module across all courses, updated every semester.</p><p class="study-count">120+ documents available</p></a>
       <a href="#" class="study-card"><div class="study-icon">🎥</div><p class="study-title">Recorded Sessions</p><p class="study-desc">Miss a class? All sessions are recorded and available for enrolled students within 24 hours.</p><p class="study-count">200+ hours of content</p></a>
-      <a href="#" class="study-card"><div class="study-icon">📝</div><p class="study-title">Practice Tests &amp; Quizzes</p><p class="study-desc">Topic-wise quizzes, mock tests, and previous placement question papers to sharpen your prep.</p><p class="study-count">50+ test sets</p></a>
+      <a href="#" class="study-card"><div class="study-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><p class="study-title">Practice Tests &amp; Quizzes</p><p class="study-desc">Topic-wise quizzes, mock tests, and previous placement question papers to sharpen your prep.</p><p class="study-count">50+ test sets</p></a>
       <a href="#" class="study-card"><div class="study-icon">🗂️</div><p class="study-title">Cheat Sheets &amp; Quick Refs</p><p class="study-desc">One-page reference guides for DSA, SQL, Python, and more — perfect for last-minute revision.</p><p class="study-count">40+ cheatsheets</p></a>
     </div>
   </div>
@@ -397,9 +399,9 @@
 <footer>
   <div class="footer-inner">
     <div><p class="footer-logo">Edu<span>Vance</span></p><p class="footer-tagline">Your complete learning and career hub. Workshops, courses, internships and placement support — all in one place.</p></div>
-    <div class="footer-col"><h4>Learn</h4><ul><li><a href="courses.html">All Courses</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="workshops.html">Seminars</a></li><li><a href="courses.html#webinars">Webinars</a></li><li><a href="courses.html#study-material">Study Material</a></li></ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul><li><a href="courses.html">All Courses</a></li><li><a href="workshops.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Workshops</a></li><li><a href="workshops.html">Seminars</a></li><li><a href="courses.html#webinars">Webinars</a></li><li><a href="courses.html#study-material">Study Material</a></li></ul></div>
     <div class="footer-col"><h4>Careers</h4><ul><li><a href="careers.html#internships">Internships</a></li><li><a href="careers.html#placement">Placement Support</a></li><li><a href="careers.html#coaching">Interview Coaching</a></li><li><a href="careers.html">Training Programs</a></li></ul></div>
-    <div class="footer-col"><h4>Academy</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="feedback.html">Feedback</a></li><li><a href="register.html">Register</a></li></ul></div>
+    <div class="footer-col"><h4>Academy</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li><li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li><li><a href="register.html">Register</a></li></ul></div>
   </div>
   <div class="footer-bottom"><p>©️ 2026 EduVance Academy. All rights reserved.</p><p>Built with ♥️ for learners everywhere</p></div>
 </footer>
@@ -407,6 +409,20 @@
 <script>
   function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
   document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+
+  // Enroll with course pre-selection
+  function enrollCourse(courseTitle) {
+    window.location.href = 'register.html?course=' + encodeURIComponent(courseTitle);
+  }
+
+  function registerWebinar(card) {
+    const title = card.querySelector('.webinar-title');
+    if (title) {
+      window.location.href = 'register.html?course=' + encodeURIComponent(title.textContent.trim());
+    } else {
+      window.location.href = 'register.html';
+    }
+  }
   let activeMode = 'all', activeDomain = 'all', activePrice = 'all';
   function setMode(mode, btn) { activeMode = mode; document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyFilters(); }
   function setPrice(price, btn) { activePrice = price; document.querySelectorAll('.price-pill').forEach(b => b.classList.remove('active')); btn.classList.add('active'); applyFilters(); }
