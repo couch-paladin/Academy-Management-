@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+.github
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Terraform
+*.tf
+*.tfstate
+*.tfvars
+.terraform
+
+# Node
+node_modules
+npm-debug.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode
+*.swp

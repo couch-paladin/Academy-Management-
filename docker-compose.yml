@@ -1,0 +1,14 @@
+# EduVance Academy — Docker Compose
+# Run with: docker-compose up
+
+version: '3.8'
+
+services:
+  eduvance:
+    build: .
+    container_name: eduvance-academy
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    volumes:
+      - ./:/usr/share/nginx/html:ro
