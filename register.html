@@ -323,6 +323,50 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  // Auto-fill form from Firebase user + past Firestore data
+  getAuth(app).onAuthStateChanged(async (user) => {
+    if (!user) return;
+    
+    // Fill basic details from Firebase Auth
+    var fname = document.getElementById('fname');
+    var lname = document.getElementById('lname');
+    var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
+    
+    if (user.displayName) {
+      var parts = user.displayName.split(' ');
+      if (fname && !fname.value) fname.value = parts[0] || '';
+      if (lname && !lname.value) lname.value = parts.slice(1).join(' ') || '';
+    }
+    if (email && !email.value) email.value = user.email || '';
+    
+    // Get additional details from Firestore (phone etc from past registration)
+    try {
+      var userSnap = await getDoc(doc(db, 'users', user.uid));
+      if (userSnap.exists()) {
+        var userData = userSnap.data();
+        if (phone && !phone.value && userData.phone) phone.value = userData.phone;
+        // Fill any other saved fields
+        var currentStatus = document.getElementById('current_status');
+        if (currentStatus && !currentStatus.value && userData.currentStatus) currentStatus.value = userData.currentStatus;
+        var city = document.getElementById('city');
+        if (city && !city.value && userData.city) city.value = userData.city;
+      }
+    } catch(e) {
+      console.log('Could not load past details:', e);
+    }
+    
+    // Show auto-fill notification
+    var filled = (fname && fname.value) || (email && email.value);
+    if (filled) {
+      var tip = document.createElement('div');
+      tip.style.cssText = 'background:rgba(200,169,110,0.1);border:1px solid rgba(200,169,110,0.25);border-radius:8px;padding:0.6rem 1rem;font-size:12.5px;color:#c8a96e;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;';
+      tip.innerHTML = '<span>✨</span><span>Your details have been auto-filled from your profile. Feel free to edit!</span>';
+      var step2 = document.querySelector('[data-step="2"] .form-grid');
+      if (step2) step2.insertBefore(tip, step2.firstChild);
+    }
+  });
+
   // Make functions global
   window.toggleMenu = function() { document.getElementById('navLinks').classList.toggle('open'); }
   document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
@@ -453,6 +497,19 @@
     if (user) {
       try {
         const userRef = doc(db, 'users', user.uid);
+        // Save phone and other details to user profile for future auto-fill
+        try {
+          var updateData = {};
+          if (phone) updateData.phone = phone;
+          var statusEl = document.getElementById('current_status');
+          if (statusEl && statusEl.value) updateData.currentStatus = statusEl.value;
+          var cityEl = document.getElementById('city');
+          if (cityEl && cityEl.value) updateData.city = cityEl.value;
+          if (Object.keys(updateData).length > 0) {
+            await updateDoc(doc(db, 'users', user.uid), updateData).catch(() => {});
+          }
+        } catch(e) {}
+
         const newEnrollment = {
           program,
           type,
