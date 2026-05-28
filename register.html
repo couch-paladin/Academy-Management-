@@ -129,6 +129,11 @@
     @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
     .nav-icon { display: inline-flex; align-items: center; margin-right: 5px; vertical-align: middle; opacity: 0.85; }
     .nav-icon svg { display: block; }
+
+    .nav-auth-login { display: list-item; }
+    .nav-auth-dashboard { display: none; }
+    .nav-auth-loggedin .nav-auth-login { display: none; }
+    .nav-auth-loggedin .nav-auth-dashboard { display: list-item; }
   </style>
   <script src="interactive.js" defer></script>
 </head>
@@ -144,7 +149,8 @@
     <li><a href="about.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>About</a></li>
     <li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li>
     <li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li>
-    <li id="nav-login-link"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></li>
+    <li class="nav-auth-login"><a href="login.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg></span>Login</a></li>
+    <li class="nav-auth-dashboard"><a href="dashboard.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Dashboard</a></li>
     <li id="nav-dash-link" style="display:none;"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
   </ul>
@@ -243,6 +249,67 @@
             <div class="form-group"><label>Email</label><input type="email" id="email" name="email" placeholder="you@example.com" required></div>
             <div class="form-group"><label>Phone</label><input type="tel" id="phone" name="phone" placeholder="+91 ..." required></div>
           </div>
+
+          <!-- Python for Beginners -->
+          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="tech">
+            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2d2d4e);">
+              <span style="font-size:2.5rem;">🐍</span>
+              <span class="cs-badge free">Free</span>
+            </div>
+            <div class="cs-body">
+              <span class="cs-domain">PROGRAMMING</span>
+              <h3 class="cs-title">Python for Absolute Beginners</h3>
+              <p class="cs-desc">Start your coding journey with Python. Variables, loops, functions and your first real project.</p>
+              <div class="cs-meta"><span>⏱ 3 Weeks</span><span>📚 8 Modules</span><span>Online</span></div>
+              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
+            </div>
+          </div>
+
+          <!-- Public Speaking -->
+          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="biz">
+            <div class="cs-thumb" style="background:linear-gradient(135deg,#2d1a2e,#4e2d4e);">
+              <span style="font-size:2.5rem;">🎤</span>
+              <span class="cs-badge free">Free</span>
+            </div>
+            <div class="cs-body">
+              <span class="cs-domain">SOFT SKILLS</span>
+              <h3 class="cs-title">Public Speaking & Presentation Skills</h3>
+              <p class="cs-desc">Overcome stage fright and speak with confidence. Storytelling, body language and presentations that stick.</p>
+              <div class="cs-meta"><span>⏱ 2 Weeks</span><span>📚 6 Modules</span><span>Online</span></div>
+              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
+            </div>
+          </div>
+
+          <!-- Resume Writing -->
+          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="career">
+            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a2e1a,#2d4e2d);">
+              <span style="font-size:2.5rem;">📄</span>
+              <span class="cs-badge free">Free</span>
+            </div>
+            <div class="cs-body">
+              <span class="cs-domain">CAREER</span>
+              <h3 class="cs-title">Resume Writing & LinkedIn Mastery</h3>
+              <p class="cs-desc">Build a resume that gets noticed and a LinkedIn profile that attracts recruiters. Templates and real examples.</p>
+              <div class="cs-meta"><span>⏱ 1 Week</span><span>📚 5 Modules</span><span>Online</span></div>
+              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
+            </div>
+          </div>
+
+          <!-- AI Tools -->
+          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="tech">
+            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2e1a3d);">
+              <span style="font-size:2.5rem;">🤖</span>
+              <span class="cs-badge free">Free</span>
+            </div>
+            <div class="cs-body">
+              <span class="cs-domain">AI & TOOLS</span>
+              <h3 class="cs-title">AI Tools for Students & Professionals</h3>
+              <p class="cs-desc">Master ChatGPT, Claude, Canva AI and more. Use AI to study smarter, work faster and create better.</p>
+              <div class="cs-meta"><span>⏱ 2 Weeks</span><span>📚 7 Modules</span><span>Online</span></div>
+              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
+            </div>
+          </div>
+
           <div class="form-group"><label>Current Status</label>
             <select id="status" name="status">
               <option>Student</option><option>Recent Graduate</option><option>Working Professional</option><option>Other</option>
@@ -265,7 +332,7 @@
           </div>
           <div class="form-nav">
             <button type="button" class="btn-ghost" onclick="goStep(2)">← Back</button>
-            <button type="button" class="btn-next" id="submitBtn" onclick="handlePayment()">Confirm &amp; Pay →</button>
+            <button type="button" class="btn-next" id="submitBtn" onclick="handlePayment()">Confirm Registration →</button>
           </div>
         </div>
 
@@ -325,6 +392,13 @@
 
   // Auto-fill form from Firebase user + past Firestore data
   getAuth(app).onAuthStateChanged(async (user) => {
+    // Update navbar based on auth state
+    var nav = document.querySelector('nav');
+    if (nav) {
+      if (user) { nav.classList.add('nav-auth-loggedin'); }
+      else { nav.classList.remove('nav-auth-loggedin'); }
+    }
+
     if (!user) return;
     
     // Fill basic details from Firebase Auth
@@ -449,6 +523,17 @@
   window.applyFilters = function() { carIndex = 0; buildDots(); renderCarousel(); }
 
   function updateSummary() {
+    setTimeout(function() {
+      var priceEl = document.getElementById('sumPrice');
+      var btn = document.getElementById('submitBtn');
+      if (priceEl && btn) {
+        var pt = priceEl.textContent || '';
+        var isFree = pt === 'Free' || pt === '0' || pt === '' || parseInt(pt.replace(/[^0-9]/g,'')) === 0;
+        btn.textContent = isFree ? 'Confirm Registration →' : 'Confirm & Pay →';
+      }
+    }, 150);
+  }
+  function _origUpdateSummary() {
     const vis = visibleSlides();
     const slide = vis[carIndex];
     if (!slide) return;
@@ -632,7 +717,6 @@
       alert('Please agree to the terms & conditions.');
       return;
     }
-    // Wait for Firebase module to load if needed
     if (typeof window.submitReg !== 'function') {
       setTimeout(handlePayment, 500);
       return;
