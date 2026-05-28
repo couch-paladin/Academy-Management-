@@ -442,6 +442,8 @@
 
     // 1. Save to Firestore if logged in
     const user = auth.currentUser;
+    console.log('Current user:', user ? user.email : 'NOT LOGGED IN');
+    console.log('Program:', program, 'Type:', type, 'Price:', price, 'Mode:', mode);
     if (user) {
       try {
         const userRef = doc(db, 'users', user.uid);
