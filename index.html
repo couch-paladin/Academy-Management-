@@ -705,7 +705,7 @@
   <div class="section-wrap">
     <p class="section-eyebrow">Why EduVance</p>
     <h2 class="section-title">Built for <em>Real</em> Results</h2>
-    <p class="section-sub">We don't just teach — we prepare you for the real world with practical skills and industry connections.</p>
+    <p class="section-sub">We do not just teach — we prepare you for the real world with practical skills and industry connections.</p>
     <div class="why-grid">
       <div class="why-card">
         <p class="why-num">01</p>
@@ -854,7 +854,7 @@
       <div class="egg-card" onclick="triggerEgg('konami')" style="background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.2);border-radius:14px;padding:1.5rem;cursor:pointer;transition:all 0.3s;">
         <div style="font-size:2rem;margin-bottom:0.75rem;">🎮</div>
         <h3 style="color:#c8a96e;font-size:1rem;font-weight:700;margin-bottom:0.4rem;">Konami Code</h3>
-        <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;">Press ↑↑↓↓←→←→BA on your keyboard. A classic gaming secret from 1986! The Konami Code first appeared in Gradius — used by developers for testing. Now it's a beloved internet tradition.</p>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;">Press ↑↑↓↓←→←→BA on your keyboard. A classic gaming secret from 1986! The Konami Code first appeared in Gradius — used by developers for testing. Now it is a beloved internet tradition.</p>
         <p style="color:rgba(200,169,110,0.6);font-size:11px;margin-top:0.75rem;font-weight:600;">🎯 Click to trigger → Confetti explosion!</p>
       </div>
 
@@ -882,7 +882,7 @@
       <div class="egg-card" onclick="triggerEgg('matrix')" style="background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.2);border-radius:14px;padding:1.5rem;cursor:pointer;transition:all 0.3s;">
         <div style="font-size:2rem;margin-bottom:0.75rem;">💊</div>
         <h3 style="color:#c8a96e;font-size:1rem;font-weight:700;margin-bottom:0.4rem;">The Matrix Mode</h3>
-        <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;">Activate the Matrix rain effect! Fun coding fact: The Matrix's falling code was created by Simon Whiteley who scanned his wife's sushi cookbook. The green symbols are actually Japanese katakana characters!</p>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;">Activate the Matrix rain effect! Fun coding fact: The Matrix falling code was created by Simon Whiteley who scanned his wife sushi cookbook. The green symbols are actually Japanese katakana characters!</p>
         <p style="color:rgba(200,169,110,0.6);font-size:11px;margin-top:0.75rem;font-weight:600;">🎯 Click to trigger → Matrix rain!</p>
       </div>
 
@@ -978,16 +978,16 @@ function launchConfetti() {
 const brainFacts = [
   '🧠 The human brain generates about 23 watts of power — enough to light a dim bulb!',
   '📚 Reading aloud helps memory retention by up to 50% compared to silent reading.',
-  '💤 Your brain consolidates memories while you sleep — that's why all-nighters hurt learning!',
+  '💤 Your brain consolidates memories while you sleep — that is why all-nighters hurt learning!',
   '🎵 Learning music strengthens the same brain pathways used for math and language.',
   '🏃 Exercise increases BDNF (Brain-Derived Neurotrophic Factor) — literally growing new brain cells!',
   '😴 A 20-minute nap improves alertness by 34% and performance by 16%.',
   '🖊️ Handwriting notes improves learning 30% more than typing — your brain encodes it differently.',
   '🌈 The brain processes visual information 60,000x faster than text.',
   '🧩 Learning a new skill rewires your brain — called neuroplasticity, it works at any age!',
-  '🎯 The Pomodoro Technique (25min work + 5min break) matches the brain's natural focus cycles.',
+  '🎯 The Pomodoro Technique (25min work + 5min break) matches the brain natural focus cycles.',
   '💡 The average human has 6,200 thoughts per day.',
-  '🔬 Your brain uses 20% of your body's total energy despite being only 2% of body weight.',
+  '🔬 Your brain uses 20% of your body total energy despite being only 2% of body weight.',
 ];
 
 // Matrix rain
@@ -1057,67 +1057,55 @@ function startStarfield() {
 
 // Main trigger function
 function triggerEgg(type) {
-  // Close panel with slight delay so user sees it closing
-  setTimeout(function() {
-    document.getElementById('eggPanel').style.display = 'none';
-  }, 200);
-  
-  switch(type) {
-    case 'konami':
-      launchConfetti();
-      eggToast('🎉 Konami activated! You found the classic gaming secret!');
-      break;
-    
-    case 'logo':
-      const logo = document.querySelector('.nav-logo');
-      if (logo) {
-        logo.style.transition = 'transform 0.5s ease';
-        logo.style.transform = 'rotate(360deg) scale(1.2)';
-        setTimeout(() => { logo.style.transform = ''; }, 600);
-      }
-      eggToast('🏷️ "Educare" — Latin for "to lead out". Education draws wisdom from within!');
-      break;
-    
-    case 'type':
-      document.body.style.transition = 'filter 1s';
-      document.body.style.filter = 'hue-rotate(45deg) saturate(1.5)';
-      setTimeout(() => { document.body.style.filter = ''; }, 2000);
-      eggToast('⌨️ EduVance superfan confirmed! Average typist: 40 WPM. How fast are you?');
-      break;
-    
-    case 'fact':
-      const fact = brainFacts[Math.floor(Math.random() * brainFacts.length)];
-      eggToast(fact, 6000);
-      break;
-    
-    case 'matrix':
-      startMatrix();
-      eggToast('💊 Matrix activated! Fun fact: The green code is Japanese sushi recipes!', 5000);
-      break;
-    
-    case 'darkmode':
-      startStarfield();
-      eggToast('🌙 Moon mode! The moon moves 3.8cm away from Earth every year 🚀', 5000);
-      break;
-    
-    case 'pirate':
-      eggToast('🏴‍☠️ Ahoy! Fun fact: Pirates rarely made people walk the plank — that's Hollywood!', 5000);
-      // Temporarily tilt the page
-      document.body.style.transition = 'transform 0.5s';
-      document.body.style.transform = 'rotate(2deg)';
-      setTimeout(() => { document.body.style.transform = ''; }, 2000);
-      break;
-    
-    case 'spin':
-      document.querySelector('.hero-section, .page-hero, main')?.style &&
-      (() => {
-        const main = document.querySelector('main') || document.body;
-        main.style.transition = 'transform 0.8s ease';
-        main.style.transform = 'rotate(360deg)';
-        setTimeout(() => { main.style.transform = ''; }, 900);
-      })();
-      eggToast('🌀 First website still live at info.cern.ch — made in 1991, no images!', 5000);
-      break;
+  // Close panel
+  var panel = document.getElementById('eggPanel');
+  if (panel) setTimeout(function() { panel.style.display = 'none'; }, 150);
+
+  if (type === 'konami') {
+    launchConfetti();
+    eggToast('🎉 Konami activated! You found the classic gaming secret!');
+  }
+  else if (type === 'logo') {
+    var logo = document.querySelector('.nav-logo');
+    if (logo) {
+      logo.style.transition = 'transform 0.6s ease';
+      logo.style.transform = 'rotate(360deg) scale(1.2)';
+      setTimeout(function() { logo.style.transform = ''; }, 700);
+    }
+    eggToast('🏷️ Educare — Latin for to lead out. Education unlocks what is already in you!');
+  }
+  else if (type === 'type') {
+    document.body.style.transition = 'filter 1.5s';
+    document.body.style.filter = 'hue-rotate(45deg) saturate(1.5)';
+    setTimeout(function() { document.body.style.filter = ''; }, 2000);
+    eggToast('⌨️ EduVance superfan! Average typist does 40 WPM. How fast are you?');
+  }
+  else if (type === 'fact') {
+    var fact = brainFacts[Math.floor(Math.random() * brainFacts.length)];
+    eggToast(fact, 6000);
+  }
+  else if (type === 'matrix') {
+    startMatrix();
+    eggToast('💊 Matrix activated! The green code is actually Japanese sushi recipes!', 5000);
+  }
+  else if (type === 'darkmode') {
+    startStarfield();
+    eggToast('🌙 Moon mode! The moon moves 3.8cm away from Earth every year!', 5000);
+  }
+  else if (type === 'pirate') {
+    document.body.style.transition = 'transform 0.5s ease';
+    document.body.style.transform = 'rotate(2deg)';
+    setTimeout(function() { document.body.style.transform = ''; }, 2000);
+    eggToast('🏴‍☠️ Ahoy! Pirates rarely made people walk the plank — that is Hollywood!', 5000);
+  }
+  else if (type === 'spin') {
+    var mainEl = document.querySelector('main') || document.querySelector('section');
+    if (mainEl) {
+      mainEl.style.transition = 'transform 0.8s ease';
+      mainEl.style.transform = 'rotate(360deg)';
+      setTimeout(function() { mainEl.style.transform = ''; }, 900);
+    }
+    eggToast('🌀 First website still live at info.cern.ch — made in 1991, no images!', 5000);
   }
 }
 
@@ -1154,7 +1142,7 @@ document.addEventListener('keypress', e => {
     document.body.style.transition = 'transform 0.5s';
     document.body.style.transform = 'rotate(2deg)';
     setTimeout(() => { document.body.style.transform = ''; }, 2000);
-    eggToast('🏴‍☠️ Ahoy! Pirates rarely made people walk the plank — that's Hollywood!');
+    eggToast('🏴‍☠️ Ahoy! Pirates rarely made people walk the plank — that is Hollywood!');
   }
 });
 
@@ -1171,7 +1159,7 @@ document.querySelector('.nav-logo')?.addEventListener('click', e => {
     logo.style.transition = 'transform 0.5s ease';
     logo.style.transform = 'rotate(360deg)';
     setTimeout(() => { logo.style.transform = ''; }, 600);
-    eggToast('🏷️ Logo spun! "Educare" = Latin for "to lead out". Education unlocks what's already in you!');
+    eggToast('🏷️ Logo spun! "Educare" = Latin for "to lead out". Education unlocks what is already in you!');
   }
 });
 
