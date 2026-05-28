@@ -481,18 +481,24 @@
 
         // Send confirmation email via Lambda
         try {
+          const emailPayload = {
+            studentName: user.displayName || fname + ' ' + lname,
+            studentEmail: user.email,
+            courseName: program,
+            mode: mode,
+            price: price,
+            date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+            paymentId: paymentId || null
+          };
+          console.log('Sending to Lambda:', emailPayload);
           const emailRes = await fetch('https://4fmtp81hek.execute-api.ap-southeast-2.amazonaws.com/default/eduvance-enrollment-email', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              studentName: user.displayName || fname + ' ' + lname,
-              studentEmail: user.email,
-              courseName: program,
-              mode: mode,
-              price: price,
-              date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-              paymentId: paymentId || null
-            })
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(emailPayload)
           });
           const emailData = await emailRes.json();
           console.log('Email response:', emailData);
