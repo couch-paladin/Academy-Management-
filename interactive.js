@@ -145,31 +145,6 @@ document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]').forEach(el => {
   });
 });
 
-// ── 8. SMOOTH PAGE TRANSITIONS (safe - skips auth/firebase links) ──
-if (!isAuthPage) {
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:#1a1a2e;z-index:99998;opacity:0;pointer-events:none;transition:opacity 0.25s ease;';
-  document.body.appendChild(overlay);
-
-  document.querySelectorAll('a[href]').forEach(a => {
-    const href = a.getAttribute('href');
-    if (!href) return;
-    // Skip: anchors, javascript, mailto, tel, external, blank target, firebase, auth pages
-    if (href.startsWith('#') || href.startsWith('javascript') || 
-        href.startsWith('mailto') || href.startsWith('tel') ||
-        href.startsWith('http') || a.target === '_blank' ||
-        href.includes('login') || href.includes('dashboard') ||
-        href.includes('firebaseapp') || !href.endsWith('.html')) return;
-    
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      overlay.style.pointerEvents = 'all';
-      overlay.style.opacity = '0.7';
-      setTimeout(() => { window.location.href = href; }, 250);
-    });
-  });
-}
-
 // ── 9. PARALLAX HERO (only on public pages, not auth pages) ──
 if (!isAuthPage && !isMobile) {
   const hero = document.querySelector('.page-hero');
@@ -217,12 +192,15 @@ if (heroSection && !isMobile) {
     const duration = 8 + Math.random() * 10;
     const delay = Math.random() * 10;
     const drift = (Math.random() - 0.5) * 80;
-    p.style.cssText = `position:absolute;left:${x}%;bottom:-10px;width:${size}px;height:${size}px;border-radius:50%;background:rgba(200,169,110,${0.1+Math.random()*0.25});pointer-events:none;z-index:1;animation:floatUp${i} ${duration}s ${delay}s infinite ease-in-out;`;
+    p.style.cssText = 'position:absolute;left:' + x + '%;bottom:-10px;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:rgba(200,169,110,' + (0.1+Math.random()*0.25).toFixed(2) + ');pointer-events:none;z-index:1;';
     
     // Each particle gets its own keyframe
-    const ks = document.createElement('style');
-    ks.textContent = `@keyframes floatUp${i}{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:1}80%{opacity:0.4}100%{transform:translateY(-300px) translateX(${drift}px);opacity:0}}`;
+    var ks = document.createElement('style');
+    var keyframeName = 'floatUp' + i;
+    var driftVal = Math.round(drift);
+    ks.textContent = '@keyframes ' + keyframeName + '{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:1}80%{opacity:0.4}100%{transform:translateY(-300px) translateX(' + driftVal + 'px);opacity:0}}';
     document.head.appendChild(ks);
+    p.style.animation = keyframeName + ' ' + duration + 's ' + delay + 's infinite ease-in-out';
     heroSection.appendChild(p);
   }
 }
