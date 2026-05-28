@@ -427,8 +427,7 @@
         if (city && !city.value && userData.city) city.value = userData.city;
       }
     } catch(e) {
-      console.log('Could not load past details:', e);
-    }
+      }
     
     // Show auto-fill notification
     var filled = (fname && fname.value) || (email && email.value);
@@ -523,17 +522,6 @@
   window.applyFilters = function() { carIndex = 0; buildDots(); renderCarousel(); }
 
   function updateSummary() {
-    setTimeout(function() {
-      var priceEl = document.getElementById('sumPrice');
-      var btn = document.getElementById('submitBtn');
-      if (priceEl && btn) {
-        var pt = priceEl.textContent || '';
-        var isFree = pt === 'Free' || pt === '0' || pt === '' || parseInt(pt.replace(/[^0-9]/g,'')) === 0;
-        btn.textContent = isFree ? 'Confirm Registration →' : 'Confirm & Pay →';
-      }
-    }, 150);
-  }
-  function _origUpdateSummary() {
     const vis = visibleSlides();
     const slide = vis[carIndex];
     if (!slide) return;
@@ -547,6 +535,9 @@
     document.getElementById('sumDesc').textContent = desc;
     document.getElementById('sumMode').textContent = mode;
     document.getElementById('sumPrice').textContent = price === 0 ? 'Free' : '₹' + price.toLocaleString('en-IN');
+    // Update button text based on price
+    var btn = document.getElementById('submitBtn');
+    if (btn) btn.textContent = price === 0 ? 'Confirm Registration →' : 'Confirm & Pay →';
   }
 
   window.submitReg = async function(paymentId) {
@@ -620,8 +611,7 @@
             enrollments: [newEnrollment]
           });
         }
-        console.log('Saved to Firestore successfully');
-
+  
         // Send confirmation email via Lambda
         try {
           const emailPayload = {
@@ -633,8 +623,7 @@
             date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
             paymentId: paymentId || null
           };
-          console.log('Sending to Lambda:', emailPayload);
-          const emailRes = await fetch('https://4fmtp81hek.execute-api.ap-southeast-2.amazonaws.com/default/eduvance-enrollment-email', {
+              const emailRes = await fetch('https://4fmtp81hek.execute-api.ap-southeast-2.amazonaws.com/default/eduvance-enrollment-email', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -644,8 +633,7 @@
             body: JSON.stringify(emailPayload)
           });
           const emailData = await emailRes.json();
-          console.log('Email response:', emailData);
-        } catch(emailErr) {
+          } catch(emailErr) {
           console.warn('Email sending failed:', emailErr);
         }
       } catch (err) {
@@ -691,6 +679,24 @@
 
   buildDots();
   renderCarousel();
+
+  // Touch/swipe support for mobile
+  var carousel = document.getElementById('carousel');
+  if (carousel) {
+    var touchStartX = 0;
+    var touchEndX = 0;
+    carousel.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+    carousel.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) moveCarousel(1);   // swipe left = next
+        else moveCarousel(-1);            // swipe right = prev
+      }
+    }, {passive: true});
+  }
 
   // Auto-select course from URL parameter e.g. register.html?course=Full+Stack+Web+Development
   const urlParams = new URLSearchParams(window.location.search);
