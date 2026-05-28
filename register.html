@@ -419,18 +419,18 @@
     document.getElementById('sumPrice').textContent = price === 0 ? 'Free' : '₹' + price.toLocaleString('en-IN');
   }
 
-  window.submitReg = async function() {
+  window.submitReg = async function(paymentId) {
     if (!document.getElementById('terms').checked) { alert('Please agree to the terms & conditions.'); return; }
 
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = 'Submitting…';
 
-    const vis = visibleSlides();
-    const slide = vis[carIndex];
-    const program = slide ? slide.querySelector('.cs-title').textContent : '';
-    const type = slide ? slide.dataset.type : '';
-    const price = slide ? slide.dataset.price : '0';
+    // Read active slide directly from DOM
+    const activeSlide = document.querySelector('.carousel-slide.active');
+    const program = activeSlide ? (activeSlide.querySelector('.cs-title') ? activeSlide.querySelector('.cs-title').textContent.trim() : '') : '';
+    const type = activeSlide ? activeSlide.dataset.type : '';
+    const price = activeSlide ? activeSlide.dataset.price : '0';
     const mode = document.getElementById('mode').value;
     const fname = document.getElementById('fname').value;
     const lname = document.getElementById('lname').value;
@@ -442,8 +442,6 @@
 
     // 1. Save to Firestore if logged in
     const user = auth.currentUser;
-    console.log('Current user:', user ? user.email : 'NOT LOGGED IN');
-    console.log('Program:', program, 'Type:', type, 'Price:', price, 'Mode:', mode);
     if (user) {
       try {
         const userRef = doc(db, 'users', user.uid);
@@ -476,7 +474,7 @@
 
         // Send confirmation email via Lambda
         try {
-          await fetch('https://4fmtp81hek.execute-api.ap-southeast-2.amazonaws.com/default/eduvance-enrollment-email', {
+          const emailRes = await fetch('https://4fmtp81hek.execute-api.ap-southeast-2.amazonaws.com/default/eduvance-enrollment-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -489,10 +487,10 @@
               paymentId: paymentId || null
             })
           });
-          console.log('Confirmation email sent!');
+          const emailData = await emailRes.json();
+          console.log('Email response:', emailData);
         } catch(emailErr) {
           console.warn('Email sending failed:', emailErr);
-          // Don't block registration if email fails
         }
       } catch (err) {
         console.error('Firestore save error:', err);
@@ -561,6 +559,11 @@
   function handlePayment() {
     if (!document.getElementById('terms').checked) {
       alert('Please agree to the terms & conditions.');
+      return;
+    }
+    // Wait for Firebase module to load if needed
+    if (typeof window.submitReg !== 'function') {
+      setTimeout(handlePayment, 500);
       return;
     }
 
