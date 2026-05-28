@@ -442,6 +442,13 @@
 
     // 1. Save to Firestore if logged in
     const user = auth.currentUser;
+    if (!user) {
+      // Not logged in - redirect to login with return URL
+      sessionStorage.setItem('registerRedirect', window.location.href);
+      alert('Please sign in first to register for a course!');
+      window.location.href = 'login.html';
+      return;
+    }
     if (user) {
       try {
         const userRef = doc(db, 'users', user.uid);

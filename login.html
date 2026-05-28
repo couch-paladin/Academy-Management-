@@ -260,6 +260,9 @@
         </div>
       </div>
       <button class="btn-submit" id="loginBtn" onclick="signIn()">Sign In →</button>
+      <p style="text-align:center;margin-top:0.75rem;font-size:12.5px;">
+        <a href="#" onclick="forgotPassword()" style="color:var(--accent);text-decoration:none;font-weight:600;">Forgot password?</a>
+      </p>
     </div>
 
     <!-- SIGN UP -->
@@ -402,6 +405,18 @@
     }, 2900);
   }
 
+  /* ── Forgot password ── */
+  function forgotPassword() {
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+      showError('Please enter your email address first, then click Forgot Password.');
+      return;
+    }
+    window._forgotEmail = email;
+    // Will be handled by Firebase module
+    document.dispatchEvent(new CustomEvent('forgotPassword', { detail: { email } }));
+  }
+
   /* ── Enter key support ── */
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Enter') return;
@@ -506,6 +521,22 @@
       }
     }
   };
+
+  /* ── Forgot Password ── */
+  document.addEventListener('forgotPassword', async function(e) {
+    const email = e.detail.email;
+    try {
+      const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      await sendPasswordResetEmail(auth, email);
+      showSuccess('Password reset email sent! Check your inbox.');
+    } catch(err) {
+      if (err.code === 'auth/user-not-found') {
+        showError('No account found with this email address.');
+      } else {
+        showError(err.message || 'Failed to send reset email. Try again.');
+      }
+    }
+  });
 
   /* ── Email Sign-Up ── */
   window.signUp = async function() {
