@@ -123,6 +123,11 @@
     @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
     .nav-icon { display: inline-flex; align-items: center; margin-right: 5px; vertical-align: middle; opacity: 0.85; }
     .nav-icon svg { display: block; }
+
+    .nav-auth-login { display: flex; align-items: center; }
+    .nav-auth-dashboard { display: none; align-items: center; }
+    .nav-auth-loggedin .nav-auth-login { display: none; }
+    .nav-auth-loggedin .nav-auth-dashboard { display: flex; }
   </style>
 </head>
 <body>
@@ -137,8 +142,8 @@
     <li><a href="about.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>About</a></li>
     <li><a href="contact.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Contact</a></li>
     <li><a href="feedback.html"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Feedback</a></li>
-    <li id="nav-login-link"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></li>
-    <li id="nav-dash-link" style="display:none;"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a></li>
+    <li id="nav-login-link"><span class="nav-auth-login"><a href="login.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Login</a></span></li>
+    <li id="nav-dash-link" style="display:none;"><span class="nav-auth-dashboard"><a href="dashboard.html" style="color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:0.4rem 0.65rem;border-radius:6px;">Dashboard</a><span id="navName"></span></span></li>
     <li><a href="register.html" class="nav-cta">Register</a></li>
   </ul>
   <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
