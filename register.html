@@ -250,65 +250,17 @@
             <div class="form-group"><label>Phone</label><input type="tel" id="phone" name="phone" placeholder="+91 ..." required></div>
           </div>
 
-          <!-- Python for Beginners -->
-          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="tech">
-            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2d2d4e);">
-              <span style="font-size:2.5rem;">🐍</span>
-              <span class="cs-badge free">Free</span>
-            </div>
-            <div class="cs-body">
-              <span class="cs-domain">PROGRAMMING</span>
-              <h3 class="cs-title">Python for Absolute Beginners</h3>
-              <p class="cs-desc">Start your coding journey with Python. Variables, loops, functions and your first real project.</p>
-              <div class="cs-meta"><span>⏱ 3 Weeks</span><span>📚 8 Modules</span><span>Online</span></div>
-              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
-            </div>
-          </div>
+          <!-- Python for Absolute Beginners -->
+                <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="Tech" data-desc="Start your coding journey with Python. Variables, loops, functions and your first real project."><p class="cs-tag">Programming · Online</p><p class="cs-title">Python for Absolute Beginners</p><p class="cs-meta">3 Weeks · 8 Modules · Free</p></div>
 
-          <!-- Public Speaking -->
-          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="biz">
-            <div class="cs-thumb" style="background:linear-gradient(135deg,#2d1a2e,#4e2d4e);">
-              <span style="font-size:2.5rem;">🎤</span>
-              <span class="cs-badge free">Free</span>
-            </div>
-            <div class="cs-body">
-              <span class="cs-domain">SOFT SKILLS</span>
-              <h3 class="cs-title">Public Speaking & Presentation Skills</h3>
-              <p class="cs-desc">Overcome stage fright and speak with confidence. Storytelling, body language and presentations that stick.</p>
-              <div class="cs-meta"><span>⏱ 2 Weeks</span><span>📚 6 Modules</span><span>Online</span></div>
-              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
-            </div>
-          </div>
+                <!-- Public Speaking -->
+                <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="Career" data-desc="Overcome stage fright and speak with confidence. Storytelling, body language and presentations that stick."><p class="cs-tag">Soft Skills · Online</p><p class="cs-title">Public Speaking & Presentation Skills</p><p class="cs-meta">2 Weeks · 6 Modules · Free</p></div>
 
-          <!-- Resume Writing -->
-          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="career">
-            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a2e1a,#2d4e2d);">
-              <span style="font-size:2.5rem;">📄</span>
-              <span class="cs-badge free">Free</span>
-            </div>
-            <div class="cs-body">
-              <span class="cs-domain">CAREER</span>
-              <h3 class="cs-title">Resume Writing & LinkedIn Mastery</h3>
-              <p class="cs-desc">Build a resume that gets noticed and a LinkedIn profile that attracts recruiters. Templates and real examples.</p>
-              <div class="cs-meta"><span>⏱ 1 Week</span><span>📚 5 Modules</span><span>Online</span></div>
-              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
-            </div>
-          </div>
+                <!-- Resume Writing -->
+                <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="Career" data-desc="Build a resume that gets noticed and a LinkedIn profile that attracts recruiters. Templates and real examples included."><p class="cs-tag">Career · Online</p><p class="cs-title">Resume Writing & LinkedIn Mastery</p><p class="cs-meta">1 Week · 5 Modules · Free</p></div>
 
-          <!-- AI Tools -->
-          <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="tech">
-            <div class="cs-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2e1a3d);">
-              <span style="font-size:2.5rem;">🤖</span>
-              <span class="cs-badge free">Free</span>
-            </div>
-            <div class="cs-body">
-              <span class="cs-domain">AI & TOOLS</span>
-              <h3 class="cs-title">AI Tools for Students & Professionals</h3>
-              <p class="cs-desc">Master ChatGPT, Claude, Canva AI and more. Use AI to study smarter, work faster and create better.</p>
-              <div class="cs-meta"><span>⏱ 2 Weeks</span><span>📚 7 Modules</span><span>Online</span></div>
-              <div class="cs-price-row"><div class="cs-price free">Free<small>No cost ever</small></div></div>
-            </div>
-          </div>
+                <!-- AI Tools -->
+                <div class="carousel-slide" data-type="Course" data-price="0" data-mode="Online" data-domain="Tech" data-desc="Master ChatGPT, Claude, Canva AI and more. Use AI to study smarter, work faster and create better."><p class="cs-tag">AI & Tools · Online</p><p class="cs-title">AI Tools for Students & Professionals</p><p class="cs-meta">2 Weeks · 7 Modules · Free</p></div>
 
           <div class="form-group"><label>Current Status</label>
             <select id="status" name="status">
@@ -512,14 +464,14 @@
     updateSummary();
   }
 
-  window.moveCarousel = function(dir) {
+  window._moveCarousel = function(dir) {
     const total = visibleSlides().length;
     if (total === 0) return;
     carIndex = (carIndex + dir + total) % total;
     renderCarousel();
   }
 
-  window.applyFilters = function() { carIndex = 0; buildDots(); renderCarousel(); }
+  window._applyFilters = function() { carIndex = 0; buildDots(); renderCarousel(); }
 
   function updateSummary() {
     const vis = visibleSlides();
@@ -718,6 +670,16 @@
 
 
 <script>
+  /* Safe wrappers - fix module loading timing */
+  function moveCarousel(dir) {
+    if (typeof window._moveCarousel === 'function') { window._moveCarousel(dir); }
+    else { setTimeout(function() { if (typeof window._moveCarousel === 'function') window._moveCarousel(dir); }, 400); }
+  }
+  function applyFilters() {
+    if (typeof window._applyFilters === 'function') { window._applyFilters(); }
+    else { setTimeout(function() { if (typeof window._applyFilters === 'function') window._applyFilters(); }, 400); }
+  }
+
   function handlePayment() {
     if (!document.getElementById('terms').checked) {
       alert('Please agree to the terms & conditions.');
