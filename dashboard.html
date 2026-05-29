@@ -428,11 +428,28 @@
       <div style="margin-top:1.5rem;">
         <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.5rem;">
-            <h2 style="font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--ink);font-weight:400;">🎯 My Learning <em style="color:var(--accent);font-style:italic;">Goals</em></h2>
-            <button onclick="addGoal()" style="background:var(--accent);color:var(--ink);border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;padding:0.4rem 1rem;border-radius:999px;cursor:pointer;">+ Add Goal</button>
+            <h2 style="font-family:\'DM Serif Display\',serif;font-size:1.25rem;color:var(--ink);font-weight:400;">🎯 My Learning <em style="color:var(--accent);font-style:italic;">Goals</em></h2>
           </div>
+          
+          <!-- Goal badges -->
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;" id="goalBadges">
+            <button onclick="selectGoalBadge(this, \'Get a job in tech\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">💼 Get a job in tech</button>
+            <button onclick="selectGoalBadge(this, \'Learn Python\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">🐍 Learn Python</button>
+            <button onclick="selectGoalBadge(this, \'Crack campus placements\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">🎓 Crack campus placements</button>
+            <button onclick="selectGoalBadge(this, \'Build a project\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">🚀 Build a project</button>
+            <button onclick="selectGoalBadge(this, \'Improve communication\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">🗣️ Improve communication</button>
+            <button onclick="selectGoalBadge(this, \'Get certified\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">📜 Get certified</button>
+            <button onclick="selectGoalBadge(this, \'Land an internship\')" class="goal-badge-btn" style="background:var(--surface-2);border:1.5px solid var(--border);color:var(--ink-soft);font-family:\'DM Sans\',sans-serif;font-size:12px;font-weight:500;padding:0.35rem 0.85rem;border-radius:999px;cursor:pointer;transition:all 0.2s;">🏢 Land an internship</button>
+          </div>
+
+          <!-- Custom goal input -->
+          <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+            <input id="goalInput" type="text" placeholder="Or type your own goal..." style="flex:1;font-family:\'DM Sans\',sans-serif;font-size:13.5px;color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:0.65rem 0.85rem;transition:all 0.2s;outline:none;" onfocus="this.style.borderColor=\'var(--accent)\'" onblur="this.style.borderColor=\'var(--border)\'" onkeydown="if(event.key===\'Enter\')addGoal()" />
+            <button onclick="addGoal()" style="background:var(--accent);color:var(--ink);border:none;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:700;padding:0.65rem 1.25rem;border-radius:var(--radius-sm);cursor:pointer;white-space:nowrap;">Add →</button>
+          </div>
+
           <div id="goalsContainer">
-            <p style="color:var(--ink-muted);font-size:13.5px;font-weight:300;text-align:center;padding:0.5rem;" id="goalsEmpty">Click Add Goal to set your learning goals!</p>
+            <p style="color:var(--ink-muted);font-size:13px;font-weight:300;text-align:center;padding:0.5rem;" id="goalsEmpty">Select a badge or type a custom goal above!</p>
           </div>
         </div>
       </div>
@@ -625,12 +642,38 @@
 
   // Goals
   window.addGoal = function() {
-    var goal = prompt('Enter your learning goal:');
-    if (!goal || !goal.trim()) return;
+    var input = document.getElementById('goalInput');
+    var goal = input ? input.value.trim() : '';
+    if (!goal) return;
     var goals = JSON.parse(localStorage.getItem('eduvance_goals') || '[]');
-    goals.push({ text: goal.trim(), done: false, id: Date.now() });
+    goals.push({ text: goal, done: false, id: Date.now() });
     localStorage.setItem('eduvance_goals', JSON.stringify(goals));
+    if (input) input.value = '';
+    // Reset badge styles
+    document.querySelectorAll('.goal-badge-btn').forEach(function(b) {
+      b.style.background = 'var(--surface-2)';
+      b.style.borderColor = 'var(--border)';
+      b.style.color = 'var(--ink-soft)';
+    });
     loadGoals();
+    if (window.showToast) showToast('🎯 Goal added!', 'success');
+  };
+
+  window.selectGoalBadge = function(btn, text) {
+    // Fill input with badge text
+    var input = document.getElementById('goalInput');
+    if (input) input.value = text;
+    // Highlight selected badge
+    document.querySelectorAll('.goal-badge-btn').forEach(function(b) {
+      b.style.background = 'var(--surface-2)';
+      b.style.borderColor = 'var(--border)';
+      b.style.color = 'var(--ink-soft)';
+    });
+    btn.style.background = 'rgba(200,169,110,0.15)';
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.color = 'var(--accent)';
+    // Auto-add goal
+    addGoal();
   };
 
   function loadGoals() {
